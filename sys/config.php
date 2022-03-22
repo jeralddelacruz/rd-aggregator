@@ -3,6 +3,7 @@
 	$dbuser = "root";
 	$dbpass = "";
 	$dbname = "newscasc_db";
+	
 	$dbprefix = "newscasc_";
 	$dbkey = md5($dbuser . "/" . $dbname . "/" . $dbpass);
 
