@@ -1,0 +1,285 @@
+.accordion .card {
+    box-shadow: none;
+}
+
+
+#style-settings .card {
+  margin-bottom: 10px;
+  border: 0;
+}
+
+#style-settings .card-body {
+  padding: 0;
+}
+
+#style-settings .card .card-header {
+  border: 0;
+  -webkit-box-shadow: 0 0 20px 0 rgba(213, 213, 213, 0.5);
+          box-shadow: 0 0 20px 0 rgba(213, 213, 213, 0.5);
+  border-radius: 2px;
+  padding: 0;
+}
+
+#style-settings .card .card-header .btn-header-link {
+  color: #fff;
+  display: block;
+  text-align: left;
+  background: #cdcdcd;
+  color: #222;
+  padding: 10px;
+}
+
+#style-settings .card .card-header .btn-header-link:after {
+  content: "\f107";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  float: right;
+}
+
+#style-settings .card .card-header .btn-header-link.collapsed {
+  background: #dfdfdf;
+    color: #000;
+}
+
+#style-settings .card .card-header .btn-header-link.collapsed:after {
+  content: "\f106";
+}
+
+#style-settings .card .collapsing {
+  /*background: #cdcdcd;*/
+  line-height: 30px;
+}
+
+#style-settings .card .collapse {
+  border: 0;
+}
+
+#style-settings .list-group {
+    margin-top: 5px;
+}
+
+#style-settings .list-group-item .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+}
+
+#style-settings .list-group-item .form-group .input {
+    width: 70px;
+}
+
+#style-settings .list-group-item .form-group .select {
+    width: 80px;
+}
+
+#style-settings .list-group-item .form-group .color {
+    width: 30px;
+    padding: 0.5px;
+}
+
+#style-settings .list-group-item .form-group label {
+    padding-top: 5px;
+}
+
+/*POSTS*/
+.news-container {
+    border: 1px solid #dad8d8;
+}
+
+.need-approval {
+    opacity: 0.5;
+}
+
+.news-heading-container {
+    padding: 20px 20px 0;
+    text-align: center;
+}
+
+.news-detail-container {
+    padding: 20px;
+    text-align: center;
+    height: 100%;
+    overflow: hidden;
+}
+
+.news-author-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px 5px 10px;
+    border-top: 1px solid #ebebeb;
+}
+
+#news-preview {
+    min-height: 250px;
+}
+
+#news-preview .filter {
+    padding: 17px;
+}
+
+#news-preview .networks {
+    padding: 0px 17px 17px 17px;
+}
+
+.custom-filter, .network-filter {
+    display: flex;
+    justify-content: center;
+}
+
+.news-image-container img {
+    width: 100%;
+}
+
+.load-more-container {
+    display: flex;
+    justify-content: center;
+}
+
+.filters {
+    width: 70%;
+}
+
+.filters .form-group {
+    display: flex;
+    margin: 0;
+}
+
+.filters .form-group input {
+    width: 40%;
+    border: none;
+    border-right: 1px solid #9d9d9d;
+    margin-right: 5px;
+    background: none;
+}
+
+.filters .form-group select {
+    width: 20%;
+    border: none;
+    margin-right: 5px;
+    background: none;
+}
+
+.collection-filter .form-group select {
+    border-radius: 5px;
+}
+
+.collection-filter .form-group {
+    width: 30%;
+    margin: 0;
+}
+
+.collection-filter {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.news-config-container {
+    display: flex;
+}
+
+.approve-color {
+    background-color: green;
+    color: #fff;
+}
+
+.reject-color {
+    background-color: red;
+    color: #fff;
+}
+
+.pin-color {
+    background-color: violet;
+    color: #fff;
+}
+
+.news-config-container button {
+    border-radius: 0;
+}
+
+.news-image-container {
+    height: 220px;
+}
+
+.news-image-container img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.d-none {
+    display: none;
+}
+
+.blur {
+    opacity: 0.5;
+}
+
+.rejected-border {
+    border-color: red;
+}
+
+/*CARD*/
+#edit-modal .modal-header h4 {
+    margin-left: 45%;
+}
+
+#new-collection-modal .modal-header h4 {
+    margin-left: 115px;
+}
+
+.modal-header {
+    padding: 1.5rem;
+}
+
+#edit-modal .modal-body{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.modal-footer {
+    /*justify-content: center;*/
+}
+
+.col-md-4.card-content-container h5 {
+    text-align: center;
+}
+
+.card-content-container .card-body {
+    cursor: pointer;
+}
+
+#modal-edit-container {
+    position: relative;
+}
+
+#modal-edit-container .news-config-container {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
+#modal-edit-container .c-btn-primary {
+    border-radius: 50%;
+    background-color: red;
+    color: #fff;
+}
+
+.autor-name img {
+    border-radius: 50%;
+    width: 25px;
+}
+
+.ajax-alert {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    
+    width: 650px;
+    margin-bottom: 0;
+    
+    z-index: 99999;
+}
+
+.autor-name span {
+    padding-left: 0.5rem;
+}

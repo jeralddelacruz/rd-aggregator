@@ -1,0 +1,28 @@
+<?php
+error_reporting(0);
+
+session_start();
+$id=$_SESSION["UserID"];
+
+$dir="../../../";
+
+if($id&&$_GET["name"]&&$_POST["image"]){
+	if(!is_dir($dir."upload/".$id)){
+		mkdir($dir."upload/".$id,0777);
+		chmod($dir."upload/".$id,0777);
+	}
+	if(!is_dir($dir."upload/".$id."/flat")){
+		mkdir($dir."upload/".$id."/flat",0777);
+		chmod($dir."upload/".$id."/flat",0777);
+	}
+
+	$im=imagecreatefromstring(base64_decode($_POST["image"])); 
+	imagepng($im,$dir."upload/".$id."/flat/".$_GET["name"].".png");
+	imagedestroy($im);
+
+	header("location:".$dir."user/index.php?cmd=coverok&type=flat&name=".$_GET["name"].".png");exit;
+}
+else{
+	header("location:".$dir."user/index.php?cmd=cover");exit;
+}
+?>

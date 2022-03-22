@@ -1,0 +1,67 @@
+s/* body */
+body {
+    background-color: #00A885;
+}
+
+/* sidebar */
+.navbar-sidebar2 .navbar__list li a {
+    color: #fff;
+}
+.navbar-sidebar3 .navbar__list li.active > a {
+    background: #DEF2F1;
+    color: #2C2C2C;
+}
+.navbar-sidebar2 .navbar__list li:hover > a {
+    color: #00A885;
+}
+/* header */
+header.header-desktop4 {
+    background-color: #17242A;
+}
+
+.header4-wrap .header__tool .account-item--style2 .content a {
+    color: #fff;
+}
+.header-button-item>.zmdi {
+    color: #fff;
+}
+.header-button-item>.zmdi:hover {
+    color: #00A885;
+
+}
+
+/* page-content */
+.page-container3{
+    background-color: #17242A;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #ffff;
+    background-color: #3AAFA9;
+    border-color: #DEF2F1;
+}
+
+/* welcome */
+.welcome2-greeting .title-6 span{
+    color: #fff;
+    font-size: 40px;
+    -webkit-text-stroke: 1px #fff;
+}
+.welcome2 {
+    background-color: #00A885;
+}
+.welcome2-greeting p,
+.au-breadcrumb-span,
+.au-breadcrumb__list>li span{
+    color: #E1E8EF;
+}
+
+/* loin */
+.login-content {
+    background: #fff;
+    box-shadow: 0px 0px 20px 5px;
+}
+
+/* tooltip */
+.blue.info-tooltip {
+    color: #fff;
+}

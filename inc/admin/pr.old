@@ -1,0 +1,55 @@
+<?php
+if($_GET["move"]){
+	$DB->move("pr",$_GET["move"]);
+	redirect("index.php?cmd=pr");
+}
+elseif($_GET["del"]){
+	pr_del($_GET["del"]);
+	redirect("index.php?cmd=pr");
+}
+
+?>
+<h2><?php echo $index_title;?><a href="index.php?cmd=predit" class="add">Add New</a></h2>
+<table class="tbl_list">
+	<tr>
+		<th class="w50 ac">#</th>
+		<th class="w150 ac">eCover</th>
+		<th>Title / Summary</th>
+		<th class="w250">File</th>
+		<th class="w75 ac">Downloads</th>
+		<th class="w50 ac">Order</th>
+		<th class="w75 ac">Action</th>
+	</tr>
+<?php
+$res=$DB->query("select * from $dbprefix"."pr order by pr_order");
+$num=sizeof($res);
+if($num){
+	$i=1;
+	foreach($res as $row){
+		$id=$row["pr_id"];
+		$title=$row["pr_title"];
+		$pop=$row["pr_pop"]?("<img src=\"../img/pop.png\" title=\"Featured Product\" class=\"help\" />"):"";
+		$dld=$row["pr_dld"];
+		$plr=$row["pr_plr"];
+		$cover="../upload/pr/".($row["pr_cover"]?($id."/".$row["pr_cover"]):"cover.gif");
+?>
+	<tr>
+		<td class="ac"><?php echo $i;?></td>
+		<td class="ac"><a href="<?php echo $cover;?>" title="<?php echo $title;?>" class="view tip fb" rel="gal"><img src="<?php echo $cover;?>" style="max-width:100px;" /></a></td>
+		<td><strong><?php echo $title;?></strong><?php echo $pop;?><br /><?php echo $row["pr_desc"];?></td>
+		<td><a href="../upload/pr/<?php echo $id."/".$dld;?>" target="_blank" title="Download" class="tip"><?php echo $dld;?></a></td>
+		<td class="ac"><?php echo $row["pr_numd"];?></td>
+		<td><?php if($i>1){?><a href="index.php?cmd=pr&move=u<?php echo $id;?>" title="Move Up"><img src="../img/oup.gif" /></a><?php }?><?php if($i<$num){?><a href="index.php?cmd=pr&move=d<?php echo $id;?>" title="Move Down"><img src="../img/odown.gif" align="right" /></a><?php }?></td>
+		<td class="ac"><a href="../upload/pr/<?php echo $id."/".$plr;?>" target="_blank" title="View License" class="tip"><img src="../img/lic.png" /></a> <a href="index.php?cmd=predit&id=<?php echo $id;?>" title="Edit" class="tip"><img src="../img/edit.png" /></a> <a href="index.php?cmd=pr&del=<?php echo $id;?>" title="Delete" class="tip" onclick="return confirm('Are you sure you wish to delete this Product?');"><img src="../img/del.png" /></a></td>
+	</tr>
+<?php
+		$i++;
+	}
+}
+?>
+</table>
+<script>
+jQuery(document).ready(function($){
+	$(".fb").fancybox({});
+});
+</script>

@@ -1,0 +1,73 @@
+:root {
+    --primary: #1f3c88;
+    --secondary: #070d59;
+    --invert: #ceddef;
+    --container: #e5e5e5;
+    --white: #f7f7f7;
+    --menu-hover: #5893d4;
+}
+
+.page-loader__spin {
+    border-left: 6px solid var(--primary);
+}
+
+h1, h2, h3, h4, h5, h6,
+.info-tooltip .fa,
+.footer nav > ul a:not(.btn),
+.copyright,
+.header-mobile .navbar-mobile .navbar-mobile__list li a,
+.navbar-sidebar .navbar__list li.active > a {
+    color: var(--primary);
+}
+
+.main-content,
+.navbar-sidebar .navbar__list li.active > a {
+    background: var(--container);
+}
+
+.btn-fill:not(.btn-disabled):not(.btn-success) {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-fill:not(.btn-disabled):not(.btn-success):hover, .btn-fill:not(.btn-disabled):not(.btn-success):focus, .btn-fill:not(.btn-disabled):not(.btn-success):active {
+    background: var(--secondary);
+    border-color: var(--secondary);
+}
+
+.header-desktop,
+.menu-sidebar .logo,
+.account-dropdown__item a:hover,
+.page-content--bge5 {
+    background: var(--primary);
+}
+
+.account-item > .content > a,
+.account-item > .content > a:hover,
+.account-dropdown__item a:hover,
+.noti__item:hover > i {
+    color: var(--invert);
+}
+
+.menu-sidebar .logo {
+    border-right: 1px solid var(--primary);
+}
+
+.header-desktop,
+.noti__item i,
+.navbar-sidebar .navbar__list li a {
+    color: var(--white);
+}
+
+.navbar-sidebar .navbar__list li a {
+    padding: 20px;
+}
+
+.navbar-sidebar .navbar__list li a:hover {
+    color: var(--menu-hover);
+}
+
+.navbar-sidebar {
+    background: var(--secondary);
+    padding: 0;
+}

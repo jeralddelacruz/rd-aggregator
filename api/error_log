@@ -1,0 +1,149 @@
+[09-Feb-2022 08:44:17 America/Chicago] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PageList1 has a deprecated constructor in /home2/newscascade/public_html/sys/class.PageList1.php on line 2
+[09-Feb-2022 08:44:17 America/Chicago] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PHPlot has a deprecated constructor in /home2/newscascade/public_html/sys/class.phplot.php on line 36
+[09-Feb-2022 08:44:17 America/Chicago] PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home2/newscascade/public_html/sys/func.php on line 611
+[09-Feb-2022 08:44:17 America/Chicago] PHP Warning:  Unexpected character in input:  '' (ASCII=1) state=0 in /home2/newscascade/public_html/sys/jsonRPCClient.php on line 275
+[09-Feb-2022 08:44:17 America/Chicago] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PageList has a deprecated constructor in /home2/newscascade/public_html/sys/class.PageList.php on line 2
+[09-Feb-2022 08:44:17 America/Chicago] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; db has a deprecated constructor in /home2/newscascade/public_html/sys/class.db.php on line 2
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 22
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 22
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 24
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 24
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 26
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 26
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 30
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 35
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 37
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 39
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 39
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 41
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 41
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 43
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 43
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 45
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 45
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 47
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 47
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 49
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 49
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 51
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 51
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 56
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 93
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 95
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 104
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 106
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 112
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 122
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 125
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 127
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 129
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 131
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 133
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 135
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 137
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 140
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 142
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 144
+[09-Feb-2022 08:44:17 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 146
+[09-Feb-2022 08:44:18 America/Chicago] PHP Fatal error:  Uncaught Error: Cannot use object of type stdClass as array in /home2/newscascade/public_html/api/products.php:67
+Stack trace:
+#0 [internal function]: {closure}(Object(stdClass))
+#1 /home2/newscascade/public_html/api/products.php(68): array_filter(Array, Object(Closure))
+#2 {main}
+  thrown in /home2/newscascade/public_html/api/products.php on line 67
+[09-Feb-2022 08:45:14 America/Chicago] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PageList1 has a deprecated constructor in /home2/newscascade/public_html/sys/class.PageList1.php on line 2
+[09-Feb-2022 08:45:14 America/Chicago] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PHPlot has a deprecated constructor in /home2/newscascade/public_html/sys/class.phplot.php on line 36
+[09-Feb-2022 08:45:14 America/Chicago] PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home2/newscascade/public_html/sys/func.php on line 611
+[09-Feb-2022 08:45:14 America/Chicago] PHP Warning:  Unexpected character in input:  '' (ASCII=1) state=0 in /home2/newscascade/public_html/sys/jsonRPCClient.php on line 275
+[09-Feb-2022 08:45:14 America/Chicago] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PageList has a deprecated constructor in /home2/newscascade/public_html/sys/class.PageList.php on line 2
+[09-Feb-2022 08:45:14 America/Chicago] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; db has a deprecated constructor in /home2/newscascade/public_html/sys/class.db.php on line 2
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 22
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 22
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 24
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 24
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 26
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 26
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 30
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 35
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 37
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 39
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 39
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 41
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 41
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 43
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 43
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 45
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 45
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 47
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 47
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 49
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 49
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 51
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 51
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 56
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 93
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 95
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 104
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 106
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 112
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 122
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 125
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 127
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 129
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 131
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 133
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 135
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 137
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 140
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 142
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 144
+[09-Feb-2022 08:45:14 America/Chicago] PHP Notice:  Undefined index: id in /home2/newscascade/public_html/sys/cmd.php on line 146
+[07-Mar-2022 09:22:15 America/Chicago] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home2/newscascade/public_html/api/news_status.php:25
+Stack trace:
+#0 {main}
+  thrown in /home2/newscascade/public_html/api/news_status.php on line 25
+[07-Mar-2022 09:25:55 America/Chicago] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home2/newscascade/public_html/api/news_status.php:26
+Stack trace:
+#0 {main}
+  thrown in /home2/newscascade/public_html/api/news_status.php on line 26
+[07-Mar-2022 09:28:04 America/Chicago] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home2/newscascade/public_html/api/news_status.php:26
+Stack trace:
+#0 {main}
+  thrown in /home2/newscascade/public_html/api/news_status.php on line 26
+[07-Mar-2022 09:29:02 America/Chicago] PHP Warning:  include(../../sys/config.php): failed to open stream: No such file or directory in /home2/newscascade/public_html/api/news_status.php on line 2
+[07-Mar-2022 09:29:02 America/Chicago] PHP Warning:  include(../../sys/config.php): failed to open stream: No such file or directory in /home2/newscascade/public_html/api/news_status.php on line 2
+[07-Mar-2022 09:29:02 America/Chicago] PHP Warning:  include(): Failed opening '../../sys/config.php' for inclusion (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home2/newscascade/public_html/api/news_status.php on line 2
+[07-Mar-2022 09:29:02 America/Chicago] PHP Warning:  include(../../sys/class.db.php): failed to open stream: No such file or directory in /home2/newscascade/public_html/api/news_status.php on line 3
+[07-Mar-2022 09:29:02 America/Chicago] PHP Warning:  include(../../sys/class.db.php): failed to open stream: No such file or directory in /home2/newscascade/public_html/api/news_status.php on line 3
+[07-Mar-2022 09:29:02 America/Chicago] PHP Warning:  include(): Failed opening '../../sys/class.db.php' for inclusion (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home2/newscascade/public_html/api/news_status.php on line 3
+[07-Mar-2022 09:29:02 America/Chicago] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home2/newscascade/public_html/api/news_status.php:26
+Stack trace:
+#0 {main}
+  thrown in /home2/newscascade/public_html/api/news_status.php on line 26
+[07-Mar-2022 09:31:48 America/Chicago] PHP Fatal error:  Uncaught Error: Call to a member function info() on null in /home2/newscascade/public_html/api/news_status.php:26
+Stack trace:
+#0 {main}
+  thrown in /home2/newscascade/public_html/api/news_status.php on line 26
+[07-Mar-2022 09:33:14 America/Chicago] PHP Fatal error:  Uncaught Error: Call to a member function info() on null in /home2/newscascade/public_html/api/news_status.php:27
+Stack trace:
+#0 {main}
+  thrown in /home2/newscascade/public_html/api/news_status.php on line 27
+[07-Mar-2022 21:11:00 America/Chicago] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home2/newscascade/public_html/api/news.php on line 38
+[07-Mar-2022 21:11:14 America/Chicago] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home2/newscascade/public_html/api/news.php on line 38
+[07-Mar-2022 21:12:58 America/Chicago] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home2/newscascade/public_html/api/news.php on line 38
+[08-Mar-2022 01:10:21 America/Chicago] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, array given in /home2/newscascade/public_html/api/news.php on line 39
+[08-Mar-2022 03:07:39 America/Chicago] PHP Fatal error:  Uncaught Error: Function name must be a string in /home2/newscascade/public_html/api/news.php:42
+Stack trace:
+#0 {main}
+  thrown in /home2/newscascade/public_html/api/news.php on line 42
+[08-Mar-2022 03:11:32 America/Chicago] PHP Warning:  move_uploaded_file(../upload/2/news/user.png): failed to open stream: No such file or directory in /home2/newscascade/public_html/api/news.php on line 62
+[08-Mar-2022 03:11:32 America/Chicago] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpDsPJnM' to '../upload/2/news/user.png' in /home2/newscascade/public_html/api/news.php on line 62
+[08-Mar-2022 03:41:06 America/Chicago] PHP Warning:  move_uploaded_file(../upload/2/news/images/user.png): failed to open stream: No such file or directory in /home2/newscascade/public_html/api/news.php on line 68
+[08-Mar-2022 03:41:06 America/Chicago] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpsvDEcq' to '../upload/2/news/images/user.png' in /home2/newscascade/public_html/api/news.php on line 68
+[08-Mar-2022 03:41:06 America/Chicago] PHP Warning:  move_uploaded_file(../upload/2/news/avatar/user.png): failed to open stream: No such file or directory in /home2/newscascade/public_html/api/news.php on line 101
+[08-Mar-2022 03:41:06 America/Chicago] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpMVeWfC' to '../upload/2/news/avatar/user.png' in /home2/newscascade/public_html/api/news.php on line 101
+[08-Mar-2022 03:41:48 America/Chicago] PHP Warning:  move_uploaded_file(../upload/2/news/images/user.png): failed to open stream: No such file or directory in /home2/newscascade/public_html/api/news.php on line 68
+[08-Mar-2022 03:41:48 America/Chicago] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpXMORIU' to '../upload/2/news/images/user.png' in /home2/newscascade/public_html/api/news.php on line 68
+[08-Mar-2022 03:41:48 America/Chicago] PHP Warning:  move_uploaded_file(../upload/2/news/avatar/user.png): failed to open stream: No such file or directory in /home2/newscascade/public_html/api/news.php on line 101
+[08-Mar-2022 03:41:48 America/Chicago] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpl9qBVq' to '../upload/2/news/avatar/user.png' in /home2/newscascade/public_html/api/news.php on line 101
+[08-Mar-2022 03:43:56 America/Chicago] PHP Warning:  implode(): Invalid arguments passed in /home2/newscascade/public_html/api/news.php on line 45

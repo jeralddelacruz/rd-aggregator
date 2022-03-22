@@ -1,0 +1,2 @@
+[26-Oct-2020 21:33:01 America/Chicago] PHP Parse error:  syntax error, unexpected '0' (T_LNUMBER), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home2/pprofitfunnels/public_html/add/api/acelle_mail/test.php on line 23
+[26-Oct-2020 21:33:45 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home2/pprofitfunnels/public_html/add/api/acelle_mail/test.php on line 23

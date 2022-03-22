@@ -1,0 +1,62 @@
+<?php
+if($_GET["move"]){
+	$DB->move("tpl",$_GET["move"]);
+	redirect("index.php?cmd=tpl");
+}
+elseif($_GET["del"]){
+	tpl_del($_GET["del"]);
+	redirect("index.php?cmd=tpl");
+}
+
+?>
+<h2><?php echo $index_title;?><a href="index.php?cmd=tpledit" class="add">Add New</a></h2>
+<table class="tbl_list">
+	<tr>
+		<th class="w50 ac">#</th>
+		<th class="w200 ac">Screenshot</th>
+		<th>Title</th>
+		<th class="w150 ac">Sales Page</th>
+<!--
+		<th class="w150 ac">Thank You Page</th>
+-->
+		<th class="w150 ac">Download Page</th>
+		<th class="w50 ac"><img src="../img/help.png" title="Show to Members" class="help" /></th>
+		<th class="w50 ac">Order</th>
+		<th class="w50 ac">Action</th>
+	</tr>
+<?php
+$res=$DB->query("select * from $dbprefix"."tpl order by tpl_order");
+$num=sizeof($res);
+if($num){
+	$i=1;
+	foreach($res as $row){
+		$id=$row["tpl_id"];
+		$title=$row["tpl_title"];
+		$src=is_file("../upload/tpl/$id/thumb.png")?"../upload/tpl/$id/thumb.png":"../upload/tpl/thumb.jpg";
+		$thumb="<a href=\"$src\" title=\"$title\" class=\"view tip fb\" rel=\"gal\"><img src=\"$src\" style=\"max-width:180px;\" /></a>";
+		$show="<img src=\"../img/".strtolower($YN_ARR[$row["tpl_show"]]).".png\" title=\"".$YN_ARR[$row["tpl_show"]]."\" class=\"tip\" />";
+?>
+	<tr>
+		<td class="ac"><?php echo $i;?></td>
+		<td class="ac"><?php echo $thumb;?></td>
+		<td><?php echo $title;?></td>
+		<td class="ac"><a href="../upload/tpl/<?php echo $id;?>/" target="_blank" title="<?php echo $title;?> Sales Page" class="tip">Preview</a></td>
+<!--
+		<td class="ac"><?php if(file_exists("../upload/tpl/$id/thankyou.html")){?><a href="../upload/tpl/<?php echo $id;?>/thankyou.html" target="_blank" title="<?php echo $title;?> Thank You Page" class="tip">Preview</a><?php }?></td>
+-->
+		<td class="ac"><?php if(file_exists("../upload/tpl/$id/download.html")){?><a href="../upload/tpl/<?php echo $id;?>/download.html" target="_blank" title="<?php echo $title;?> Download Page" class="tip">Preview</a><?php }?></td>
+		<td class="ac"><?php echo $show;?></td>
+		<td><?php if($i>1){?><a href="index.php?cmd=tpl&move=u<?php echo $id;?>" title="Move Up" class="tip"><img src="../img/oup.gif" /></a><?php }?><?php if($i<$num){?><a href="index.php?cmd=tpl&move=d<?php echo $id;?>" title="Move Down" class="tip"><img src="../img/odown.gif" align="right" /></a><?php }?></td>
+		<td class="ac"><a href="index.php?cmd=tpledit&id=<?php echo $id;?>" title="Edit" class="tip"><img src="../img/edit.png" /></a> <a href="index.php?cmd=tpl&del=<?php echo $id;?>" title="Delete" class="tip" onclick="return confirm('Are you sure you wish to delete this Template?');"><img src="../img/del.png" /></a></td>
+	</tr>
+<?php
+		$i++;
+	}
+}
+?>
+</table>
+<script>
+jQuery(document).ready(function($){
+	$(".fb").fancybox({});
+});
+</script>

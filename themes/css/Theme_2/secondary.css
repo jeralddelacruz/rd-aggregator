@@ -1,0 +1,82 @@
+h1, h2, h3, h4, h5, h6 {
+    color: #042a2b;
+}
+
+.account2 .name {
+    color: #00f5d4;
+}
+
+
+.menu-sidebar2 {
+    background: #042a2b;
+    box-shadow: 0 0 0 transparent;
+}
+
+.menu-sidebar2 .logo {
+    background: #042a2b;
+    text-align: center;
+}
+
+.menu-sidebar2 .logo a {
+    width: 100%;
+}
+
+.menu-sidebar2__content {
+    border-right: 1px solid #042a2b;
+}
+
+.account2 {
+    border-bottom: 1px solid #042a2b;
+}
+
+.account2 > a {
+    color: #fff;
+}
+
+.navbar-sidebar2 .navbar__list li a {
+    border-bottom: 1px solid #042a2b;
+    color: #00f5d4;
+}
+
+.navbar-sidebar2 .navbar__list li:hover, 
+.navbar-sidebar2 .navbar__list li.active {
+    background-color: #00f5d4;
+}
+
+.navbar-sidebar2 .navbar__list li:hover > a {
+    color: #042a2b;
+}
+
+.navbar-sidebar2 .navbar__list li.active > a {
+    color: #042a2b;
+}
+
+.account-dropdown__item a:hover {
+    background: #00f5d4;   
+}
+
+a {
+    color: #042a2b;
+}
+
+a:hover {
+    color: #042a2b !important;
+    background-color: #00f5d4 !important;
+}
+
+.page-container2 {
+    background: #e8e8e8;
+}
+
+.page-content--bge5 {
+    background: #042a2b;
+}
+
+.header-desktop2 {
+    background: #00f5d4;   
+}
+
+.img-logo {
+    max-width: 185px;
+    margin: 0 auto;
+}

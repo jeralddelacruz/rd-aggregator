@@ -1,0 +1,17 @@
+.info-tooltip .fa {
+    color: #4272d7;
+}
+
+.btn-fill:not(.btn-disabled) {
+    background: #4272d7;
+    border-color: #4272d7;
+}
+
+.btn-fill:not(.btn-disabled):hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.page-loader__spin {
+    border-left: 6px solid #4272d7;
+}

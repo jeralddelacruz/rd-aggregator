@@ -1,0 +1,212 @@
+html, body{
+	height: 100%;
+	min-height:600px;
+}
+
+.bg_nav{
+	z-index: 1;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: %color11%;
+}
+
+.bg_main{
+	position: absolute;
+	top: 0;
+	left: 200px;
+	right: 0;
+	height: 100%;
+	background: %color16%;
+}
+
+.wrap{
+	z-index: 10;
+	position: relative;
+	min-height: 100%;
+	min-width: 1000px;
+	width: 100%;
+}
+
+header{
+	z-index: 11;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+	line-height: 100px;
+	background: %color11%;
+}
+
+.log{
+	position: absolute;
+	line-height: 100%;
+	top: 5px;
+	right: 20px;
+}
+
+.content{
+	padding: 100px 0 25px 0;
+	overflow: hidden;
+}
+		
+nav{
+	position: relative;
+	float: left;
+	width: 200px;
+	height: 700px;
+}
+
+.wrap_main{
+	float: left;
+	width: 100%;
+	margin-left: -200px;
+}
+
+.main{
+	margin-left: 200px;
+	padding: 15px 20px;
+}
+
+footer{
+	z-index: 11;
+	position: relative;
+	min-width: 1000px;
+	height: 25px;
+	line-height: 25px;
+	margin-top: -25px;
+	text-align: right;
+	padding-right: 10px;
+	font-size: 11px;
+	color: %color4%;
+}
+
+nav ul{
+	list-style: none;
+}
+
+.menu{
+	width: 200px;
+	background: %color11%;
+}
+
+.menu li{
+	position: relative;
+	margin-bottom: 5px;
+}
+
+.menu a{
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	text-decoration: none;
+	color: %color2%;
+	background: %color11%;
+	padding-left: 10px;
+}
+
+.menu li:hover > a{
+	color: %color16%;
+	background: %color5%;
+}
+
+.sub{
+	z-index: 10;
+	position: absolute;
+	left: 200px;
+	top: 0;
+	display: none;
+	width: 198px;
+	background: %color16%;
+	border: 1px solid %color11%;
+	box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+}
+
+.sub li{
+	margin: 0;
+}
+
+.sub li a{
+	color: %color2%;
+	background: %color16%;
+}
+
+.sub li a:hover{
+	color: %color3%;
+	background: %color16%;
+}
+
+.menu li:hover .sub{
+	display: block;
+}
+
+.act .sub{
+	z-index: 1;
+	position: relative;
+	display: block;
+	left: 0;
+	top: 0;
+}
+
+.act > a{
+	color: %color16%;
+	background: %color5%;
+}
+
+.act > ul{
+	box-shadow: none;
+}
+
+.arrow{
+	position: absolute;
+	left: -6px;
+	top: 10px;
+	width: 0px;
+	height: 0px;
+	border-right: 5px solid %color16%;
+	border-left: none;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+}
+
+.holder{
+	width: 250px;
+	background: %color11%;
+	border: %color8% 1px solid;
+	padding: 5px;
+}
+
+.poll{
+	margin-left: 5px;
+	padding: 5px;
+	width: 500px;
+	border: %color8% 1px solid;
+	border-radius: 5px;
+}
+
+.poll_qst{
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.poll_ans{
+	width: 0px;
+	height: 10px;
+	background-color: %color3%;
+	margin-bottom: 5px;
+}
+
+.phplot{
+	text-align: center;
+	margin: 20px;
+}
+
+.salei_s{
+	width: 100px;
+	height: 160px;
+}

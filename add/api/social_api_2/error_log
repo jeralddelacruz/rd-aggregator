@@ -1,0 +1,30 @@
+[20-Oct-2020 06:04:13 America/Chicago] PHP Warning:  opendir(.../sys): failed to open dir: No such file or directory in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 14
+[20-Oct-2020 06:04:13 America/Chicago] PHP Warning:  readdir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 15
+[20-Oct-2020 06:04:13 America/Chicago] PHP Warning:  closedir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 23
+[20-Oct-2020 06:04:13 America/Chicago] PHP Fatal error:  Class 'db' not found in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 25
+[20-Oct-2020 06:04:42 America/Chicago] PHP Fatal error:  Class 'db' not found in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 25
+[20-Oct-2020 06:05:09 America/Chicago] PHP Warning:  opendir(./sys): failed to open dir: No such file or directory in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 14
+[20-Oct-2020 06:05:09 America/Chicago] PHP Warning:  readdir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 15
+[20-Oct-2020 06:05:09 America/Chicago] PHP Warning:  closedir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 23
+[20-Oct-2020 06:05:09 America/Chicago] PHP Fatal error:  Class 'db' not found in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 25
+[20-Oct-2020 06:05:32 America/Chicago] PHP Fatal error:  Class 'db' not found in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 25
+[20-Oct-2020 06:05:47 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 33
+[20-Oct-2020 06:06:23 America/Chicago] PHP Warning:  opendir(../sys): failed to open dir: No such file or directory in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 14
+[20-Oct-2020 06:06:23 America/Chicago] PHP Warning:  readdir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 15
+[20-Oct-2020 06:06:23 America/Chicago] PHP Warning:  closedir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 23
+[20-Oct-2020 06:06:36 America/Chicago] PHP Warning:  opendir(.../sys): failed to open dir: No such file or directory in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 14
+[20-Oct-2020 06:06:36 America/Chicago] PHP Warning:  readdir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 15
+[20-Oct-2020 06:06:36 America/Chicago] PHP Warning:  closedir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 23
+[20-Oct-2020 06:06:50 America/Chicago] PHP Warning:  opendir(.././sys): failed to open dir: No such file or directory in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 14
+[20-Oct-2020 06:06:50 America/Chicago] PHP Warning:  readdir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 15
+[20-Oct-2020 06:06:50 America/Chicago] PHP Warning:  closedir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 23
+[20-Oct-2020 06:08:16 America/Chicago] PHP Warning:  opendir(../sys): failed to open dir: No such file or directory in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 14
+[20-Oct-2020 06:08:16 America/Chicago] PHP Warning:  readdir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 15
+[20-Oct-2020 06:08:16 America/Chicago] PHP Warning:  closedir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 23
+[20-Oct-2020 06:08:16 America/Chicago] PHP Fatal error:  Class 'db' not found in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 25
+[20-Oct-2020 06:09:29 America/Chicago] PHP Warning:  opendir(../sys): failed to open dir: No such file or directory in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 14
+[20-Oct-2020 06:09:29 America/Chicago] PHP Warning:  readdir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 15
+[20-Oct-2020 06:09:29 America/Chicago] PHP Warning:  closedir() expects parameter 1 to be resource, boolean given in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 23
+[20-Oct-2020 06:09:29 America/Chicago] PHP Fatal error:  Class 'db' not found in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 25
+[20-Oct-2020 06:10:20 America/Chicago] PHP Warning:  Unexpected character in input:  '' (ASCII=1) state=0 in /home2/pprofitfunnels/public_html/sys/jsonRPCClient.php on line 275
+[21-Oct-2020 04:12:33 America/Chicago] PHP Parse error:  syntax error, unexpected ')' in /home2/pprofitfunnels/public_html/add/social_api_2/twitterAPI2.php on line 111

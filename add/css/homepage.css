@@ -1,0 +1,186 @@
+/* COLORS */
+.bg-dirty{
+    background-color: #dcdcdc;
+}
+
+.header-content{
+    padding: 0 0 0 5rem;
+}
+
+
+/* FOR MIDDLE CARDS */
+.main-container {
+    padding-top: 5rem;
+}
+
+.active{
+    background-color: var(--theme-color) !important;
+    color: var(--theme-text-color) !important;
+}
+
+.slider-tab .slider-tab-item {
+    max-width: 20rem;
+}
+.slider-tab .slider-tab-item .slider-tab-icon {
+    height: 7rem;
+}
+.slider-tab .slider-tab-item .slider-tab-icon i {
+    font-size: 4.5rem;
+}
+
+.resources-area {
+    justify-content: space-evenly;
+    display: flex;
+}
+
+.tabs{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+.slider-tab-content .container-fluid .row .col-sm-4{
+    position: relative;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    background-color: #151515;
+    color: #fff;
+    /*color: var(--theme-color);*/
+    cursor: pointer;
+}
+
+.slider-tab-content .container-fluid .row .col-sm-4:hover{
+    border-right: 1px solid;
+    border-left: 1px solid;
+    background-color: var(--theme-color);
+    color: var(--theme-text-color);
+}
+
+.slider-tab-content .container-fluid .row .col-sm-4.active:after {
+    content: '';
+    position: absolute;
+    opacity: 2;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 30px 24px 0;
+    border-color: var(--theme-color) transparent transparent;
+    bottom: -30px;
+    left: 45%;
+}
+
+.resource-image img{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.resource-image.d-flex.justify-content-center {
+    max-height: 250px;
+}
+
+.card-container:hover{
+    box-shadow: 0 0 15px 4px var(--theme-color);
+}
+
+.card-container{
+    width: 27.333333%;
+    -webkit-box-shadow: 0 0 15px 4px rgb(0 0 0 / 26%);
+    -moz-box-shadow: 0 0 15px 4px rgba(0,0,0,.26);
+    box-shadow: 0 0 15px 4px rgb(0 0 0 / 26%);
+    position: relative;
+    background-color: #e6e6e6;
+    -webkit-transition: box-shadow .25s ease-in-out;
+    transition: box-shadow .25s ease-in-out;
+    cursor: pointer;
+    margin-bottom: 3rem;
+}
+
+/* LOWER SECTION */
+.lower-section-card-container {
+    width: 27.333333%;
+    -moz-box-shadow: 0 0 15px 4px rgba(0,0,0,.26);
+    position: relative;
+    -webkit-transition: box-shadow .25s ease-in-out;
+    cursor: pointer;
+    margin-bottom: 3rem;
+}
+
+.lower-section-count {
+    position: relative;
+}
+
+.lower-section-count span {
+    position: absolute;
+    font-size: 6rem;
+    color: var(--theme-color);
+    width: 110px;
+    z-index: 2;
+    top: -80px;
+    left: 35%;
+    right: 0;
+}
+
+.modal-headline.text-center.mb-4 h2 {
+    font-size: 2.5rem;
+    font-weight: 900;
+}
+
+.modal-subheadline.text-center.mb-3 p {
+    font-size: 1.2rem;
+}
+
+.img-wrapper img{
+    width: 100%;
+    height: 100%;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+}
+
+@media (min-width: 769px) {
+    .header-content {
+        padding: 0 0 0 5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        width: 40%;
+    }
+
+    .header-content {
+        padding: 0 2rem 0 2rem;
+    }
+
+    .lower-section-card-container {
+        width: 40%;
+    }
+
+    .lower-section-count span {
+        top: -80px;
+        left: 30%;
+    }
+}
+
+@media (max-width: 425px) {
+    .card-container {
+        width: 80%;
+    }
+
+    .col-xl-6.header-content {
+        padding-right: calc(var(--bs-gutter-x) * 1.5);
+        padding-left: calc(var(--bs-gutter-x) * 1.5);
+    }
+}

@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'Teko';
+    src: url('../fonts/teko/Teko-Medium.eot');
+    src: url('../fonts/teko/Teko-Medium.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/teko/Teko-Medium.woff2') format('woff2'),
+        url('../fonts/teko/Teko-Medium.woff') format('woff'),
+        url('../fonts/teko/Teko-Medium.ttf') format('truetype'),
+        url('../fonts/teko/Teko-Medium.svg#Teko-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Teko';
+    src: url('../fonts/teko/Teko-Bold.eot');
+    src: url('../fonts/teko/Teko-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/teko/Teko-Bold.woff2') format('woff2'),
+        url('../fonts/teko/Teko-Bold.woff') format('woff'),
+        url('../fonts/teko/Teko-Bold.ttf') format('truetype'),
+        url('../fonts/teko/Teko-Bold.svg#Teko-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Teko';
+    src: url('../fonts/teko/Teko-Regular.eot');
+    src: url('../fonts/teko/Teko-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/teko/Teko-Regular.woff2') format('woff2'),
+        url('../fonts/teko/Teko-Regular.woff') format('woff'),
+        url('../fonts/teko/Teko-Regular.ttf') format('truetype'),
+        url('../fonts/teko/Teko-Regular.svg#Teko-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Teko';
+    src: url('../fonts/teko/Teko-SemiBold.eot');
+    src: url('../fonts/teko/Teko-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/teko/Teko-SemiBold.woff2') format('woff2'),
+        url('../fonts/teko/Teko-SemiBold.woff') format('woff'),
+        url('../fonts/teko/Teko-SemiBold.ttf') format('truetype'),
+        url('../fonts/teko/Teko-SemiBold.svg#Teko-SemiBold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Teko';
+    src: url('../fonts/teko/Teko-Light.eot');
+    src: url('../fonts/teko/Teko-Light.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/teko/Teko-Light.woff2') format('woff2'),
+        url('../fonts/teko/Teko-Light.woff') format('woff'),
+        url('../fonts/teko/Teko-Light.ttf') format('truetype'),
+        url('../fonts/teko/Teko-Light.svg#Teko-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+

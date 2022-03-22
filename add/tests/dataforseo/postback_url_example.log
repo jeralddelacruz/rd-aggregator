@@ -1,0 +1,31 @@
+
+2021-02-12 04:07:32: 1
+---------
+Array
+(
+    [post_id] => here is supposed to be your post ID 2
+    [task_id] => 21070223313
+    [se_id] => 22
+    [loc_id] => 1006886
+    [key_id] => 62845222
+    [post_key] => seo data api
+    [post_site] => dataforseo.com
+    [result_datetime] => 2021-02-12 10:07:28 +00:00
+    [result_position] => 1
+    [result_url] => https://dataforseo.com/
+    [result_title] => SEO software API. API for agencies. Best SEO data API provider.
+    [result_snippet_extra] => 
+    [result_snippet] => DataForSEO ➤➤➤ SEO Software API ➤➤➤ SEO API data Provider built for SEO -Software companies and agencies. ✓✓✓ Great Speed, Clear Stats, Simple ...
+    [results_count] => 36600000
+    [result_extra] => paid,videos,related,multi_carousel
+    [result_spell] => 
+    [result_spell_type] => 
+    [result_se_check_url] => https://www.google.co.uk/search?q=seo%20data%20api&num=100&hl=en&gl=GB&gws_rd=cr&ie=UTF-8&oe=UTF-8&uule=w+CAIQIFISCXXeIa8LoNhHEZkq1d1aOpZS
+    [postback_url] => https://wpspages.com/add/tests/dataforseo/postback_url_example.php
+    [pingback_url] => 
+    [api_function] => rnk_tasks_post
+    [user_id] => 46758
+    [task_type] => 100
+)
+
+---------

@@ -1,0 +1,2 @@
+[12-May-2021 11:03:51 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[12-May-2021 11:03:51 America/Chicago] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; JUpload has a deprecated constructor in /home1/wpspages/public_html/tinymce_fm/uploader/jupload.php on line 55

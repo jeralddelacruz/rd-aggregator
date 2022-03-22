@@ -1,0 +1,56 @@
+ /* body */
+ body {
+    background-color: #E1E8EF;
+}
+
+/* sidebar */
+.navbar-sidebar2 .navbar__list li a {
+    color: #035892;
+}
+/* header */
+header.header-desktop4{
+    background-color: #E1E8EF;
+}
+
+.header4-wrap .header__tool .account-item--style2 .content a {
+    color: #035892;
+}
+.header-button-item>.zmdi {
+    color: #035892;
+}
+
+/* page-content */
+.page-container3{
+    background-color: #E1E8EF;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #fff;
+    background-color: #00287b;
+    border-color: #2255bf;
+}
+
+/* welcome */
+.welcome2-greeting .title-6 span{
+    color: #035892;
+    font-size: 40px;
+    -webkit-text-stroke: 1px #fff;
+}
+.welcome2 {
+    background-color: #035892;
+}
+.welcome2-greeting p,
+.au-breadcrumb-span,
+.au-breadcrumb__list>li span{
+    color: #E1E8EF;
+}
+
+/* loin */
+.login-content {
+    background: #fff;
+    box-shadow: 0px 0px 20px 5px;
+}
+
+/* tooltip */
+.blue.info-tooltip {
+    color: #fff;
+}

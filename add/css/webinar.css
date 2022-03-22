@@ -1,0 +1,7 @@
+.chunky{
+    font-weight: 900;
+}
+
+a.btn.btn-lg.theme-color.text-uppercase.theme-text-color {
+    color: var(--theme-text-color);
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>License Certificate</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+p,div,td{
+	padding: 5px;
+	text-indent: 0;
+}
+
+a{
+	color: #369;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.wrap{
+	width: 754px;
+	height: 1122px;
+	margin: 0 auto;
+}
+
+.main{
+	height: 100%;
+	vertical-align: top;
+}
+
+.tr{
+	height: 10px;
+	vertical-align: middle;
+}
+
+.top{
+	border-top: #000 1px solid;
+}
+
+.bot{
+	border-bottom: #000 1px solid;
+}
+
+.tb{
+	border-top: #000 1px solid;
+	border-bottom: #000 1px solid;
+}
+
+.large{
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.al{
+	text-align: left;
+}
+
+.ac{
+	text-align: center;
+}
+
+.ar{
+	text-align: right;
+}
+
+.red{
+	color: #f00;
+}
+</style>
+</head>
+<body%back%>
+<table cellspacing="2" cellpadding="0" class="wrap">
+	<tr class="tr">
+		<td></td>
+	</tr>
+	<tr class="tr">
+		<td class="bot %halign%">%header%</td>
+	</tr>
+	<tr class="tr">
+		<td class="tb large ac"><br />License Certificate for:<br /><span class="red">%title%</span><br /><br /></td>
+	</tr>
+	<tr class="tr">
+		<td class="tb large ac"><br />License Type:<br /><span class="red">%type%</span><br /><br /></td>
+	</tr>
+	<tr class="main">
+		<td class="tb"><br />%content%</td>
+	</tr>
+	<tr class="tr">
+		<td class="top %falign%">%footer%</td>
+	</tr>
+	<tr class="tr">
+		<td></td>
+	</tr>
+</table>
+</body>
+</html>
