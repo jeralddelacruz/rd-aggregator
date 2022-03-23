@@ -6,7 +6,7 @@
 	$dbprefix = "newscasc_";
 	$dbkey = md5($dbuser . "/" . $dbname . "/" . $dbpass);
 
-	$SCRIPTURL = "http://rd-aggregator.test/";
+	$SCRIPTURL = "https://rd-aggregator.test/";
 	$MAINDOMAIN = "rd-aggregator.test";
 	$APPNAME = "rd-aggregator";
 	$USERDIR = "user";
