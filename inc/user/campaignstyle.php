@@ -669,11 +669,13 @@
 	</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script type="text/javascript" src="../../inc/js/custom/campaignstyle.js"> </script>
+<script type="text/javascript" src="../../js/custom/campaignstyle.js"> </script>
 
 <!-- Custom Script -->
 <script type="text/javascript">
     
+    console.log("test");
+
     editModal.on('submit', function (evt) {
         evt.preventDefault();
         
@@ -687,7 +689,7 @@
         formData.append('user_image', editModal.find("#user_image").get(0).files[0]);
         formData.append('image', editModal.find("#image").get(0).files[0]);
         formData.append('video_url', editModal.find("#video_url").val());
-        
+       
         $.ajax({
             url: "/api/news.php",
             method: "POST",

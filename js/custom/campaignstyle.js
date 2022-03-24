@@ -7,7 +7,7 @@
     //     $(".news-column").addClass("col-md-"+selected);
     // })
     
-    console.log("test")
+
 
     $("#load-more").change(function(){
         let selected = $(this).val()
