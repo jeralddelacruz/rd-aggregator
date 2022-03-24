@@ -25,7 +25,7 @@
             
 
 
-            <div class="col-md-12">
+            <div class="col-md-12 pl-0">
                 <div class="news-column pb-3">
                 <?php foreach( $featured_result as $filtered_new ): ?>
                 <?php
@@ -80,7 +80,7 @@
           <div class="selectPostCol col-md-3 p-0">
                  <h2 class="font-weight-bold p-3">Trending</h2>
             
-            <div class="col-md-12">
+            <div class="col-md-12 p-0">
                 <div class="news-column pb-3">
                 <?php foreach( $trending_result as $filtered_new ): ?>
                 <?php
@@ -135,7 +135,7 @@
             <div class="selectPostCol col-md-3 p-0">
                  <h2 class="font-weight-bold p-3">New</h2>
             
-            <div class="col-md-12">
+            <div class="col-md-12 pr-0">
                 <div class="news-column pb-3">
                 <?php foreach( $new_result as $filtered_new ): ?>
                 <?php
@@ -188,5 +188,13 @@
             </div>
     </div>
 </div>
+</div>
+<div class="col-12">
+    <div class="load-more-container">
+        <form method="POST">
+            <input type="hidden" name="loadmore" value="<?= $load_count ?>">
+            <button type="submit" class="btn btn-secondary">LOAD MORE</button>
+        </form>
+    </div>
 </div>
  
