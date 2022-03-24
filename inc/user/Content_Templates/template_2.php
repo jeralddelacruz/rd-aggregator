@@ -17,6 +17,11 @@
     .news-image-container.trending_news_container {
         height: 400px;
     }
+
+    .smallnews {
+        display: flex;
+        align-items: center;
+    }
 </style>
 <div class="col-md-12">
     <div class="template-container mt-3">
@@ -196,12 +201,13 @@
                                             <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?>" onClick="pinNews(this)"><i class="fas fa-thumbtack"></i></button>
                                             <button class="btn c-btn-primary btn-block m-0" onClick="editNews(this)" data-json='<?= $item ?>'><i class="fa fa-pencil"></i></button>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="news-image-container">
-                                                <img class="col-12" style="width: 88px; height: 88px; object-fit: cover;" src="<?= $item["news_image"] != "[null]" || $item["news_image"] != '[""]' ? json_decode($item["news_image"])[0] : '' ?>">
+                                        <div class="row align-items-center"> 
+                                        <div class="col-md-4 pr-0">
+                                            <div class="smallnews news-image-container">
+                                                <img style="width: 100%; height: auto; object-fit: cover;" src="<?= $item["news_image"] != "[null]" || $item["news_image"] != '[""]' ? json_decode($item["news_image"])[0] : '' ?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-8 pl-0">
                                             <div class="news-content-container">
                                                 <div class="news-heading-container">
                                                     <h6><?= $item['news_title']; ?></h6>
@@ -209,6 +215,7 @@
                                                 <div class="news-author-container">
                                                     <small><p class="author-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
                                                     <p class="date-posted"><?= $item['news_published_date']; ?></p></small>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
