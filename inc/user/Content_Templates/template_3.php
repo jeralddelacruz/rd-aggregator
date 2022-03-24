@@ -25,7 +25,7 @@
             
 
 
-            <div class="col-md-12 pl-0">
+            <div class="col-md-12">
                 <div class="news-column pb-3">
                 <?php foreach( $featured_result as $filtered_new ): ?>
                 <?php
@@ -47,6 +47,9 @@
                     $filtered_new['created_at'] = $news_date;
                     $news = json_encode($filtered_new);
                 ?>
+                 <?php endforeach; ?>
+               <?php foreach( $featured_result as $key => $item ): ?>
+                <?php if( $key >= 1 && $key <= 2 ): ?>
                 <div id="news-<?php echo $news_id; ?>" class="news-container mb-3 <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
                             <div class="news-config-container">
                                 <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $news_id ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
@@ -72,6 +75,9 @@
                          </div>
                 </div>
             </div>
+            <?php endif; ?>
+           
+           
             <?php endforeach; ?>
                </div>
           </div>
@@ -80,7 +86,7 @@
           <div class="selectPostCol col-md-3 p-0">
                  <h2 class="font-weight-bold p-3">Trending</h2>
             
-            <div class="col-md-12 p-0">
+            <div class="col-md-12">
                 <div class="news-column pb-3">
                 <?php foreach( $trending_result as $filtered_new ): ?>
                 <?php
@@ -135,7 +141,7 @@
             <div class="selectPostCol col-md-3 p-0">
                  <h2 class="font-weight-bold p-3">New</h2>
             
-            <div class="col-md-12 pr-0">
+            <div class="col-md-12">
                 <div class="news-column pb-3">
                 <?php foreach( $new_result as $filtered_new ): ?>
                 <?php
@@ -188,13 +194,5 @@
             </div>
     </div>
 </div>
-</div>
-<div class="col-12">
-    <div class="load-more-container">
-        <form method="POST">
-            <input type="hidden" name="loadmore" value="<?= $load_count ?>">
-            <button type="submit" class="btn btn-secondary">LOAD MORE</button>
-        </form>
-    </div>
 </div>
  
