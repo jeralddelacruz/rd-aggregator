@@ -47,6 +47,9 @@
                     $filtered_new['created_at'] = $news_date;
                     $news = json_encode($filtered_new);
                 ?>
+                 <?php endforeach; ?>
+               <?php foreach( $featured_result as $key => $item ): ?>
+                <?php if( $key >= 1 && $key <= 2 ): ?>
                 <div id="news-<?php echo $news_id; ?>" class="news-container mb-3 <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
                             <div class="news-config-container">
                                 <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $news_id ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
@@ -72,6 +75,9 @@
                          </div>
                 </div>
             </div>
+            <?php endif; ?>
+           
+           
             <?php endforeach; ?>
                </div>
           </div>
