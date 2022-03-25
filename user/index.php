@@ -6,14 +6,14 @@
     
     $domain = "";
 	$serverName = $_SERVER["SERVER_NAME"];
-    $serverName1 = explode( ".com", $serverName )[0];
+    $serverName1 = explode( ".test", $serverName )[0];
     $serverName2 = explode(".", $serverName1);
     if( count( $serverName2 ) > 1 ){
         $domain = $serverName2[count($serverName2) - 1];
     }else{
         $domain = $serverName2[0];
     }
-	session_set_cookie_params(14400,"/", '.'.$domain.'.com');
+	session_set_cookie_params(14400,"/", '.'.$domain.'.test');
 	session_name($domain);
 	session_start();
 	

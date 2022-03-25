@@ -3,13 +3,13 @@
 	if(!preg_match(";campaigns;", $cur_pack["pack_ar"])){
 		redirect("index.php?cmd=deny");
 	}
+
     // $UserID
-    
-	$user           =$DB->info("user","user_id='$UserID'");
+	$user=$DB->info("user","user_id='$UserID'");
 	$campaigns_type = 'regular';
-	$id             = $_GET["id"];
-	$collection_id  = $_GET["collection"];
-	$upload_dir     = "/upload/{$UserID}/news";
+	$id = $_GET["id"];
+	$collection_id = $_GET["collection"];
+	$upload_dir = "/upload/{$UserID}/news";
 	
 	// Get collections
     $content_collections = $DB->query("SELECT * FROM {$dbprefix}content_collection WHERE user_id='{$UserID}' {$and_query}");
@@ -17,34 +17,36 @@
     // Get filtered status
 	$filter_search = "";
     if( isset( $_POST['search_input'] ) && $_POST['search_input'] !== "" ){
-        $filter_search          = $_POST['search_input'];
-        $filter_status          = $_GET['status'] ? $_GET['status'] : "default";
-        $content_collection_id  = $content_collections[0]['content_collection_id'];
-
+        $filter_search = $_POST['search_input'];
+        $filter_status = $_GET['status'] ? $_GET['status'] : "default";
+        $content_collection_id = $content_collections[0]['content_collection_id'];
         redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id&status=$filter_status&s=$filter_search");
     }
-	
 	$filter_search = $_GET['s'] ? $_GET['s'] : "";
 	
-	// Get filtered status
+	// Get filtered status for approved status
 	$filter_status = "approved";
     if( isset( $_POST['filter_status'] )){
-        $filter_status          = $_POST['filter_status'];
-        $content_collection_id  = $content_collections[0]['content_collection_id'];
-
+        $filter_status = $_POST['filter_status'];
+        $content_collection_id = $content_collections[0]['content_collection_id'];
         redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id&status=$filter_status&s=$filter_search");
     }
-	
 	$filter_status = $_GET['status'] ? $_GET['status'] : "default";
 	
     // Get all news
-    $news = $DB->query("SELECT * FROM {$dbprefix}news WHERE users_id LIKE '%\"{$UserID}\"%' AND is_deleted='0' {$additional_query}  {$and_query}");
+    $news = $DB->query(
+        "SELECT * FROM {$dbprefix}news 
+        WHERE users_id 
+        LIKE '%\"{$UserID}\"%' AND is_deleted='0' {$additional_query}  {$and_query}");
     
     // Get current user news_updates
-    $news_ids   = array_column($news, "news_id"); // Get array of news ids
-    $where_in   = "'" . implode("','", $news_ids) . "'"; // Implode for WHERE IN condition
-    $user_news  = $DB->query("SELECT * FROM {$dbprefix}news_updates WHERE news_id IN ({$where_in}) AND user_id = '{$UserID}' {$and_query}");
-    $user_news  = array_combine(array_column($user_news, 'news_id'), $user_news); // Set news_id as index
+    $news_ids = array_column($news, "news_id"); // Get array of news ids
+    $where_in = "'" . implode("','", $news_ids) . "'"; // Implode for WHERE IN condition
+    $user_news = $DB->query(
+        "SELECT * FROM {$dbprefix}news_updates 
+        WHERE news_id IN ({$where_in}) 
+        AND user_id = '{$UserID}' {$and_query}");
+    $user_news = array_combine(array_column($user_news, 'news_id'), $user_news); // Set news_id as index
     
     // Function to get user news field by using news_id
     function getUserNews($news, $newsId, $column, $userId) {
@@ -65,121 +67,187 @@
         
         return $news[$newsId][$column];
     }
-    
     $filtered_news = $news;
     
     if( !isset($collection_id) ) {
         $content_collection_id = $content_collections[0]['content_collection_id'];
-
         redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id");
     }
     
     // Added else if for template 2 and 3
     // March 17 2022
     // TEMPLATE
-    // $selected_template = isset($_POST["templateNumber"]) ? filter_input(INPUT_POST, 'templateNumber', FILTER_SANITIZE_STRING) : "template_1";
-    $selected_template = "template_2";
+    $selected_template = isset($_POST["templateNumber"]) ? filter_input(INPUT_POST, 'templateNumber', FILTER_SANITIZE_STRING) : "template_1";
 
     // Check the Load Count
     $load_count = isset($_POST["loadmore"]) ? $_POST["loadmore"] + 1 : 2;
 
-    if( $selected_template === "template_1" ){
-        
+    //Check selected template
+    if($selected_template==="template_1"){
         // NEWS CONTENTS
         // filter the news for template_1
-        $featured   = 0;
-        $trending   = 0;
-        $new        = 0;
+        $featured = 0;
+        $trending = 0;
+        $new = 0;
         
         $featured_limit = !($load_count % 2 == 0) ? $load_count + 1 : $load_count + 2;
         $trending_limit = $load_count;
-        $new_limit      = !($load_count % 2 == 0) ? $load_count + 1 : $load_count + 2 ;
+        $new_limit = !($load_count % 2 == 0) ? $load_count + 1 : $load_count + 2 ;
         
         // Get filtered collection
     	$filter_collection = '';
         if( isset( $_POST['collections_filter'] )){
             $filter_collection = $_POST['collections_filter'];
-
             redirect("index.php?cmd=campaignstyle&id=$id&collection=$filter_collection&status=$filter_status");
         }
     	
-    	$filter_collection      = $_GET['collection'] ? "AND nws.content_collection_id = '{$_GET['collection']}'" : "";
-    	$filter_status_query    = $_GET['status'] ? "AND nws.status = '{$filter_status}'" : "";
-    	$filter_search_query    = $_GET['s'] ? "AND nws.news_title LIKE '%".$filter_search."%'" : "";
+    	$filter_collection = $_GET['collection'] ? "AND nws.content_collection_id = '{$_GET['collection']}'" : "";
+    	
+    	$filter_status_query = $_GET['status'] ? "AND nws.status = '{$filter_status}'" : "";
+    	
+    	$filter_search_query = $_GET['s'] ? "AND nws.news_title LIKE '%".$filter_search."%'" : "";
     	
     	$additional_query = "";
     	if( $filter_search_query === "" ){
     	    $additional_query = $filter_collection . " " . $filter_status_query;
-
     	}else{
     	    $additional_query = $filter_search_query;
-
     	}
         
         // separate the news depends on the category
-        $featured_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured' {$additional_query} {$and_query} LIMIT {$featured_limit}");
-        $trending_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending' {$additional_query} {$and_query} LIMIT {$trending_limit}");
-        $new_result      = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New' {$additional_query} {$and_query} LIMIT {$new_limit}");
-        
+        $featured_result = $DB->query(
+            "SELECT nws.* 
+            FROM {$dbprefix}content cnt 
+            INNER JOIN {$dbprefix}news nws 
+            ON cnt.content_id = nws.content_id 
+            AND cnt.user_id = '{$UserID}' 
+            AND cnt.category_status = 'Featured' {$additional_query} {$and_query} 
+            LIMIT {$featured_limit}");
+        $trending_result = $DB->query(
+            "SELECT nws.* 
+            FROM {$dbprefix}content cnt 
+            INNER JOIN {$dbprefix}news nws 
+            ON cnt.content_id = nws.content_id 
+            AND cnt.user_id = '{$UserID}' 
+            AND cnt.category_status = 'Trending' {$additional_query} {$and_query} 
+            LIMIT {$trending_limit}");
+        $new_result = $DB->query(
+            "SELECT nws.* 
+            FROM {$dbprefix}content cnt 
+            INNER JOIN {$dbprefix}news nws 
+            ON cnt.content_id = nws.content_id 
+            AND cnt.user_id = '{$UserID}' 
+            AND cnt.category_status = 'New' {$additional_query} {$and_query} 
+            LIMIT {$new_limit}");
+        // echo json_encode($featured_result, true);
         $filtered_news = $featured_result;
 
-    } elseif ( $selected_template === "template_2" ){
+    }elseif($selected_template==="template_2"){
         // NEWS CONTENTS
         // filter the news for template_2
         
         // Get the latest news contents
-        $content_collection_id  = $DB->query("SELECT * FROM {$dbprefix}campaigns WHERE campaigns_id = {$id}")[0]["content_collection_id"];
-        $contents            = $DB->query("SELECT * FROM {$dbprefix}content WHERE content_collection_id = '{$content_collection_id}'");
-
-        $content_ids = array();
-        foreach ($contents as $key => $content) {
-            $content_ids[] = $content["content_id"];
-        }
-
-        $latest_articles        = array();
-        $array                  = implode(",", $content_ids);
-
-        $latest_articles_result = $DB->query("SELECT * FROM {$dbprefix}news WHERE content_id IN('".$array."') LIMIT 9");
-        $categories             = $DB->query("SELECT category_id FROM {$dbprefix}content WHERE content_id IN('".$array."') GROUP BY category_id");
-        echo json_encode( $categories );
-        foreach( $latest_articles_result as $key => $item ){
-            $news_title = $item["news_title"];
-            $news_image = "";
+        $content_ids = json_decode( $DB->query(
+            "SELECT * FROM {$dbprefix}campaigns 
+            WHERE campaigns_id = '{$id}'")[0]["content_id"] );
+        $content_category_ids = json_decode($DB->query(
+            "SELECT * FROM {$dbprefix}content 
+            WHERE campaigns_id = '{$id}'")[0]["content_id"] );
+        
+        $latest_articles = array();
+        $array = implode("','",$content_ids);
+        $latest_articles_result = $DB->query(
+            "SELECT * 
+            FROM {$dbprefix}news 
+            WHERE content_id 
+            IN('".$array."') LIMIT 9");
+        
+        $categories = $DB->query(
+            "SELECT * 
+            FROM {$dbprefix}category 
+            WHERE user_id = '{$UserID}'");
+        // echo count($latest_articles_result);
+        // foreach( $latest_articles_result as $key => $item ){
+        //     $news_title = $item["news_title"];
+        //     $news_image = "";
             
-            if( $item["news_image"] != "[null]" || $item["news_image"] != '[""]' ) {
-                $news_image = json_decode($item["news_image"])[0];
-            }
+        //     if( $item["news_image"] != "[null]" || $item["news_image"] != '[""]' ) {
+        //         $news_image = json_decode($item["news_image"])[0];
+        //     }
             
-            $latest_articles[] = [
-                    "news_id"               => $item["news_id"],
-                    "news_title"            => $news_title,
-                    "news_image"            => $news_image,
-                    "news_author"           => $item["news_author"],
-                    "news_description"      => "",
-                    "category"              => "Test",
-                    "news_link"             => $item["news_link"],
-                    "status"                => $item["status"],
-                    "news_published_date"   => $item["news_published_date"],
-            ];
-        }
-
-        $filtered_news = $latest_articles;
-
-    } elseif ( $selected_template === "template_3" ){
-        // NEWS CONTENTS
-        // filter the news for template_3
-        $featured   = 0;
-        $trending   = 0;
-        $new        = 0;
+        //     $latest_articles[] = [
+        //             "news_id"       => $item["news_id"],
+        //             "news_title"    => $news_title,
+        //             "news_image"    => $news_image,
+        //             "news_author"   => $item["news_author"],
+        //             "news_description"  => "",
+        //             "category"      => "Test",
+        //             "news_link"     => $item["news_link"],
+        //     ];
+        // }
+        
+        // echo json_encode($latest_articles);
+        $featured = 0;
+        $trending = 0;
+        $new = 0;
         
         // separate the news depends on the category
-        $featured_result    = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured'");
-        $trending_result    = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending'");
-        $new_result         = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New'");
+        $featured_result = $DB->query(
+            "SELECT nws.* 
+            FROM {$dbprefix}content cnt 
+            INNER JOIN {$dbprefix}news nws 
+            ON cnt.content_id = nws.content_id 
+            AND cnt.user_id = '{$UserID}' 
+            AND cnt.category_status = 'Featured'");
+        $trending_result = $DB->query(
+            "SELECT nws.* 
+            FROM {$dbprefix}content cnt 
+            INNER JOIN {$dbprefix}news nws 
+            ON cnt.content_id = nws.content_id 
+            AND cnt.user_id = '{$UserID}' 
+            AND cnt.category_status = 'Trending'");
+        $new_result = $DB->query(
+            "SELECT nws.* 
+            FROM {$dbprefix}content cnt 
+            INNER JOIN {$dbprefix}news nws 
+            ON cnt.content_id = nws.content_id 
+            AND cnt.user_id = '{$UserID}' 
+            AND cnt.category_status = 'New'");
+        // echo json_encode($featured_result, true);
+        $filtered_news = $featured_result;
 
+    }elseif($selected_template==="template_3"){
+                // NEWS CONTENTS
+        // filter the news for template_3
+        $featured = 0;
+        $trending = 0;
+        $new = 0;
+        
+        // separate the news depends on the category
+        $featured_result = $DB->query(
+            "SELECT nws.* 
+            FROM {$dbprefix}content cnt 
+            INNER JOIN {$dbprefix}news nws 
+            ON cnt.content_id = nws.content_id 
+            AND cnt.user_id = '{$UserID}' 
+            AND cnt.category_status = 'Featured'");
+        $trending_result = $DB->query(
+            "SELECT nws.* 
+            FROM {$dbprefix}content cnt 
+            INNER JOIN {$dbprefix}news nws 
+            ON cnt.content_id = nws.content_id 
+            AND cnt.user_id = '{$UserID}' 
+            AND cnt.category_status = 'Trending'");
+        $new_result = $DB->query(
+            "SELECT nws.* 
+            FROM {$dbprefix}content cnt 
+            INNER JOIN {$dbprefix}news nws 
+            ON cnt.content_id = nws.content_id 
+            AND cnt.user_id = '{$UserID}' 
+            AND cnt.category_status = 'New'");
+        // echo json_encode($featured_result, true);
         $filtered_news = $featured_result;
     }
-    
 ?>
 
 <!-- CODE_SECTION_HTML_2: CSS_EMBEDDED_DATATABLE -->
@@ -187,7 +255,6 @@
 
 <!-- CODE_SECTION_HTML_3: CONTENT_MAIN -->
 <div class="container-fluid">
-
 	<!-- CODE_SECTION_PHP_HTML_1: SUCCESS_AND_ERROR_ALERT -->
 	<?php if($_SESSION["msg_success"]) : ?>
     	<div class="col-md-12">
@@ -211,14 +278,13 @@
 	<div class="col-md-12">
 		<div class="row">
 
-        <!-- Uncomment march 17 2022 -->
-       <div class="col-md-3">
-		      <div class="row row-heading"></div>
-
+        <!-- Sidepanel UI -->
+        <div class="col-md-3">
+		      <div class="row row-heading">
+		      </div>
 		      <h3 class="mb-2">Contents</h3>
-
 		      <div class="card">
-		          <div class="card-body">
+		          <div class="card-body"> 
 		              <div class="accordion" id="style-settings">
                           <div class="card">
                               <div class="card-header" id="faqhead1">
@@ -261,7 +327,6 @@
                                   </div>
                               </div>
                           </div>
-
                           <div class="card">
                               <div class="card-header" id="faqhead2">
                                   <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq2"
@@ -450,25 +515,25 @@
 		                    <!--    </div>    -->
 		                    <!--</div>-->
 		                    <?php if( count($filtered_news) > 0 ): ?>
-                                <?php 
-                                    switch($selected_template) {
-                                        case "default":
-                                            include("../inc/user/Content_Templates/default.php"); 
-                                            break;
-                                        case "template_1":
-                                            include("../inc/user/Content_Templates/template_1.php"); 
-                                            break;
-                                        case "template_2":
-                                            include("../inc/user/Content_Templates/template_2.php"); 
-                                            break;
-                                        case "template_3":
-                                            include("../inc/user/Content_Templates/template_3.php"); 
-                                            break;
-                                    default:
-                                        // code block
-                                    }
-                                    
-                                ?>
+    		                <?php 
+    		                    switch($selected_template) {
+                                    case "default":
+                                        include("../inc/user/Content_Templates/default.php"); 
+                                        break;
+                                    case "template_1":
+                                        include("../inc/user/Content_Templates/template_1.php"); 
+                                        break;
+                                    case "template_2":
+                                         include("../inc/user/Content_Templates/template_2.php"); 
+                                         break;
+                                    case "template_3":
+                                        include("../inc/user/Content_Templates/template_3.php"); 
+                                         break;
+                                  default:
+                                    // code block
+                                }
+    		                    
+    		                ?>
 		                    <?php else: ?>
 		                        <div class="col-12">
     		                        <div class="no-data-container">
@@ -664,44 +729,489 @@
 		</div>
 	</div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script type="text/javascript" src="../../js/custom/campaignstyle.js"> </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <!-- Custom Script -->
 <script type="text/javascript">
+	// $("#post-column").change(function(){
+    //     let selected = $(this).val()
+    //     let news_classname = $(".news-column").attr("class");
+    //     let classname = news_classname.replace("news-column pb-4", "");
+    //     $(".news-column").removeClass(classname);
+    //     $(".news-column").addClass("col-md-"+selected);
+    // })
     
-    // console.log("test");
-
-    // editModal.on('submit', function (evt) {
-    //     evt.preventDefault();
+    $("#load-more").change(function(){
+        let selected = $(this).val()
+        if( selected === "true" ) {
+            $(".load-more-container button").removeClass("d-none");
+        } else {
+            $(".load-more-container button").addClass("d-none");
+        }
+    })
+    
+    $("#show-custom-filter").change(function(){
+        let selected = $(this).val()
+        if( selected === "true" ) {
+            $(".filter").removeClass("d-none");
+        } else {
+            $(".filter").addClass("d-none");
+        }
+    })
+    
+    $("#show-network-filter").change(function(){
+        let selected = $(this).val()
+        if( selected === "true" ) {
+            $(".networks").removeClass("d-none");
+        } else {
+            $(".networks").addClass("d-none");
+        }
+    })
+    
+    $("#faq4 .btn-apply").on('click', function(){
+        // alert("Template applied");
+    })
+    
+    $(".news-author-container .date-posted").map(function(index, item) {
+        item.innerText = moment(item.innerText).fromNow();
+    });
+    
+    let editModal = $("#edit-modal");
+    let editForm = $("#edit-form");
+    let alertModal = $("#ajax-alert");
+    let alertTimeout = null;
+    
+    // Fields
+    const authorField = editModal.find("#name");
+    const titleField = editModal.find("#title");
+    const descriptionField = editModal.find("#description");
+    
+    // Preview Card
+    const newsImage = editModal.find(".news-image-container img");
+    const newsTitle = editModal.find(".news-heading-container h5");
+    const newsDescription = editModal.find(".news-detail-container p");
+    const authorImage = editModal.find(".news-author-container .autor-name img");
+    const authorName = editModal.find(".news-author-container .autor-name span");
+    const newsDate = editModal.find(".news-author-container .date-posted");
+    
+    const fieldArray = [
+        authorField,
+        titleField,
+        descriptionField
+    ];
+    
+    const previewArray= [
+        authorName,
+        newsTitle,
+        newsDescription
+    ];
+    
+    fieldArray.map((field, index) => {
+       field.on('keyup', function () {
+           previewArray[index].text(field.val());
+       }) 
+    });
+    
+    function editNews(news) {
+        // alert("Under Development");
+        // return false;
         
-    //     let formData = new FormData();
-    //     formData.append('action', "edit");
-    //     formData.append('user_id', <?php echo $UserID; ?>);
-    //     formData.append('news_id', editModal.find("#news_id").val());
-    //     formData.append('news_author', editModal.find("#name").val());
-    //     formData.append('news_title', editModal.find("#title").val());
-    //     formData.append('news_description', editModal.find("#description").val());
-    //     formData.append('user_image', editModal.find("#user_image").get(0).files[0]);
-    //     formData.append('image', editModal.find("#image").get(0).files[0]);
-    //     formData.append('video_url', editModal.find("#video_url").val());
-       
-    //     $.ajax({
-    //         url: "/api/news.php",
-    //         method: "POST",
-    //         contentType: false,
-    //         processData: false,
-    //         data: formData,
-    //         success: function (response) {
-    //             editModal.modal('hide');
-    //             showAlert(alertModal, response.message, response.success);
-    //             updateData(response.data);
-    //         },
-    //         error: function (response) {
-    //             showAlert(alertModal, response.responseJSON.message, response.responseJSON.success);
-    //         }
-    //     });
-    // });
+        let data = JSON.parse(news.getAttribute('data-json'));
+        
+        if (!data || !data.news_id) {
+            return false;
+        }
+        
+        editModal.find("#news_id").val(data.news_id);
+        authorField.val(data.news_author);
+        titleField.val(data.news_title);
+        descriptionField.val(data.news_description);
+        
+        newsImage.attr("src", data.post_image);
+        newsTitle.text(data.news_title);
+        newsDescription.text(data.news_description);
+        authorImage.attr("src", data.user_image);
+        authorName.text(data.news_author);
+        newsDate.text(moment(data.created_at).fromNow());
+        editModal.modal().show();
+    }
+    
+    function pinNews(news) {
+        alert("Under Development");
+        return false;
+    }
+    
+    function loadMore(news) {
+        // alert("Under Development");
+        // return false;
+    }
+    
+    function showAlert(alert, message, success = true) {
+        alertModal.removeClass('alert-danger alert-success');
+        alertModal.find('.ajax-alert-message').text(message);
+        
+        if (success) {
+            alertModal.addClass('alert-success'); 
+        } else {
+            alertModal.addClass('alert-danger'); 
+        }
+        
+        alert.addClass('show');
+        
+        alertTimeout = setTimeout(function() {
+            alert.removeClass('show');
+        }, 8000);
+    }
+    
+    function updateData(news) {
+        let newsContainer = $('#news-' + news.news_id);
+        
+        if (newsContainer) {
+            let upload_dir = "<?php echo $upload_dir; ?>";
+            
+            if (news.post_image) {
+                newsContainer.find('.news-image-container img').attr("src", upload_dir + '/images/' + news.post_image);
+            }
+            
+            if (news.user_image) {
+                newsContainer.find('.news-author-container .autor-name img').attr("src", upload_dir + '/avatar/' + news.user_image);
+            }
+            
+            newsContainer.find('.news-heading-container h5').text(news.title);
+            newsContainer.find('.news-detail-container p').text(news.description);
+            newsContainer.find('.news-author-container .autor-name span').text(news.name);
+        }
+    }
+    
+    alertModal.find('.close').on('click', function () {
+        if (alertTimeout) {
+            clearTimeout(alertTimeout);
+        }
+        alertModal.removeClass('show'); 
+    });
+    
+    editModal.on('hidden.bs.modal', function () {
+        editModal.find("#news_id").val("");
+        editModal.find("#name").val("");
+        editModal.find("#description").val("");
+        editModal.find("#title").val("");
+    });
+    
+    editModal.on('submit', function (evt) {
+        evt.preventDefault();
+        
+        let formData = new FormData();
+        formData.append('action', "edit");
+        formData.append('user_id', <?php echo $UserID; ?>);
+        formData.append('news_id', editModal.find("#news_id").val());
+        formData.append('news_author', editModal.find("#name").val());
+        formData.append('news_title', editModal.find("#title").val());
+        formData.append('news_description', editModal.find("#description").val());
+        formData.append('user_image', editModal.find("#user_image").get(0).files[0]);
+        formData.append('image', editModal.find("#image").get(0).files[0]);
+        formData.append('video_url', editModal.find("#video_url").val());
+        
+        $.ajax({
+            url: "/api/news.php",
+            method: "POST",
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (response) {
+                editModal.modal('hide');
+                showAlert(alertModal, response.message, response.success);
+                updateData(response.data);
+            },
+            error: function (response) {
+                showAlert(alertModal, response.responseJSON.message, response.responseJSON.success);
+            }
+        });
+    });
+    
+    $(".btn-status").on('click', function (evt) {
+        evt.preventDefault();
+        
+        const news_id = $(this).data("news-id");
+        const action = $(this).data("action");
+        
+        var container = $($(this).parent().parent()[0]);
+        var rejectBtn = $(this).next();
+        var rejectBtn1 = $(this).prev();
+        var currentBtn = $(this);
+        
+        $.ajax({
+            url: "/api/news_status.php",
+            method: "POST",
+            dataType: "json",
+            data: {
+                action: action,
+                news_id
+            },
+            success: function (response) {
+                if( response.success ) {
+                    if( action == "approved" ) {
+                        container.removeClass("blur rejected-border")
+                        rejectBtn.removeClass("reject-color")
+                        currentBtn.addClass("approve-color")
+                    } else {
+                        container.addClass("blur rejected-border")
+                        currentBtn.addClass("reject-color")
+                        currentBtn.prev().removeClass("approve-color")
+                    }
+                    
+                }
+                // TO DO - Update Success
+                console.log(response);
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    });
+    
+    window.onload = function(){
+        // FOR USER AVATAR
+		var user_image = document.getElementById("user_image");
+		var user_image_preview = document.getElementById("user-image-preview");
+
+		function readFile1(input){
+
+			if(input.files && input.files[0]){
+				var file_reader = new FileReader();
+
+				file_reader.onload = function(e){
+					user_image_preview.src = e.target.result;
+				}
+
+				file_reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		user_image.oninput = function(){
+			readFile1(this);
+		}
+		
+        // FOR NEWS CONTENT IMAGE
+        var news_image = document.getElementById("image");
+		var news_image_preview = document.getElementById("news-image-preview");
+
+		function readFile2(input){
+
+			if(input.files && input.files[0]){
+				var file_reader = new FileReader();
+
+				file_reader.onload = function(e){
+					news_image_preview.src = e.target.result;
+				}
+
+				file_reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		news_image.oninput = function(){
+			readFile2(this);
+		}
+	}
+
+    var textColor;
+    var defaultTextColor = "#000000";
+
+    window.addEventListener("load", startTextChange, false);
+
+    function startTextChange() {
+        textColor = document.querySelector("#textColor");
+        textColor.value = defaultTextColor;
+        textColor.addEventListener("change", updateTextColor, false);
+        textColor.select();
+    }
+
+    function updateTextColor(event) {
+        document.querySelectorAll("p").forEach(function(p) {
+            p.style.color = event.target.value;
+        });
+        document.querySelectorAll("h5").forEach(function(h5) {
+            h5.style.color = event.target.value;
+        });
+    }
+
+    var borderColor;
+    var defaultBorderColor = "#000000";
+
+    window.addEventListener("load", startBorderChange, false);
+
+    function startBorderChange() {
+        borderColor = document.querySelector("#borderColor");
+        borderColor.value = defaultBorderColor;
+        borderColor.addEventListener("change", updateBorderColor, false);
+        borderColor.select();
+    }
+
+    function updateBorderColor(event) {
+        document.querySelectorAll(".news-container").forEach(function(newscontainer) {
+            newscontainer.style.borderColor = event.target.value;
+        });
+    }
+
+    var bgColor;
+    var defaultBgColor = "#000000";
+
+    window.addEventListener("load", startBgChange, false);
+
+    function startBgChange() {
+        bgColor = document.querySelector("#bgColor");
+        bgColor.value = defaultBgColor;
+        bgColor.addEventListener("change", updateBgColor, false);
+        bgColor.select();
+    }
+
+    function updateBgColor(event) {
+        document.querySelectorAll(".news-container").forEach(function(newscontainer) {
+            newscontainer.style.backgroundColor = event.target.value;
+        });
+    }
+
+    var feedColor;
+    var defaultFeedColor = "#000000";
+
+    window.addEventListener("load", startFeedChange, false);
+
+    function startFeedChange() {
+        feedColor = document.querySelector("#feedColor");
+        feedColor.value = defaultFeedColor;
+        feedColor.addEventListener("change", updateFeedColor, false);
+        feedColor.select();
+    }
+
+    function updateFeedColor(event) {
+        var cardBody = document.querySelector("#cardBody");
+
+        if (cardBody) {
+            cardBody.style.backgroundColor = event.target.value;
+        }
+    }
+
+    function resetColors() {
+        var defaultBgColor = "#000000";
+
+        document.querySelectorAll("p").forEach(function(p) {
+            p.style.color = '';
+        });
+        document.querySelectorAll("h5").forEach(function(h5) {
+            h5.style.color = '';
+        });
+        document.querySelectorAll(".news-container").forEach(function(newscontainer) {
+            newscontainer.style.backgroundColor = '';
+            newscontainer.style.borderColor = '';
+        });
+        var cardBody = document.querySelector("#cardBody");
+
+        if (cardBody) {
+            cardBody.style.backgroundColor = '';
+        }
+
+        document.querySelector("#textColor").value = defaultBgColor;
+        document.querySelector("#borderColor").value = defaultBgColor;
+        document.querySelector("#bgColor").value = defaultBgColor;
+        document.querySelector("#feedColor").value = defaultBgColor;
+    }
+
+    // <option value="12">1</option>
+    // <option value="6">2</option>
+    // <option value="4">3</option>
+    // <option value="3">4</option>
+    // <option value="2">6</option>
+    // <option value="1">12</option>
+
+    document.addEventListener("change", () => {
+        var c = document.getElementById("post-column");
+        var pCol = c.value;
+
+        console.log(typeof pCol);
+
+        switch (pCol) {
+            case '12': {
+                document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
+                    selectPostCol.classList.remove('col-md-1');
+                    selectPostCol.classList.remove('col-md-2');
+                    selectPostCol.classList.remove('col-md-3');
+                    selectPostCol.classList.remove('col-md-4');
+                    selectPostCol.classList.remove('col-md-6');
+                    selectPostCol.classList.remove('col-md-12');
+                    selectPostCol.classList.add('col-md-12');
+                    console.log(selectPostCol.getAttribute("class"));
+                });
+            }
+                break;
+            case '6': {
+                document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
+                    selectPostCol.classList.remove('col-md-1');
+                    selectPostCol.classList.remove('col-md-2');
+                    selectPostCol.classList.remove('col-md-3');
+                    selectPostCol.classList.remove('col-md-4');
+                    selectPostCol.classList.remove('col-md-6');
+                    selectPostCol.classList.remove('col-md-12');
+                    selectPostCol.classList.add('col-md-6');
+                    console.log(selectPostCol.getAttribute("class"));
+                });
+            }   
+                break;         
+            case '4': {
+                document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
+                    selectPostCol.classList.remove('col-md-1');
+                    selectPostCol.classList.remove('col-md-2');
+                    selectPostCol.classList.remove('col-md-3');
+                    selectPostCol.classList.remove('col-md-4');
+                    selectPostCol.classList.remove('col-md-6');
+                    selectPostCol.classList.remove('col-md-12');
+                    selectPostCol.classList.add('col-md-4');
+                    console.log(selectPostCol.getAttribute("class"));
+                });
+            }     
+                break;       
+            case '3': {
+                document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
+                    selectPostCol.classList.remove('col-md-1');
+                    selectPostCol.classList.remove('col-md-2');
+                    selectPostCol.classList.remove('col-md-3');
+                    selectPostCol.classList.remove('col-md-4');
+                    selectPostCol.classList.remove('col-md-6');
+                    selectPostCol.classList.remove('col-md-12');
+                    selectPostCol.classList.add('col-md-3');
+                    console.log(selectPostCol.getAttribute("class"));
+                });
+            }
+                break;
+            case '2': {
+                document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
+                    selectPostCol.classList.remove('col-md-1');
+                    selectPostCol.classList.remove('col-md-2');
+                    selectPostCol.classList.remove('col-md-3');
+                    selectPostCol.classList.remove('col-md-4');
+                    selectPostCol.classList.remove('col-md-6');
+                    selectPostCol.classList.remove('col-md-12');
+                    selectPostCol.classList.add('col-md-2');
+                    console.log(selectPostCol.getAttribute("class"));
+                });
+            }
+                break;
+            case '1': {
+                document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
+                    selectPostCol.classList.remove('col-md-1');
+                    selectPostCol.classList.remove('col-md-2');
+                    selectPostCol.classList.remove('col-md-3');
+                    selectPostCol.classList.remove('col-md-4');
+                    selectPostCol.classList.remove('col-md-6');
+                    selectPostCol.classList.remove('col-md-12');
+                    selectPostCol.classList.add('col-md-1');
+                    console.log(selectPostCol.getAttribute("class"));
+                });
+            }
+                break;
+        
+            default: 
+                break;
+        }
+    });
 
     
 </script>
