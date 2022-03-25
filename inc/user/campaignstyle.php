@@ -243,7 +243,7 @@
                                           <li Class="list-group-item">
                                               <div class="form-group">
                                                   <label>Post Column</label>
-                                                  <select name="post-column" class="form-control input" id="post-column">
+                                                  <select name="post-column" onchange="changeCol()" class="form-control input" id="post-column">
                                                       <option value="12" selected>1</option>
                                                       <option value="6">2</option>
                                                       <option value="4">3</option>

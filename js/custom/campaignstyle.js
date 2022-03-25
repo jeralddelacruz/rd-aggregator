@@ -349,7 +349,7 @@
     // <option value="2">6</option>
     // <option value="1">12</option>
 
-    document.addEventListener("change", () => {
+    function changeCol() {
         var c = document.getElementById("post-column");
         var pCol = c.value;
 
@@ -438,6 +438,7 @@
             default: 
                 break;
         }
-    });
+    }
+
 
     
