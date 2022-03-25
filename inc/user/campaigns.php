@@ -140,7 +140,7 @@
 						<small style="padding-left: 10px;">Manage your Campaigns here</small>
 					</div>
 					<div class="p-2">
-						<? $currentTotalCampaign = count($DB->query("SELECT * FROM {$dbprefix}campaigns WHERE user_id = '{$UserID}' AND campaigns_type = '$campaigns_type'")); ?>
+						<?php $currentTotalCampaign = count($DB->query("SELECT * FROM {$dbprefix}campaigns WHERE user_id = '{$UserID}' AND campaigns_type = '$campaigns_type'")); ?>
 						<?php if( $currentTotalCampaign >= 2 ): ?>
     						<button class="btn btn-outline-secondary" data-toggle="modal" data-target="#limit-modal" 
     						onclick="showLimitNotif(this)" type="button">Create New</button>
