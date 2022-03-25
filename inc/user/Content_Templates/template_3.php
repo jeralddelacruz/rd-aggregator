@@ -75,7 +75,7 @@
                 <div class="row">
                     <?php foreach( $new_result as $key => $item ): ?>
                         <?php if( $key >= 1 && $key <= 4 ): ?>
-                            <div class="col-3">
+                            <div class="col-3 pl-0">
                                 <div id="news-<?= $item['news_id']; ?>" class="news-container <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
                                     <div class="news-config-container">
                                         <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $item['news_id']; ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
@@ -105,7 +105,7 @@
                 <div class="row">
                     <?php foreach( $new_result as $key => $item ): ?>
                         <?php if( $key >= 5 && $key <= 7 ): ?>
-                            <div class="col-4 pb-4 pt-4">
+                            <div class="col-4 pb-4 pt-4 pl-0">
                                 <div id="news-<?= $item['news_id']; ?>" class="news-container <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
                                     <div class="news-config-container">
                                         <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $item['news_id']; ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
@@ -190,7 +190,7 @@
                         <div class="row">
                         <?php foreach( $featured_result as $key => $item ): ?>
                         <?php if( $key >= 2 && $key <= 4 ): ?>
-                            <div class="col-12 co pb-3">
+                            <div class="col-12 co pb-3 pr-0">
                             <div id="news-<?= $item['news_id']; ?>" class="news-container <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
                                     <div class="news-config-container">
                                         <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $item['news_id']; ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
