@@ -5,11 +5,11 @@
 	}
     // $UserID
     
-	$user=$DB->info("user","user_id='$UserID'");
+	$user           =$DB->info("user","user_id='$UserID'");
 	$campaigns_type = 'regular';
-	$id = $_GET["id"];
-	$collection_id = $_GET["collection"];
-	$upload_dir = "/upload/{$UserID}/news";
+	$id             = $_GET["id"];
+	$collection_id  = $_GET["collection"];
+	$upload_dir     = "/upload/{$UserID}/news";
 	
 	// Get collections
     $content_collections = $DB->query("SELECT * FROM {$dbprefix}content_collection WHERE user_id='{$UserID}' {$and_query}");
@@ -17,9 +17,10 @@
     // Get filtered status
 	$filter_search = "";
     if( isset( $_POST['search_input'] ) && $_POST['search_input'] !== "" ){
-        $filter_search = $_POST['search_input'];
-        $filter_status = $_GET['status'] ? $_GET['status'] : "default";
-        $content_collection_id = $content_collections[0]['content_collection_id'];
+        $filter_search          = $_POST['search_input'];
+        $filter_status          = $_GET['status'] ? $_GET['status'] : "default";
+        $content_collection_id  = $content_collections[0]['content_collection_id'];
+
         redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id&status=$filter_status&s=$filter_search");
     }
 	
@@ -28,22 +29,22 @@
 	// Get filtered status
 	$filter_status = "approved";
     if( isset( $_POST['filter_status'] )){
-        $filter_status = $_POST['filter_status'];
-        $content_collection_id = $content_collections[0]['content_collection_id'];
+        $filter_status          = $_POST['filter_status'];
+        $content_collection_id  = $content_collections[0]['content_collection_id'];
+
         redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id&status=$filter_status&s=$filter_search");
     }
 	
 	$filter_status = $_GET['status'] ? $_GET['status'] : "default";
 	
-	
     // Get all news
     $news = $DB->query("SELECT * FROM {$dbprefix}news WHERE users_id LIKE '%\"{$UserID}\"%' AND is_deleted='0' {$additional_query}  {$and_query}");
     
     // Get current user news_updates
-    $news_ids = array_column($news, "news_id"); // Get array of news ids
-    $where_in = "'" . implode("','", $news_ids) . "'"; // Implode for WHERE IN condition
-    $user_news = $DB->query("SELECT * FROM {$dbprefix}news_updates WHERE news_id IN ({$where_in}) AND user_id = '{$UserID}' {$and_query}");
-    $user_news = array_combine(array_column($user_news, 'news_id'), $user_news); // Set news_id as index
+    $news_ids   = array_column($news, "news_id"); // Get array of news ids
+    $where_in   = "'" . implode("','", $news_ids) . "'"; // Implode for WHERE IN condition
+    $user_news  = $DB->query("SELECT * FROM {$dbprefix}news_updates WHERE news_id IN ({$where_in}) AND user_id = '{$UserID}' {$and_query}");
+    $user_news  = array_combine(array_column($user_news, 'news_id'), $user_news); // Set news_id as index
     
     // Function to get user news field by using news_id
     function getUserNews($news, $newsId, $column, $userId) {
@@ -69,14 +70,15 @@
     
     if( !isset($collection_id) ) {
         $content_collection_id = $content_collections[0]['content_collection_id'];
+
         redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id");
     }
     
     // Added else if for template 2 and 3
     // March 17 2022
     // TEMPLATE
-
-    $selected_template = isset($_POST["templateNumber"]) ? filter_input(INPUT_POST, 'templateNumber', FILTER_SANITIZE_STRING) : "template_1";
+    // $selected_template = isset($_POST["templateNumber"]) ? filter_input(INPUT_POST, 'templateNumber', FILTER_SANITIZE_STRING) : "template_1";
+    $selected_template = "template_2";
 
     // Check the Load Count
     $load_count = isset($_POST["loadmore"]) ? $_POST["loadmore"] + 1 : 2;
@@ -85,39 +87,39 @@
         
         // NEWS CONTENTS
         // filter the news for template_1
-        $featured = 0;
-        $trending = 0;
-        $new = 0;
+        $featured   = 0;
+        $trending   = 0;
+        $new        = 0;
         
         $featured_limit = !($load_count % 2 == 0) ? $load_count + 1 : $load_count + 2;
         $trending_limit = $load_count;
-        $new_limit = !($load_count % 2 == 0) ? $load_count + 1 : $load_count + 2 ;
+        $new_limit      = !($load_count % 2 == 0) ? $load_count + 1 : $load_count + 2 ;
         
         // Get filtered collection
     	$filter_collection = '';
         if( isset( $_POST['collections_filter'] )){
             $filter_collection = $_POST['collections_filter'];
+
             redirect("index.php?cmd=campaignstyle&id=$id&collection=$filter_collection&status=$filter_status");
         }
     	
-    	$filter_collection = $_GET['collection'] ? "AND nws.content_collection_id = '{$_GET['collection']}'" : "";
-    	
-    	$filter_status_query = $_GET['status'] ? "AND nws.status = '{$filter_status}'" : "";
-    	
-    	$filter_search_query = $_GET['s'] ? "AND nws.news_title LIKE '%".$filter_search."%'" : "";
+    	$filter_collection      = $_GET['collection'] ? "AND nws.content_collection_id = '{$_GET['collection']}'" : "";
+    	$filter_status_query    = $_GET['status'] ? "AND nws.status = '{$filter_status}'" : "";
+    	$filter_search_query    = $_GET['s'] ? "AND nws.news_title LIKE '%".$filter_search."%'" : "";
     	
     	$additional_query = "";
     	if( $filter_search_query === "" ){
     	    $additional_query = $filter_collection . " " . $filter_status_query;
+
     	}else{
     	    $additional_query = $filter_search_query;
+
     	}
         
         // separate the news depends on the category
         $featured_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured' {$additional_query} {$and_query} LIMIT {$featured_limit}");
         $trending_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending' {$additional_query} {$and_query} LIMIT {$trending_limit}");
-        $new_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New' {$additional_query} {$and_query} LIMIT {$new_limit}");
-        // echo json_encode( $featured_result, true );
+        $new_result      = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New' {$additional_query} {$and_query} LIMIT {$new_limit}");
         
         $filtered_news = $featured_result;
 
@@ -126,62 +128,54 @@
         // filter the news for template_2
         
         // Get the latest news contents
-        $content_ids = json_decode( $DB->query("SELECT * FROM {$dbprefix}campaigns WHERE campaigns_id = '{$id}'")[0]["content_id"] );
-        $content_category_ids = json_decode( $DB->query("SELECT * FROM {$dbprefix}content WHERE campaigns_id = '{$id}'")[0]["content_id"] );
-        
-        $latest_articles = array();
-        $array = implode("','",$content_ids);
-        $latest_articles_result = $DB->query("SELECT * FROM {$dbprefix}news WHERE content_id IN('".$array."') LIMIT 9");
-        
-        $categories = $DB->query("SELECT * FROM {$dbprefix}category WHERE user_id = '{$UserID}'");
-        // echo count($latest_articles_result);
-        // foreach( $latest_articles_result as $key => $item ){
-        //     $news_title = $item["news_title"];
-        //     $news_image = "";
-            
-        //     if( $item["news_image"] != "[null]" || $item["news_image"] != '[""]' ) {
-        //         $news_image = json_decode($item["news_image"])[0];
-        //     }
-            
-        //     $latest_articles[] = [
-        //             "news_id"       => $item["news_id"],
-        //             "news_title"    => $news_title,
-        //             "news_image"    => $news_image,
-        //             "news_author"   => $item["news_author"],
-        //             "news_description"  => "",
-        //             "category"      => "Test",
-        //             "news_link"     => $item["news_link"],
-        //     ];
-        // }
-        
-        
-        // echo json_encode( $latest_articles );
-        $featured = 0;
-        $trending = 0;
-        $new = 0;
-        
-        
-        
-        // separate the news depends on the category
-        $featured_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured'");
-        $trending_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending'");
-        $new_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New'");
-        // echo json_encode( $featured_result, true );
+        $content_collection_id  = $DB->query("SELECT * FROM {$dbprefix}campaigns WHERE campaigns_id = {$id}")[0]["content_collection_id"];
+        $contents            = $DB->query("SELECT * FROM {$dbprefix}content WHERE content_collection_id = '{$content_collection_id}'");
 
-        $filtered_news = $featured_result;
+        $content_ids = array();
+        foreach ($contents as $key => $content) {
+            $content_ids[] = $content["content_id"];
+        }
+
+        $latest_articles        = array();
+        $array                  = implode(",", $content_ids);
+
+        $latest_articles_result = $DB->query("SELECT * FROM {$dbprefix}news WHERE content_id IN('".$array."') LIMIT 9");
+        $categories             = $DB->query("SELECT category_id FROM {$dbprefix}content WHERE content_id IN('".$array."') GROUP BY category_id");
+        echo json_encode( $categories );
+        foreach( $latest_articles_result as $key => $item ){
+            $news_title = $item["news_title"];
+            $news_image = "";
+            
+            if( $item["news_image"] != "[null]" || $item["news_image"] != '[""]' ) {
+                $news_image = json_decode($item["news_image"])[0];
+            }
+            
+            $latest_articles[] = [
+                    "news_id"               => $item["news_id"],
+                    "news_title"            => $news_title,
+                    "news_image"            => $news_image,
+                    "news_author"           => $item["news_author"],
+                    "news_description"      => "",
+                    "category"              => "Test",
+                    "news_link"             => $item["news_link"],
+                    "status"                => $item["status"],
+                    "news_published_date"   => $item["news_published_date"],
+            ];
+        }
+
+        $filtered_news = $latest_articles;
 
     } elseif ( $selected_template === "template_3" ){
-                // NEWS CONTENTS
+        // NEWS CONTENTS
         // filter the news for template_3
-        $featured = 0;
-        $trending = 0;
-        $new = 0;
+        $featured   = 0;
+        $trending   = 0;
+        $new        = 0;
         
         // separate the news depends on the category
-        $featured_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured'");
-        $trending_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending'");
-        $new_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New'");
-        // echo json_encode( $featured_result, true );
+        $featured_result    = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured'");
+        $trending_result    = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending'");
+        $new_result         = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New'");
 
         $filtered_news = $featured_result;
     }
@@ -193,6 +187,7 @@
 
 <!-- CODE_SECTION_HTML_3: CONTENT_MAIN -->
 <div class="container-fluid">
+
 	<!-- CODE_SECTION_PHP_HTML_1: SUCCESS_AND_ERROR_ALERT -->
 	<?php if($_SESSION["msg_success"]) : ?>
     	<div class="col-md-12">
@@ -218,12 +213,12 @@
 
         <!-- Uncomment march 17 2022 -->
        <div class="col-md-3">
-		      <div class="row row-heading">
-		      </div>
+		      <div class="row row-heading"></div>
+
 		      <h3 class="mb-2">Contents</h3>
+
 		      <div class="card">
 		          <div class="card-body">
-		                
 		              <div class="accordion" id="style-settings">
                           <div class="card">
                               <div class="card-header" id="faqhead1">
@@ -266,6 +261,7 @@
                                   </div>
                               </div>
                           </div>
+
                           <div class="card">
                               <div class="card-header" id="faqhead2">
                                   <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq2"
@@ -454,25 +450,25 @@
 		                    <!--    </div>    -->
 		                    <!--</div>-->
 		                    <?php if( count($filtered_news) > 0 ): ?>
-    		                <?php 
-    		                    switch($selected_template) {
-                                    case "default":
-                                        include("../inc/user/Content_Templates/default.php"); 
-                                        break;
-                                    case "template_1":
-                                        include("../inc/user/Content_Templates/template_1.php"); 
-                                        break;
-                                    case "template_2":
-                                         include("../inc/user/Content_Templates/template_2.php"); 
-                                         break;
-                                    case "template_3":
-                                        include("../inc/user/Content_Templates/template_3.php"); 
-                                         break;
-                                  default:
-                                    // code block
-                                }
-    		                    
-    		                ?>
+                                <?php 
+                                    switch($selected_template) {
+                                        case "default":
+                                            include("../inc/user/Content_Templates/default.php"); 
+                                            break;
+                                        case "template_1":
+                                            include("../inc/user/Content_Templates/template_1.php"); 
+                                            break;
+                                        case "template_2":
+                                            include("../inc/user/Content_Templates/template_2.php"); 
+                                            break;
+                                        case "template_3":
+                                            include("../inc/user/Content_Templates/template_3.php"); 
+                                            break;
+                                    default:
+                                        // code block
+                                    }
+                                    
+                                ?>
 		                    <?php else: ?>
 		                        <div class="col-12">
     		                        <div class="no-data-container">
@@ -674,38 +670,38 @@
 <!-- Custom Script -->
 <script type="text/javascript">
     
-    console.log("test");
+    // console.log("test");
 
-    editModal.on('submit', function (evt) {
-        evt.preventDefault();
+    // editModal.on('submit', function (evt) {
+    //     evt.preventDefault();
         
-        let formData = new FormData();
-        formData.append('action', "edit");
-        formData.append('user_id', <?php echo $UserID; ?>);
-        formData.append('news_id', editModal.find("#news_id").val());
-        formData.append('news_author', editModal.find("#name").val());
-        formData.append('news_title', editModal.find("#title").val());
-        formData.append('news_description', editModal.find("#description").val());
-        formData.append('user_image', editModal.find("#user_image").get(0).files[0]);
-        formData.append('image', editModal.find("#image").get(0).files[0]);
-        formData.append('video_url', editModal.find("#video_url").val());
+    //     let formData = new FormData();
+    //     formData.append('action', "edit");
+    //     formData.append('user_id', <?php echo $UserID; ?>);
+    //     formData.append('news_id', editModal.find("#news_id").val());
+    //     formData.append('news_author', editModal.find("#name").val());
+    //     formData.append('news_title', editModal.find("#title").val());
+    //     formData.append('news_description', editModal.find("#description").val());
+    //     formData.append('user_image', editModal.find("#user_image").get(0).files[0]);
+    //     formData.append('image', editModal.find("#image").get(0).files[0]);
+    //     formData.append('video_url', editModal.find("#video_url").val());
        
-        $.ajax({
-            url: "/api/news.php",
-            method: "POST",
-            contentType: false,
-            processData: false,
-            data: formData,
-            success: function (response) {
-                editModal.modal('hide');
-                showAlert(alertModal, response.message, response.success);
-                updateData(response.data);
-            },
-            error: function (response) {
-                showAlert(alertModal, response.responseJSON.message, response.responseJSON.success);
-            }
-        });
-    });
+    //     $.ajax({
+    //         url: "/api/news.php",
+    //         method: "POST",
+    //         contentType: false,
+    //         processData: false,
+    //         data: formData,
+    //         success: function (response) {
+    //             editModal.modal('hide');
+    //             showAlert(alertModal, response.message, response.success);
+    //             updateData(response.data);
+    //         },
+    //         error: function (response) {
+    //             showAlert(alertModal, response.responseJSON.message, response.responseJSON.success);
+    //         }
+    //     });
+    // });
 
     
 </script>
