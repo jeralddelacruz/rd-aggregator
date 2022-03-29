@@ -334,7 +334,7 @@ section {
 }
 
 .login-wrap {
-    max-width: 540px;
+    max-width: 750px;
     padding-top: 8vh;
     margin: 0 auto;
 }
@@ -387,11 +387,13 @@ section {
 
 .login-form .form-group label {
     display: block;
+    color: black;
+    font-weight: 600;
 }
 
 .login-content {
     background: #bccbde;
-    padding: 30px 30px 20px;
+    padding: 40px 40px 30px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
@@ -400,11 +402,20 @@ section {
     background-color: rgba(255, 255, 255, 0.37);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 9px 9px 24px -6px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 9px 9px 24px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 9px 9px 24px -6px rgba(0,0,0,0.75);
 }
 
-.social-login-content {
-    border-top: 1px solid #e7e7e7;
-    border-bottom: 1px solid #e7e7e7;
+/* .social-login-content {
+    border-top: 1.5px solid #367D3A;
+    border-bottom: 1.5px solid #367D3A;
+    padding: 20px 0px;
+} */
+
+.login-form {
+    border-top: 1.5px solid #367D3A;
+    border-bottom: 1.5px solid #367D3A;
     padding: 20px 0px;
 }
 
@@ -456,18 +467,22 @@ section {
 /*-----------------------------------------------------*/
 /* ----- Buttons----- */
 .au-btn {
-    line-height: 45px;
-    padding: 0 35px;
-    text-transform: uppercase;
+    /* line-height: 45px; */
+    padding: 20px 20px;
+    width: 100%;
+    font-size: 17px;
     color: #fff;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    -webkit-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    transition: all 0.3s ease;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
     cursor: pointer;
+    box-shadow: 6px 7px 38px -13px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 6px 7px 38px -13px rgba(0,0,0,0.75);
+    -moz-box-shadow: 6px 7px 38px -13px rgba(0,0,0,0.75);
 }
 
 .au-btn:hover {
@@ -475,6 +490,9 @@ section {
     background: #006466;
     border: 1px solid #006466;
     color: #ffffff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }
 
 .au-btn--blue2 {
@@ -746,6 +764,13 @@ section {
     -o-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     transition: all 0.5s ease;
+}
+
+.au-input:focus{
+    border: 1px solid #26762F;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .au-input--style2 {

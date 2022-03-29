@@ -56,6 +56,8 @@
                 <div class="container h-100 d-flex align-items-center">
                     <div class="login-wrap p-0">
                         <div class="login-content">
+                            <div class="row align-items-center">
+                            <div class="col-6">
                             <div class="login-logo">
                                 <a href="#">
                                 <?php if ($WEBSITE["logo"]) : ?>
@@ -63,7 +65,8 @@
                                 <?php endif; ?>
                                 </a>
                             </div>
-                            
+                            </div>
+                            <div class="col-6">
                             <?php if( !$is_subdomain_exist && !$is_maindomain ): ?>
                                 <h3>Sorry! this domain is not registered.</h3>
                             <?php else: ?>
@@ -75,7 +78,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                             <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 </div>

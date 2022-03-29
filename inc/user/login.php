@@ -37,6 +37,8 @@
 <?php elseif($THEME[0][0] == 2) : ?>
 <div class="login-wrap p-0">
 	<div class="login-content">
+		<div class="row align-items-center">
+			<div class="col-6">
 		<div class="login-logo">
 			<a href="#">
 				<?php if ($WEBSITE["logo"]) : ?>
@@ -44,6 +46,9 @@
 				<?php endif; ?>
 			</a>
 		</div>
+
+		</div>
+		<div class="col-6">
 		<div class="login-form">
 			<form method="post" action="index.php?cmd=home" class="form-signin">
 				<?php if ($_POST["LoginSubmit"]) : ?>
@@ -60,15 +65,15 @@
                     <h3>Sorry! this domain is not registered.</h3>
                 <?php else: ?>
     				<div class="form-group">
-    					<label>Email Address</label>
+					<i class="fa fa-envelope" aria-hidden="true" style="float: left; padding: 5px; padding-top: 4px; color:black"></i><label>Email Address</label>
     					<input class="au-input au-input--full" type="email" name="LoginName" placeholder="Eg. email@mail.com">
     				</div>
     				<div class="form-group">
-    					<label>Password</label>
-    					<input class="au-input au-input--full" type="password" name="LoginPass" placeholder="•••••••">
+					<i class="fa fa-lock" aria-hidden="true" style="float: left; padding: 5px; padding-top: 5px; color:black"></i><label>Password</label>
+    				    <input class="au-input au-input--full" type="password" name="LoginPass" placeholder="•••••••">
     				</div>
     
-    				<button class="au-btn au-btn--block au-btn--blue m-b-20" name="LoginSubmit" value="LOGIN"  type="submit">
+    				<button class="au-btn au-btn--block au-btn--blue m-b-20" name="LoginSubmit" value="LOGIN"  type="submit"  style="padding: 10px;">
     					<i class="fa fa-sign-in"></i> &nbsp;Sign-In
     				</button>
     
@@ -78,6 +83,8 @@
     					</label>
     				</div>
     			<?php endif; ?>
+				</div>
+				</div>
 			</form>
 		</div>
 	</div>
