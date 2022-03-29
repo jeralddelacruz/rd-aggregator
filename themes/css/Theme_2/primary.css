@@ -7,18 +7,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .account2 .name {
-    color: #ffffff;
+    color: #616161;
 }
 
 
 .menu-sidebar2 {
     box-shadow: 0 0 0 transparent;
-    background-color: #f68d5e;
+    background-color: transparent;
 }
 
 .menu-sidebar2 .logo {
-    background-color: #212f45;
-    text-align: center;
+    background-color: #ffffff;
 }
 
 .menu-sidebar2 .logo a {
@@ -26,8 +25,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .menu-sidebar2__content {
-    border-right: 1px solid #bccbde;
-    background-color: #212f45;
+    background-color: #ffffff;
 }
 
 .account2 {
@@ -40,29 +38,27 @@ h1, h2, h3, h4, h5, h6 {
     color: #ff8484;
 }
 
+.navbar-sidebar2 {
+    padding: 0 10px;
+}
+
 .navbar-sidebar2 .navbar__list li a {
     /* border-bottom: 1px solid #a3b0c1; */
-    color: #fffefe;
+    color: #616161;
 }
 
 .navbar-sidebar2 .navbar__list li:hover, 
 .navbar-sidebar2 .navbar__list li.active {
-    background-color: #006466;
-    -webkit-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-    border-right: 5px solid #000;
+    background-color: #EDE7F6;
     border-radius: 10px;
-    margin-left: 15px;
 }
 
 .navbar-sidebar2 .navbar__list li:hover > a {
-    color: #f7f7f7 !important;
+    color: #5E35B1 !important;
 }
 
 .navbar-sidebar2 .navbar__list li.active > a {
-    color: #5a189a;
+    color: #5E35B1;
 }
 
 .account-dropdown__item a:hover {
@@ -95,12 +91,12 @@ h1, h2, h3, h4, h5, h6 {
 .page-content--bge5 {background-color: #006466;}
 
 .header-desktop2 {
-    background: ##f68d5d;
+    background: #f68d5d;
 }
 
 .img-logo {
     max-width: 185px;
-    margin: 0 auto;
+    margin: 0;
 }
 
 .btn-primary{
@@ -194,4 +190,21 @@ button.au-btn.au-btn--blue.m-b-20.btn-update {
 
 .modal-content {
     border: 1px solid #006466 !important;
+}
+
+.fa.fa-bars {
+    font-size: 20px;
+    color: #5E35B1;
+    padding: 10px;
+    background-color: #EDE7F6;
+    border-radius: 30%;
+}
+
+.fa.fa-bars:hover {
+    font-size: 20px;
+    color: #ffffff;
+    padding: 10px;
+    background-color: #5E35B1;
+    border-radius: 30%;
+    transition: 0.3s ease;
 }
