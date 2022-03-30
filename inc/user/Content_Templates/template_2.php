@@ -47,7 +47,7 @@
                                     <div class="news-config-container">
                                         <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $news_id ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
                                         <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'rejected' ? 'reject-color' : '' ?>" data-news-id="<?= $news_id ?>" data-action="rejected"><i class="fas fa-minus-circle"></i></button>
-                                        <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?>" onClick="pinNews(this)"><i class="fas fa-thumbtack"></i></button>
+                                        <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?> pinNews"><i class="fas fa-thumbtack"></i></button>
                                         <button class="btn c-btn-primary btn-block m-0" onClick="editNews(this)" data-json='<?= $news ?>'><i class="fa fa-pencil"></i></button>
                                     </div>
                                     <div class="news-image-container">
@@ -79,7 +79,37 @@
                                     <div class="news-config-container">
                                         <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $item['news_id']; ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
                                         <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'rejected' ? 'reject-color' : '' ?>" data-news-id="<?= $item['news_id']; ?>" data-action="rejected"><i class="fas fa-minus-circle"></i></button>
-                                        <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?>" onClick="pinNews(this)"><i class="fas fa-thumbtack"></i></button>
+                                        <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?> pinNews"><i class="fas fa-thumbtack"></i></button>
+                                        <button class="btn c-btn-primary btn-block m-0" onClick="editNews(this)" data-json='<?= $item ?>'><i class="fa fa-pencil"></i></button>
+                                    </div>
+                                    <div class="news-image-container">
+                                        <img class="col-12" src="<?= $item["news_image"] ?>">
+                                    </div>
+                                    <div class="news-content-container">
+                                        <div class="news-heading-container mb-3">
+                                            <h5><?= $item['news_title']; ?></h5>
+                                        </div>
+                                        <div class="news-author-container">
+                                            <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
+                                            <p class="date-posted"><?= $item['news_published_date']; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="row">
+                    <?php foreach( $filtered_news as $key => $item ): ?>
+                        <?php if( $key >= 4 && $key <= 5 ): ?>
+                            <div class="col-12 pb-4">
+                                <div id="news-<?= $item['news_id']; ?>" class="news-container <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
+                                    <div class="news-config-container">
+                                        <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $item['news_id']; ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
+                                        <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'rejected' ? 'reject-color' : '' ?>" data-news-id="<?= $item['news_id']; ?>" data-action="rejected"><i class="fas fa-minus-circle"></i></button>
+                                        <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?> pinNews"><i class="fas fa-thumbtack"></i></button>
                                         <button class="btn c-btn-primary btn-block m-0" onClick="editNews(this)" data-json='<?= $item ?>'><i class="fa fa-pencil"></i></button>
                                     </div>
                                     <div class="news-image-container">
@@ -129,7 +159,7 @@
                                 <div class="news-config-container">
                                     <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $news_id ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
                                     <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'rejected' ? 'reject-color' : '' ?>" data-news-id="<?= $news_id ?>" data-action="rejected"><i class="fas fa-minus-circle"></i></button>
-                                    <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?>" onClick="pinNews(this)"><i class="fas fa-thumbtack"></i></button>
+                                    <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?> pinNews"><i class="fas fa-thumbtack"></i></button>
                                     <button class="btn c-btn-primary btn-block m-0" onClick="editNews(this)" data-json='<?= $news ?>'><i class="fa fa-pencil"></i></button>
                                 </div>
                                 <div class="news-image-container">
@@ -162,7 +192,7 @@
                                         <div class="news-config-container">
                                             <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $item['news_id']; ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
                                             <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'rejected' ? 'reject-color' : '' ?>" data-news-id="<?= $item['news_id']; ?>" data-action="rejected"><i class="fas fa-minus-circle"></i></button>
-                                            <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?>" onClick="pinNews(this)"><i class="fas fa-thumbtack"></i></button>
+                                            <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?> pinNews"><i class="fas fa-thumbtack"></i></button>
                                             <button class="btn c-btn-primary btn-block m-0" onClick="editNews(this)" data-json='<?= $item ?>'><i class="fa fa-pencil"></i></button>
                                         </div>
                                         <div class="row align-items-center"> 
@@ -191,43 +221,6 @@
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="col-12 col-md-4">
-                <div class="row">
-                    <?php foreach( $filtered_news as $key => $item ): ?>
-                        <?php if( $key >= 3 && $key <= 5 ): ?>
-                            <div class="col-12 pb-4">
-                                <div id="news-<?= $item['news_id']; ?>" class="news-container <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
-                                    <div class="news-config-container">
-                                        <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $item['news_id']; ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
-                                        <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'rejected' ? 'reject-color' : '' ?>" data-news-id="<?= $item['news_id']; ?>" data-action="rejected"><i class="fas fa-minus-circle"></i></button>
-                                        <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?>" onClick="pinNews(this)"><i class="fas fa-thumbtack"></i></button>
-                                        <button class="btn c-btn-primary btn-block m-0" onClick="editNews(this)" data-json='<?= $item ?>'><i class="fa fa-pencil"></i></button>
-                                    </div>
-                                    <div class="news-image-container">
-                                        <img class="col-12" src="<?= $item["news_image"] ?>">
-                                    </div>
-                                    <div class="news-content-container">
-                                        <div class="news-heading-container mb-3">
-                                            <h5><?= $item['news_title']; ?></h5>
-                                        </div>
-                                        <div class="news-author-container">
-                                            <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
-                                            <p class="date-posted"><?= $item['news_published_date']; ?></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-
-        <div class="row container categorized-section">
-            <div class="col-12">
-                <h4>Category Money</h4>
-            </div>
-
             <div class="col-12">
                 <div class="row">
                     <div class="col-12">
@@ -236,5 +229,13 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="col-12">
+    <div class="load-more-container">
+        <form method="POST">
+            <input type="hidden" name="loadmore" value="<?= $load_count ?>">
+            <button type="submit" class="btn btn-secondary">LOAD MORE</button>
+        </form>
     </div>
 </div>

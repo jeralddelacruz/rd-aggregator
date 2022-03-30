@@ -77,8 +77,7 @@
     // Added else if for template 2 and 3
     // March 17 2022
     // TEMPLATE
-    // $selected_template = isset($_POST["templateNumber"]) ? filter_input(INPUT_POST, 'templateNumber', FILTER_SANITIZE_STRING) : "template_1";
-    $selected_template = "template_2";
+    $selected_template = isset($_POST["templateNumber"]) ? filter_input(INPUT_POST, 'templateNumber', FILTER_SANITIZE_STRING) : "template_1";
 
     // Check the Load Count
     $load_count = isset($_POST["loadmore"]) ? $_POST["loadmore"] + 1 : 2;
@@ -141,7 +140,6 @@
 
         $latest_articles_result = $DB->query("SELECT * FROM {$dbprefix}news WHERE content_id IN('".$array."') LIMIT 9");
         $categories             = $DB->query("SELECT category_id FROM {$dbprefix}content WHERE content_id IN('".$array."') GROUP BY category_id");
-        echo json_encode( $categories );
         foreach( $latest_articles_result as $key => $item ){
             $news_title = $item["news_title"];
             $news_image = "";

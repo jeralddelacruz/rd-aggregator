@@ -104,10 +104,22 @@
         editModal.modal().show();
     }
     
-    function pinNews(news) {
-        alert("Under Development");
-        return false;
-    }
+    // function pinNews(this) {
+    //     var pinned = $(this);
+    //     pinned.parents('div').find('.news-container').hide();
+    //     const news_containers = document.querySelectorAll('.news-container');
+    //     news_containers.insertBefore(pinned, news_containers.children[0]);
+    // }
+
+    $('.pinNews').on('click', function(){
+        // var pinned = $(this).parent().parent().attr('id');
+        const pinned = document.querySelectorAll('.news-container').lastElementChild;
+        console.log(pinned);
+        const news_containers = document.querySelectorAll('.news-container');
+        console.log(news_containers);
+        // news_containers[0].id = pinned;
+        // news_containers.insertBefore(pinned, news_containers.children[0]);
+    })
     
     function loadMore(news) {
         // alert("Under Development");

@@ -20,8 +20,9 @@
                 <a href="#">
                     <img src="../img/<?php echo $WEBSITE["logo"];?>" alt="<?php echo $WEBSITE['site_name']; ?>" class="img-logo" />
                 </a>
+                <i id="sidebar__menuBtn" onclick="toggleNav()" class="fa fa-bars"></i>
             </div>
-            <div class="menu-sidebar2__content js-scrollbar1">
+            <div id="menu-sidebar2__content" class="menu-sidebar2__content js-scrollbar1">
                 <div class="account2">
                     <!--<div class="image img-cir img-m-120">-->
                     <!--    <img src="<?php //echo $_SESSION['user_avatar']; ?>" alt="<?php //echo $_SESSION["user_name"]; ?>" />-->
@@ -36,7 +37,7 @@
         <!-- END MENU SIDEBAR-->
 
         <!-- PAGE CONTAINER-->
-        <div class="page-container2">
+        <div id="page-container2" class="page-container2">
             <!-- HEADER DESKTOP-->
             <header class="header-desktop2">
                 <div class="section__content section__content--p30">
@@ -85,6 +86,21 @@
                 </div>
             </aside>
             <!-- END HEADER DESKTOP-->
+
+            <script>
+                function toggleNav() {
+
+                    if(document.getElementById("menu-sidebar2__content").style.marginLeft == "-300px") {
+                        document.getElementById("menu-sidebar2__content").style.width = "300px";
+                        document.getElementById("menu-sidebar2__content").style.marginLeft = "0";
+                        document.getElementById("page-container2").style.paddingLeft = "300px";
+                    } else {
+                        document.getElementById("menu-sidebar2__content").style.width = "0";
+                        document.getElementById("menu-sidebar2__content").style.marginLeft = "-300px";
+                        document.getElementById("page-container2").style.paddingLeft = "0";
+                    }
+                }
+            </script>
 
             <section class="p-t-95">
                 <div class="container-fluid">
