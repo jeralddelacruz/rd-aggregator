@@ -49,6 +49,8 @@ if($_POST["submit"]){
 <?php elseif ($THEME[0][0] == 2) : ?>
 	<div class="login-wrap p-0">
 		<div class="login-content">
+			<div class="row align-items-center">
+				<div class="col-6">
 			<div class="login-logo">
 				<a href="#">
 				<?php if ($WEBSITE["logo"]) : ?>
@@ -56,8 +58,11 @@ if($_POST["submit"]){
 				<?php endif; ?>
 				</a>
 			</div>
+			</div>
+
+			<div class="col-6">
 			<div class="login-form">
-				<div class="form-group"><h4 class="text-center text-uppercase">Forgot Password</h4></div>
+				<div class="form-group"><h4 class="text-center" style="font-size: 20px;">Forgot Password</h4></div>
 
 				<form method="post" class="form-signin">
 				<?php if($_GET["error"]) : ?>
@@ -66,13 +71,15 @@ if($_POST["submit"]){
 					<h5 class="title text-center text-success" style="margin-top:15px;line-height:1.5;">Newly generatad <strong>Password</strong> has been <strong>sent</strong> to your <strong>E-mail Address</strong>.<br />Read it carefully and follow the instructions provided within.<br /><br /><a href="./">Sign In</a></h5>
 				<?php else : ?>
 					<div class="form-group">
-						<label>Email Address</label>
+					<i class="fa fa-envelope" aria-hidden="true" style="float: left; padding: 5px; padding-top: 4px; color:black"></i><label>Email Address</label>
 						<input class="au-input au-input--full" type="email" name="email" placeholder="Email">
 					</div>
 					
-					<button class="au-btn au-btn--block au-btn--blue m-b-20" name="submit" value="Continue" type="submit">Submit</button>
+					<button class="au-btn au-btn--block au-btn--blue m-b-20" name="submit" value="Continue" type="submit" style="padding: 10px;">Submit</button>
 				</form>
 				<?php endif; ?>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
