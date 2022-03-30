@@ -16,7 +16,7 @@
                     var mes_body= themeId == 2 ? `<i class="zmdi zmdi-notifications"></i>
                                     <div class="notifi-dropdown js-dropdown">
                                         <div class="notifi__title">
-                                            <p>Notifications</p>
+                                            <p><b>All Notifications</b></p>
                                         </div>
                                         
                                         ${res[1]}
