@@ -26,6 +26,13 @@
     }
     
     if (isset($_POST['action'])) {
+
+        if( $_POST['action'] == "pin" ){
+
+        }else{
+            
+        }
+
         $news_id = $_POST['news_id'];
         $action = $_POST['action'];
         
