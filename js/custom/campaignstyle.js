@@ -1,5 +1,4 @@
-
-	// $("#post-column").change(function(){
+// $("#post-column").change(function(){
     //     let selected = $(this).val()
     //     let news_classname = $(".news-column").attr("class");
     //     let classname = news_classname.replace("news-column pb-4", "");
@@ -7,8 +6,6 @@
     //     $(".news-column").addClass("col-md-"+selected);
     // })
     
-
-
     $("#load-more").change(function(){
         let selected = $(this).val()
         if( selected === "true" ) {
@@ -104,22 +101,10 @@
         editModal.modal().show();
     }
     
-    // function pinNews(this) {
-    //     var pinned = $(this);
-    //     pinned.parents('div').find('.news-container').hide();
-    //     const news_containers = document.querySelectorAll('.news-container');
-    //     news_containers.insertBefore(pinned, news_containers.children[0]);
-    // }
-
-    $('.pinNews').on('click', function(){
-        // var pinned = $(this).parent().parent().attr('id');
-        const pinned = document.querySelectorAll('.news-container').lastElementChild;
-        console.log(pinned);
-        const news_containers = document.querySelectorAll('.news-container');
-        console.log(news_containers);
-        // news_containers[0].id = pinned;
-        // news_containers.insertBefore(pinned, news_containers.children[0]);
-    })
+    function pinNews(news) {
+        alert("Under Development");
+        return false;
+    }
     
     function loadMore(news) {
         // alert("Under Development");
@@ -143,7 +128,7 @@
         }, 8000);
     }
     
-    function updateData(news) { 
+    function updateData(news) {
         let newsContainer = $('#news-' + news.news_id);
         
         if (newsContainer) {
@@ -163,9 +148,50 @@
         }
     }
     
-
+    alertModal.find('.close').on('click', function () {
+        if (alertTimeout) {
+            clearTimeout(alertTimeout);
+        }
+        alertModal.removeClass('show'); 
+    });
     
-
+    editModal.on('hidden.bs.modal', function () {
+        editModal.find("#news_id").val("");
+        editModal.find("#name").val("");
+        editModal.find("#description").val("");
+        editModal.find("#title").val("");
+    });
+    
+    editModal.on('submit', function (evt) {
+        evt.preventDefault();
+        
+        let formData = new FormData();
+        formData.append('action', "edit");
+        formData.append('user_id', editModal.find("#user_id").val());
+        formData.append('news_id', editModal.find("#news_id").val());
+        formData.append('news_author', editModal.find("#name").val());
+        formData.append('news_title', editModal.find("#title").val());
+        formData.append('news_description', editModal.find("#description").val());
+        formData.append('user_image', editModal.find("#user_image").get(0).files[0]);
+        formData.append('image', editModal.find("#image").get(0).files[0]);
+        formData.append('video_url', editModal.find("#video_url").val());
+        
+        $.ajax({
+            url: "/api/news.php",
+            method: "POST",
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (response) {
+                editModal.modal('hide');
+                showAlert(alertModal, response.message, response.success);
+                updateData(response.data);
+            },
+            error: function (response) {
+                showAlert(alertModal, response.responseJSON.message, response.responseJSON.success);
+            }
+        });
+    });
     
     $(".btn-status").on('click', function (evt) {
         evt.preventDefault();
@@ -192,12 +218,13 @@
                         container.removeClass("blur rejected-border")
                         rejectBtn.removeClass("reject-color")
                         currentBtn.addClass("approve-color")
-                    } else {
+                    } else if( action == "rejected" ) {
                         container.addClass("blur rejected-border")
                         currentBtn.addClass("reject-color")
                         currentBtn.prev().removeClass("approve-color")
+                    } else if( action == "pin" ) {
+                        
                     }
-                    
                 }
                 // TO DO - Update Success
                 console.log(response);
@@ -361,7 +388,7 @@
     // <option value="2">6</option>
     // <option value="1">12</option>
 
-    function changeCol() {
+    document.addEventListener("change", () => {
         var c = document.getElementById("post-column");
         var pCol = c.value;
 
@@ -450,7 +477,4 @@
             default: 
                 break;
         }
-    }
-
-
-    
+    });
