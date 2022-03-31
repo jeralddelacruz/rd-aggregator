@@ -87,9 +87,17 @@ p {
 }
 
 .card {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.card .card-header{
+    background-color: transparent !important;
+}
+
+.card .card-footer{
+    background-color: transparent !important;
 }
 
 .btn {
@@ -105,6 +113,7 @@ body {
     font-size: 16px;
     line-height: 1.625;
     color: #666;
+    background-color: #fff;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -1202,7 +1211,7 @@ section {
 .card {
     margin-bottom: 30px;
     /*border-top: 3px solid #0c8d4d;*/
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 1px solid #2195f330 !important;
 }
 
 .input-group-addon {
@@ -2266,7 +2275,6 @@ footer div > ul.list-unstyled > li {
     height: -webkit-calc(100vh - 75px);
     height: -moz-calc(100vh - 75px);
     height: calc(100vh - 75px);
-    border-right: 1px solid #e5e5e5;
     position: relative;
 }
 
@@ -2357,7 +2365,7 @@ footer div > ul.list-unstyled > li {
 }
 
 .header-desktop2 {
-    height: 75px;
+    height: 80px;
     background: #006466;
     position: fixed;
     z-index: 1001;
@@ -2426,7 +2434,7 @@ footer div > ul.list-unstyled > li {
 }
 
 .header-button2 .header-button-item i {
-    vertical-align: middle;
+    vertical-align: center;
 }
 
 .header-button2 .header-button-item .search-dropdown {
@@ -6134,7 +6142,11 @@ footer div > ul.list-unstyled > li {
 }
 
 .p-t-10 {
-    padding-top: 10px;
+    padding: 25px 15px;
+    background-color: #E3F2FD;
+    margin: 25px;
+    margin-top: 90px;
+    border-radius: 15px;   
 }
 
 .p-r-10 {
@@ -6679,7 +6691,6 @@ footer div > ul.list-unstyled > li {
 
 .p-t-95 {
     padding-top: 95px;
-    background-color: #fff;
 }
 
 .p-r-95 {
