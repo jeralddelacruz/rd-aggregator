@@ -25,7 +25,7 @@
             <div id="menu-sidebar2__content" class="menu-sidebar2__content js-scrollbar1">
                 <div class="account2">
                     <div class="image img-cir img-m-120">
-                        <img src="/themes/images/icon/avatar-big-01.jpg" alt="<?php echo $_SESSION["user_name"]; ?>" />
+                        <img src="<?php echo $_SESSION["user_avatar"];?>" alt="<?php echo $_SESSION["user_name"]; ?>" />
                     </div>
                     <h4 class="name"><?php echo $_SESSION["user_name"]; ?></h4>
                     <a href="./"> <i class="fa fa-sign-out"></i> &nbsp;Sign out</a>
@@ -57,7 +57,7 @@
                                     
                                 </div>
                                 <div id="profile_settings" class="header-button-item mr-0 js-sidebar-btn">
-                                    <div class="pr-3 bd-highlight"><img class="header-img" src="/themes/images/icon/avatar-big-01.jpg" alt="<?php echo $_SESSION["user_name"]; ?>" /></div>
+                                    <div class="pr-3 bd-highlight"><img class="header-img" src="<?php echo $_SESSION["user_avatar"];?>" alt="<?php echo $_SESSION["user_name"]; ?>" /></div>
                                     <div class="bd-highlight"><i class="fa fa-gear"></i></div>
                                 </div>
                                 <?php include('nav.php'); ?>

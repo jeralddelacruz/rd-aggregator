@@ -30,13 +30,12 @@ if($_POST["submit"]){
 
 				<form method="post" class="form-signin">
 				<?php if($_GET["error"]) : ?>
-					<h5 class="title text-center text-danger" style="margin-top:15px;line-height:1.5;">E-mail Address whether is <strong>NOT found</strong> in our database<br />or the Member is <strong>Expired</strong> and/or <strong>Suspended</strong>.<br /><br /><a href="index.php?cmd=forgot">&laquo; Go Back</a></h5>
+					<h5 class="title text-center text-danger mb-3" style="margin-top:15px;line-height:1.5;">E-mail Address whether is <strong>NOT found</strong> in our database<br />or the Member is <strong>Expired</strong> and/or <strong>Suspended</strong>.<br /><br /><a href="index.php?cmd=forgot">&laquo; Go Back</a></h5>
 				<?php elseif($_GET["ok"]) : ?>
-					<h5 class="title text-center text-success" style="margin-top:15px;line-height:1.5;">Newly generatad <strong>Password</strong> has been <strong>sent</strong> to your <strong>E-mail Address</strong>.<br />Read it carefully and follow the instructions provided within.<br /><br /><a href="./">Sign In</a></h5>
+					<h5 class="title text-center text-success mb-3" style="margin-top:15px;line-height:1.5;">Newly generatad <strong>Password</strong> has been <strong>sent</strong> to your <strong>E-mail Address</strong>.<br />Read it carefully and follow the instructions provided within.<br /><br /><a href="./">Sign In</a></h5>
 				<?php else : ?>
 					<div class="form-group">
-						<label>Email Address</label>
-						<input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+						<input class="fontAwesome au-input au-input--full mb-3" type="email" name="email" placeholder="&#xf0e0; Email">
 					</div>
 					
 					<input class="au-btn au-btn--block au-btn--blue btn-fill m-b-20" name="submit" value="Submit" type="submit">
@@ -62,17 +61,16 @@ if($_POST["submit"]){
 
 			<div class="col-6">
 			<div class="login-form">
-				<div class="form-group"><h4 class="text-center" style="font-size: 20px;">Forgot Password</h4></div>
+				<div class="form-group mb-3"><h4 class="text-center" style="font-size: 20px;">Forgot Password</h4></div>
 
 				<form method="post" class="form-signin">
 				<?php if($_GET["error"]) : ?>
-					<h5 class="title text-center text-danger" style="margin-top:15px;line-height:1.5;">E-mail Address whether is <strong>NOT found</strong> in our database<br />or the Member is <strong>Expired</strong> and/or <strong>Suspended</strong>.<br /><br /><a href="index.php?cmd=forgot">&laquo; Go Back</a></h5>
+					<h5 class="title text-center text-danger mb-3" style="margin-top:15px;line-height:1.5;">E-mail Address whether is <strong>NOT found</strong> in our database<br />or the Member is <strong>Expired</strong> and/or <strong>Suspended</strong>.<br /><br /><a href="index.php?cmd=forgot">&laquo; Go Back</a></h5>
 				<?php elseif($_GET["ok"]) : ?>
-					<h5 class="title text-center text-success" style="margin-top:15px;line-height:1.5;">Newly generatad <strong>Password</strong> has been <strong>sent</strong> to your <strong>E-mail Address</strong>.<br />Read it carefully and follow the instructions provided within.<br /><br /><a href="./">Sign In</a></h5>
+					<h5 class="title text-center text-success mb-3" style="margin-top:15px;line-height:1.5;">Newly generatad <strong>Password</strong> has been <strong>sent</strong> to your <strong>E-mail Address</strong>.<br />Read it carefully and follow the instructions provided within.<br /><br /><a href="./">Sign In</a></h5>
 				<?php else : ?>
 					<div class="form-group">
-					<i class="fa fa-envelope" aria-hidden="true" style="float: left; padding: 5px; padding-top: 4px; color:black"></i><label>Email Address</label>
-						<input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+						<input class="fontAwesome au-input au-input--full mb-3" type="email" name="email" placeholder="&#xf0e0; Email">
 					</div>
 					
 					<button class="au-btn au-btn--block au-btn--blue m-b-20" name="submit" value="Continue" type="submit" style="padding: 10px;">Submit</button>
@@ -94,17 +92,16 @@ if($_POST["submit"]){
 				</a>
 			</div>
 			<div class="login-form">
-				<div class="form-group"><h4 class="text-center text-uppercase">Forgot Password</h4></div>
+				<div class="form-group"><h4 class="text-center text-uppercase mb-3">Forgot Password</h4></div>
 
 				<form method="post" class="form-signin">
 				<?php if($_GET["error"]) : ?>
-					<h5 class="title text-center text-danger" style="margin-top:15px;line-height:1.5;">E-mail Address whether is <strong>NOT found</strong> in our database<br />or the Member is <strong>Expired</strong> and/or <strong>Suspended</strong>.<br /><br /><a href="index.php?cmd=forgot">&laquo; Go Back</a></h5>
+					<h5 class="title text-center text-danger mb-3" style="margin-top:15px;line-height:1.5;">E-mail Address whether is <strong>NOT found</strong> in our database<br />or the Member is <strong>Expired</strong> and/or <strong>Suspended</strong>.<br /><br /><a href="index.php?cmd=forgot">&laquo; Go Back</a></h5>
 				<?php elseif($_GET["ok"]) : ?>
-					<h5 class="title text-center text-success" style="margin-top:15px;line-height:1.5;">Newly generatad <strong>Password</strong> has been <strong>sent</strong> to your <strong>E-mail Address</strong>.<br />Read it carefully and follow the instructions provided within.<br /><br /><a href="./">Sign In</a></h5>
+					<h5 class="title text-center text-success mb-3" style="margin-top:15px;line-height:1.5;">Newly generatad <strong>Password</strong> has been <strong>sent</strong> to your <strong>E-mail Address</strong>.<br />Read it carefully and follow the instructions provided within.<br /><br /><a href="./">Sign In</a></h5>
 				<?php else : ?>
 					<div class="form-group">
-						<label>Email Address</label>
-						<input class="au-input au-input--full" type="email" name="LoginName" placeholder="Email">
+						<input class="fontAwesome au-input au-input--full mb-3" type="email" name="LoginName" placeholder="&#xf0e0; Email">
 					</div>
 					
 					<button class="au-btn au-btn--block au-btn--blue m-b-20" name="submit" value="Continue" type="submit">Submit</button>
