@@ -1599,6 +1599,7 @@ section {
     vertical-align: middle;
 }
 
+
 .account-dropdown__body {
     padding: 12px 0;
 }
@@ -1645,7 +1646,6 @@ section {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: start;
-    -webkit-align-items: start;
     -moz-box-align: start;
     -ms-flex-align: start;
     -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
@@ -2595,13 +2595,14 @@ footer div > ul.list-unstyled > li {
     -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
-    height: -webkit-calc(100vh - 75px);
-    height: -moz-calc(100vh - 75px);
-    height: calc(100vh - 75px);
+    height: -webkit-calc(90vh - 75px);
+    height: -moz-calc(90vh - 75px);
+    height: calc(90vh - 75px);
     -webkit-transition: all .5s ease;
     -o-transition: all .5s ease;
     -moz-transition: all .5s ease;
     transition: all .5s ease;
+    border-radius: 10px;
 }
 
 .setting-menu:before {
@@ -2627,7 +2628,10 @@ footer div > ul.list-unstyled > li {
 }
 
 .setting-menu .account-dropdown__item a:hover {
-    color: #ffffff;
+    background-color: #f68d5c23;
+    border-radius: 5px;
+    margin: 0 20px;
+    color: #F68C5C;
 }
 
 .show-sidebar {
@@ -2969,6 +2973,11 @@ footer div > ul.list-unstyled > li {
 
 .notifi-dropdown .notifi__item {
     cursor: pointer;
+}
+
+.notifi-dropdown .notifi__item:hover {
+    background-color: #f68d5c23;
+    border-radius: 5px;
 }
 
 .account-item--style2 .image {
