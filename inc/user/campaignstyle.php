@@ -35,7 +35,7 @@
         redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id&status=$filter_status&s=$filter_search");
     }
 	
-	$filter_status = $_GET['status'] ? $_GET['status'] : "default";
+	$filter_status = $_GET['status'] ? $_GET['status'] : $filter_status;
 	
     // Get all news
     $news = $DB->query("SELECT * FROM {$dbprefix}news WHERE users_id LIKE '%\"{$UserID}\"%' AND is_deleted='0' {$additional_query}  {$and_query}");
@@ -80,7 +80,7 @@
     $selected_template = isset($_POST["templateNumber"]) ? filter_input(INPUT_POST, 'templateNumber', FILTER_SANITIZE_STRING) : "template_1";
 
     // Check the Load Count
-    $load_count = isset($_POST["loadmore"]) ? $_POST["loadmore"] + 1 : 2;
+    $load_count = isset($_POST["loadmore"]) ? $_POST["loadmore"] + 1 : 1;
 
     if( $selected_template === "template_1" ){
         
@@ -90,9 +90,19 @@
         $trending   = 0;
         $new        = 0;
         
-        $featured_limit = !($load_count % 2 == 0) ? $load_count + 1 : $load_count + 2;
+        // $featured_limit = !($load_count % 2 == 0) ? $load_count + 1 : $load_count + 2;
+        $featured_limit = $load_count + 1;
         $trending_limit = $load_count;
-        $new_limit      = !($load_count % 2 == 0) ? $load_count + 1 : $load_count + 2 ;
+        // $new_limit      = !($load_count % 2 == 0) ? $load_count + 1 : $load_count + 2 ;
+        $new_limit      = $load_count + 1;
+
+        if( $trending_limit == ($featured_limit - 1)){
+            $featured_limit = $featured_limit - 1;
+        }
+
+        if( $trending_limit == ($new_limit - 1)){
+            $new_limit = $new_limit - 1;
+        }
         
         // Get filtered collection
     	$filter_collection = '';
@@ -116,9 +126,9 @@
     	}
         
         // separate the news depends on the category
-        $featured_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured' {$additional_query} {$and_query} LIMIT {$featured_limit}");
-        $trending_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending' {$additional_query} {$and_query} LIMIT {$trending_limit}");
-        $new_result      = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New' {$additional_query} {$and_query} LIMIT {$new_limit}");
+        $featured_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured' {$additional_query} {$and_query} ORDER BY is_pinned DESC LIMIT {$featured_limit}");
+        $trending_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending' {$additional_query} {$and_query} ORDER BY is_pinned DESC LIMIT {$trending_limit}");
+        $new_result      = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New' {$additional_query} {$and_query} ORDER BY is_pinned DESC LIMIT {$new_limit}");
         
         $filtered_news = $featured_result;
 
@@ -213,10 +223,13 @@
        <div class="col-md-3">
 		      <div class="row row-heading"></div>
 
-		      <h3 class="mb-2">Contents</h3>
+		      
 
 		      <div class="card">
-		          <div class="card-body">
+                  <div class="card-header">
+                    <h3>Contents</h3>
+                  </div>		          
+                  <div class="card-body">
 		              <div class="accordion" id="style-settings">
                           <div class="card">
                               <div class="card-header" id="faqhead1">
@@ -233,7 +246,7 @@
                                                   <input type="number" class="form-control input" min="1">
                                               </div>
                                           </li>
-                                          <li Class="list-group-item">
+                                          <!-- <li Class="list-group-item">
                                               <div class="form-group">
                                                   <label>Post Column</label>
                                                   <select name="post-column" onchange="changeCol()" class="form-control input" id="post-column">
@@ -245,7 +258,7 @@
                                                       <option value="1">12</option>
                                                   </select>
                                               </div>
-                                          </li>
+                                          </li> -->
                                           <li Class="list-group-item">
                                               <div class="form-group">
                                                   <label>Show Load More</label>
@@ -260,7 +273,7 @@
                               </div>
                           </div>
 
-                          <div class="card">
+                          <!-- <div class="card">
                               <div class="card-header" id="faqhead2">
                                   <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq2"
                             aria-expanded="true" aria-controls="faq2">Filter</a>
@@ -290,7 +303,7 @@
                                       </ul>
                                   </div>
                               </div>
-                          </div>
+                          </div> -->
                           <div class="card">
                               <div class="card-header" id="faqhead3">
                                   <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq3"
@@ -300,12 +313,12 @@
                               <div id="faq3" class="collapse" aria-labelledby="faqhead3" data-parent="#style-settings">
                                   <div class="card-body">
                                       <ul class="list-group">
-                                          <li Class="list-group-item">
+                                          <!-- <li Class="list-group-item">
                                               <div class="form-group">
                                                   <label>Icon color</label>
                                                   <input type="color" class="form-control color">
                                               </div>
-                                          </li>
+                                          </li> -->
                                           <li Class="list-group-item">
                                               <div class="form-group">
                                                   <label>Text color</label>
@@ -374,7 +387,7 @@
 
             <!--If your going to uncomment the sidepanel just change the col from 'col-md-12' to 'col-md-9'-->
 		    <div class="col-md-9">
-		        <div class="collection-filter">
+		        <!-- <div class="collection-filter">
 		            <div class="form-group">
 		                <form role="form" method="POST">
     		                <select name="collections_filter" class="form-control" onchange='this.form.submit()'>
@@ -388,7 +401,7 @@
 		            <a href="index.php?cmd=campaigns" class="btn btn-secondary">
 		                <i class="fas fa-angle-left"></i> Back to Campaigns
 		            </a>
-		        </div>
+		        </div> -->
 		        <div class="card" id="news-preview">
 		            <div class="card-header">
 		                <form role="form" method="POST">

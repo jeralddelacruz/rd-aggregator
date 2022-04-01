@@ -62,7 +62,7 @@
                                     <p><?= $news_description ?></p>
                                 </div>
                                 <div class="news-author-container">
-                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p>
+                                    <!-- <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p> -->
                                     <p class="date-posted"><?= $news_date ?></p>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                             <div class="news-config-container">
                                 <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $news_id ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
                                 <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'rejected' ? 'reject-color' : '' ?>" data-news-id="<?= $news_id ?>" data-action="rejected"><i class="fas fa-minus-circle"></i></button>
-                                <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?>" onClick="pinNews(this)"><i class="fas fa-thumbtack"></i></button>
+                                <button class="btn c-btn-primary btn-block m-0 btn-status <?= $is_pinned ? 'pin-color' : '' ?>" data-news-id="<?= $news_id ?>" data-action="pin"><i class="fas fa-thumbtack"></i></button>
                                 <button class="btn c-btn-primary btn-block m-0" onClick="editNews(this)" data-json='<?= $news ?>'><i class="fa fa-pencil"></i></button>
                             </div>
                             <div class="news-image-container trending_news_container">
@@ -111,7 +111,7 @@
                                     <p><?= $news_description ?></p>
                                 </div>
                                 <div class="news-author-container">
-                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p>
+                                    <!-- <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p> -->
                                     <p class="date-posted"><?= $news_date ?></p>
                                 </div>
                             </div>
@@ -146,7 +146,7 @@
                             <div class="news-config-container">
                                 <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $news_id ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
                                 <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'rejected' ? 'reject-color' : '' ?>" data-news-id="<?= $news_id ?>" data-action="rejected"><i class="fas fa-minus-circle"></i></button>
-                                <button class="btn c-btn-primary btn-block m-0 <?= $is_pinned ? 'pin-color' : '' ?>" onClick="pinNews(this)"><i class="fas fa-thumbtack"></i></button>
+                                <button class="btn c-btn-primary btn-block m-0 btn-status <?= $is_pinned ? 'pin-color' : '' ?>" data-news-id="<?= $news_id ?>" data-action="pin"><i class="fas fa-thumbtack"></i></button>
                                 <button class="btn c-btn-primary btn-block m-0" onClick="editNews(this)" data-json='<?= $news ?>'><i class="fa fa-pencil"></i></button>
                             </div>
                             <div class="news-image-container">
@@ -160,7 +160,7 @@
                                     <p><?= $news_description ?></p>
                                 </div>
                                 <div class="news-author-container">
-                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p>
+                                    <!-- <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p> -->
                                     <p class="date-posted"><?= $news_date ?></p>
                                 </div>
                             </div>

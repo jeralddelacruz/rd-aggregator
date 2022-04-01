@@ -26,23 +26,30 @@
     }
     
     if (isset($_POST['action'])) {
-
-        if( $_POST['action'] == "pin" ){
-
-        }else{
-            
-        }
-
         $news_id = $_POST['news_id'];
         $action = $_POST['action'];
-        
-        $update_news = $DB->query("UPDATE {$dbprefix}news SET 
-            status = '{$action}'
-        WHERE news_id = '{$news_id}'");
-        
         $is_success = false;
-        if( $update_news ) {
-            $is_success = true;
+
+        if( $_POST['action'] == "pin" ){
+            $news_content = $DB->info("news", "news_id = '{$news_id}'")["is_pinned"];
+            
+            $is_pinned = (int)$news_content == 0 ? 1 : 0;
+
+            $update_news = $DB->query("UPDATE {$dbprefix}news SET 
+                is_pinned = '{$is_pinned}'
+            WHERE news_id = '{$news_id}'");
+            
+            if( $update_news ) {
+                $is_success = true;
+            }
+        }else{
+            $update_news = $DB->query("UPDATE {$dbprefix}news SET 
+                status = '{$action}'
+            WHERE news_id = '{$news_id}'");
+            
+            if( $update_news ) {
+                $is_success = true;
+            }
         }
         
         $data = [
