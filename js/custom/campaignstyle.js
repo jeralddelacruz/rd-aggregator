@@ -6,6 +6,7 @@
     //     $(".news-column").addClass("col-md-"+selected);
     // })
     
+    // HIDE AND SHOW OF BUTTON LOAD MORE
     $("#load-more").change(function(){
         let selected = $(this).val()
         if( selected === "true" ) {
@@ -15,6 +16,7 @@
         }
     })
     
+    // HIDE AND SHOW CUSTOM FILTER AT THE TOP
     $("#show-custom-filter").change(function(){
         let selected = $(this).val()
         if( selected === "true" ) {
@@ -24,6 +26,7 @@
         }
     })
     
+    // HIDE AND SHOW NETWORK FILTER AT THE TOP
     $("#show-network-filter").change(function(){
         let selected = $(this).val()
         if( selected === "true" ) {
@@ -33,14 +36,17 @@
         }
     })
     
+    // ACTION FOR APPLYING THE TEMPLATE
     $("#faq4 .btn-apply").on('click', function(){
         // alert("Template applied");
     })
     
+    // CONVERTING THE DATE AND TIME
     $(".news-author-container .date-posted").map(function(index, item) {
         item.innerText = moment(item.innerText).fromNow();
     });
     
+
     let editModal = $("#edit-modal");
     let editForm = $("#edit-form");
     let alertModal = $("#ajax-alert");
@@ -78,9 +84,7 @@
     });
     
     function editNews(news) {
-        // alert("Under Development");
-        // return false;
-        
+
         let data = JSON.parse(news.getAttribute('data-json'));
         
         if (!data || !data.news_id) {
@@ -99,11 +103,6 @@
         authorName.text(data.news_author);
         newsDate.text(moment(data.created_at).fromNow());
         editModal.modal().show();
-    }
-    
-    function pinNews(news) {
-        alert("Under Development");
-        return false;
     }
     
     function loadMore(news) {
@@ -128,6 +127,7 @@
         }, 8000);
     }
     
+
     function updateData(news) {
         let newsContainer = $('#news-' + news.news_id);
         
@@ -148,6 +148,7 @@
         }
     }
     
+    // ACTION FOR CLOSE ALERT MODAL
     alertModal.find('.close').on('click', function () {
         if (alertTimeout) {
             clearTimeout(alertTimeout);
@@ -155,6 +156,7 @@
         alertModal.removeClass('show'); 
     });
     
+    // ACTION FOR CLOSING THE MODAL
     editModal.on('hidden.bs.modal', function () {
         editModal.find("#news_id").val("");
         editModal.find("#name").val("");
@@ -162,6 +164,7 @@
         editModal.find("#title").val("");
     });
     
+    // ACTION FOR SUBMITING MODAL
     editModal.on('submit', function (evt) {
         evt.preventDefault();
         
@@ -193,6 +196,7 @@
         });
     });
     
+    // ACTION FOR CHANGING STATUS
     $(".btn-status").on('click', function (evt) {
         evt.preventDefault();
         
@@ -223,7 +227,7 @@
                         currentBtn.addClass("reject-color")
                         currentBtn.prev().removeClass("approve-color")
                     } else if( action == "pin" ) {
-                        
+                        window.location.reload();
                     }
                 }
                 // TO DO - Update Success
@@ -388,93 +392,93 @@
     // <option value="2">6</option>
     // <option value="1">12</option>
 
-    document.addEventListener("change", () => {
-        var c = document.getElementById("post-column");
-        var pCol = c.value;
+    // document.addEventListener("change", () => {
+    //     var c = document.getElementById("post-column");
+    //     var pCol = c.value;
 
-        console.log(typeof pCol);
+    //     console.log(typeof pCol);
 
-        switch (pCol) {
-            case '12': {
-                document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
-                    selectPostCol.classList.remove('col-md-1');
-                    selectPostCol.classList.remove('col-md-2');
-                    selectPostCol.classList.remove('col-md-3');
-                    selectPostCol.classList.remove('col-md-4');
-                    selectPostCol.classList.remove('col-md-6');
-                    selectPostCol.classList.remove('col-md-12');
-                    selectPostCol.classList.add('col-md-12');
-                    console.log(selectPostCol.getAttribute("class"));
-                });
-            }
-                break;
-            case '6': {
-                document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
-                    selectPostCol.classList.remove('col-md-1');
-                    selectPostCol.classList.remove('col-md-2');
-                    selectPostCol.classList.remove('col-md-3');
-                    selectPostCol.classList.remove('col-md-4');
-                    selectPostCol.classList.remove('col-md-6');
-                    selectPostCol.classList.remove('col-md-12');
-                    selectPostCol.classList.add('col-md-6');
-                    console.log(selectPostCol.getAttribute("class"));
-                });
-            }   
-                break;         
-            case '4': {
-                document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
-                    selectPostCol.classList.remove('col-md-1');
-                    selectPostCol.classList.remove('col-md-2');
-                    selectPostCol.classList.remove('col-md-3');
-                    selectPostCol.classList.remove('col-md-4');
-                    selectPostCol.classList.remove('col-md-6');
-                    selectPostCol.classList.remove('col-md-12');
-                    selectPostCol.classList.add('col-md-4');
-                    console.log(selectPostCol.getAttribute("class"));
-                });
-            }     
-                break;       
-            case '3': {
-                document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
-                    selectPostCol.classList.remove('col-md-1');
-                    selectPostCol.classList.remove('col-md-2');
-                    selectPostCol.classList.remove('col-md-3');
-                    selectPostCol.classList.remove('col-md-4');
-                    selectPostCol.classList.remove('col-md-6');
-                    selectPostCol.classList.remove('col-md-12');
-                    selectPostCol.classList.add('col-md-3');
-                    console.log(selectPostCol.getAttribute("class"));
-                });
-            }
-                break;
-            case '2': {
-                document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
-                    selectPostCol.classList.remove('col-md-1');
-                    selectPostCol.classList.remove('col-md-2');
-                    selectPostCol.classList.remove('col-md-3');
-                    selectPostCol.classList.remove('col-md-4');
-                    selectPostCol.classList.remove('col-md-6');
-                    selectPostCol.classList.remove('col-md-12');
-                    selectPostCol.classList.add('col-md-2');
-                    console.log(selectPostCol.getAttribute("class"));
-                });
-            }
-                break;
-            case '1': {
-                document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
-                    selectPostCol.classList.remove('col-md-1');
-                    selectPostCol.classList.remove('col-md-2');
-                    selectPostCol.classList.remove('col-md-3');
-                    selectPostCol.classList.remove('col-md-4');
-                    selectPostCol.classList.remove('col-md-6');
-                    selectPostCol.classList.remove('col-md-12');
-                    selectPostCol.classList.add('col-md-1');
-                    console.log(selectPostCol.getAttribute("class"));
-                });
-            }
-                break;
+    //     switch (pCol) {
+    //         case '12': {
+    //             document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
+    //                 selectPostCol.classList.remove('col-md-1');
+    //                 selectPostCol.classList.remove('col-md-2');
+    //                 selectPostCol.classList.remove('col-md-3');
+    //                 selectPostCol.classList.remove('col-md-4');
+    //                 selectPostCol.classList.remove('col-md-6');
+    //                 selectPostCol.classList.remove('col-md-12');
+    //                 selectPostCol.classList.add('col-md-12');
+    //                 console.log(selectPostCol.getAttribute("class"));
+    //             });
+    //         }
+    //             break;
+    //         case '6': {
+    //             document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
+    //                 selectPostCol.classList.remove('col-md-1');
+    //                 selectPostCol.classList.remove('col-md-2');
+    //                 selectPostCol.classList.remove('col-md-3');
+    //                 selectPostCol.classList.remove('col-md-4');
+    //                 selectPostCol.classList.remove('col-md-6');
+    //                 selectPostCol.classList.remove('col-md-12');
+    //                 selectPostCol.classList.add('col-md-6');
+    //                 console.log(selectPostCol.getAttribute("class"));
+    //             });
+    //         }   
+    //             break;         
+    //         case '4': {
+    //             document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
+    //                 selectPostCol.classList.remove('col-md-1');
+    //                 selectPostCol.classList.remove('col-md-2');
+    //                 selectPostCol.classList.remove('col-md-3');
+    //                 selectPostCol.classList.remove('col-md-4');
+    //                 selectPostCol.classList.remove('col-md-6');
+    //                 selectPostCol.classList.remove('col-md-12');
+    //                 selectPostCol.classList.add('col-md-4');
+    //                 console.log(selectPostCol.getAttribute("class"));
+    //             });
+    //         }     
+    //             break;       
+    //         case '3': {
+    //             document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
+    //                 selectPostCol.classList.remove('col-md-1');
+    //                 selectPostCol.classList.remove('col-md-2');
+    //                 selectPostCol.classList.remove('col-md-3');
+    //                 selectPostCol.classList.remove('col-md-4');
+    //                 selectPostCol.classList.remove('col-md-6');
+    //                 selectPostCol.classList.remove('col-md-12');
+    //                 selectPostCol.classList.add('col-md-3');
+    //                 console.log(selectPostCol.getAttribute("class"));
+    //             });
+    //         }
+    //             break;
+    //         case '2': {
+    //             document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
+    //                 selectPostCol.classList.remove('col-md-1');
+    //                 selectPostCol.classList.remove('col-md-2');
+    //                 selectPostCol.classList.remove('col-md-3');
+    //                 selectPostCol.classList.remove('col-md-4');
+    //                 selectPostCol.classList.remove('col-md-6');
+    //                 selectPostCol.classList.remove('col-md-12');
+    //                 selectPostCol.classList.add('col-md-2');
+    //                 console.log(selectPostCol.getAttribute("class"));
+    //             });
+    //         }
+    //             break;
+    //         case '1': {
+    //             document.querySelectorAll(".selectPostCol").forEach(function(selectPostCol) {
+    //                 selectPostCol.classList.remove('col-md-1');
+    //                 selectPostCol.classList.remove('col-md-2');
+    //                 selectPostCol.classList.remove('col-md-3');
+    //                 selectPostCol.classList.remove('col-md-4');
+    //                 selectPostCol.classList.remove('col-md-6');
+    //                 selectPostCol.classList.remove('col-md-12');
+    //                 selectPostCol.classList.add('col-md-1');
+    //                 console.log(selectPostCol.getAttribute("class"));
+    //             });
+    //         }
+    //             break;
         
-            default: 
-                break;
-        }
-    });
+    //         default: 
+    //             break;
+    //     }
+    // });
