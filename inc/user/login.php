@@ -72,7 +72,7 @@
     				    <input class="fontAwesome au-input au-input--full mb-4" type="password" name="LoginPass" placeholder="&#xf023; Password">
     				</div>
     
-    				<button class="au-btn au-btn--block au-btn--blue m-b-50 au-btn-rad" name="LoginSubmit" value="LOGIN"  type="submit"  style="padding: 10px;">
+    				<button class="au-btn au-btn--block au-btn--blue m-b-10 au-btn-rad" name="LoginSubmit" value="LOGIN"  type="submit"  style="padding: 10px;">
     					<i class="fa fa-sign-in"></i> &nbsp;Sign-In
     				</button>
     
