@@ -62,7 +62,7 @@
                                     <p><?= $news_description ?></p>
                                 </div>
                                 <div class="news-author-container">
-                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p>
+                                    <!-- <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p> -->
                                     <p class="date-posted"><?= $news_date ?></p>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
                                     <p><?= $news_description ?></p>
                                 </div>
                                 <div class="news-author-container">
-                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p>
+                                    <!-- <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p> -->
                                     <p class="date-posted"><?= $news_date ?></p>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
                                     <p><?= $news_description ?></p>
                                 </div>
                                 <div class="news-author-container">
-                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p>
+                                    <!-- <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p> -->
                                     <p class="date-posted"><?= $news_date ?></p>
                                 </div>
                             </div>
