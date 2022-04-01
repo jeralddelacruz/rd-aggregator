@@ -92,7 +92,9 @@ h1, h2, h3, h4, h5, h6 {
     background: #ffffff;
 }
 
-.page-content--bge5 {background-color: #006466;}
+.page-content--bge5 {
+    background-image:  linear-gradient(to top right,#5a189a,#2196F3);
+}
 
 .header-desktop2 {
     background: #fff;
@@ -250,4 +252,9 @@ button.au-btn.au-btn--blue.m-b-20.btn-update {
     background-color: #2196F3;
     color: #E3F2FD;
     transition: 0.3s ease;
+}
+
+.fontAwesome {
+    font-family: 'Helvetica', FontAwesome, sans-serif;
+    font-size: 18px;
 }
