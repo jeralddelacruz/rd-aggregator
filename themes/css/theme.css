@@ -365,6 +365,7 @@ section {
     -moz-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    color: black;
 }
 
 .login-checkbox label input[type="checkbox"] {
@@ -372,7 +373,7 @@ section {
 }
 
 .login-checkbox > label > a {
-    color: #ffffff;
+    color: #ff2e44;
 }
 
 .img-logo {
