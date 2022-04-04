@@ -17,6 +17,22 @@
 .news-image-container.trending_news_container {
     height: 400px;
 }
+
+.text-color {
+    color: <?= $template_settings['appearance_text_color'] ? $template_settings['appearance_text_color'] : "#000" ?>
+}
+
+.b-color {
+    border-color: <?= $template_settings['appearance_border_color'] ?>
+}
+
+.bg-color {
+    background-color: <?= $template_settings['appearance_bg_color'] ? $template_settings['appearance_bg_color'] : "#ffff" ?>
+}
+
+.bg-feed-color {
+    background-color: <?= $template_settings['appearance_feed_bg_color'] ? $template_settings['appearance_feed_bg_color'] : "#fff"  ?>
+}
 </style>
 <div class="col-md-12">
     <div class="template-container">
@@ -44,7 +60,7 @@
                     $news = json_encode($filtered_new);
                 ?>
                     <div class="col-md-12 news-column pb-3">
-                        <div id="news-<?php echo $news_id; ?>" class="news-container <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
+                        <div id="news-<?php echo $news_id; ?>" class="news-container b-color <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
                             <div class="news-config-container">
                                 <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $news_id ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
                                 <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'rejected' ? 'reject-color' : '' ?>" data-news-id="<?= $news_id ?>" data-action="rejected"><i class="fas fa-minus-circle"></i></button>
@@ -56,14 +72,14 @@
                             </div>
                             <div class="news-content-container">
                                 <div class="news-heading-container">
-                                    <h5><?= $news_title ?></h5>
+                                    <h5 class="text-color"><?= $news_title ?></h5>
                                 </div>
                                 <div class="news-detail-container">
-                                    <p><?= $news_description ?></p>
+                                    <p class="text-color"><?= $news_description ?></p>
                                 </div>
                                 <div class="news-author-container">
                                     <!-- <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p> -->
-                                    <p class="date-posted"><?= $news_date ?></p>
+                                    <p class="date-posted text-color"><?= $news_date ?></p>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +109,7 @@
                     $news = json_encode($filtered_new);
                 ?>
                     <div class="col-md-12 news-column pb-3">
-                        <div id="news-<?php echo $news_id; ?>" class="news-container <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
+                        <div id="news-<?php echo $news_id; ?>" class="news-container b-color <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
                             <div class="news-config-container">
                                 <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $news_id ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
                                 <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'rejected' ? 'reject-color' : '' ?>" data-news-id="<?= $news_id ?>" data-action="rejected"><i class="fas fa-minus-circle"></i></button>
@@ -105,14 +121,14 @@
                             </div>
                             <div class="news-content-container">
                                 <div class="news-heading-container">
-                                    <h5><?= $news_title ?></h5>
+                                    <h5 class="text-color"><?= $news_title ?></h5>
                                 </div>
                                 <div class="news-detail-container">
-                                    <p><?= $news_description ?></p>
+                                    <p class="text-color"><?= $news_description ?></p>
                                 </div>
                                 <div class="news-author-container">
                                     <!-- <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p> -->
-                                    <p class="date-posted"><?= $news_date ?></p>
+                                    <p class="date-posted text-color"><?= $news_date ?></p>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +158,7 @@
                     $news = json_encode($filtered_new);
                 ?>
                     <div class="col-md-12 news-column pb-3">
-                        <div id="news-<?php echo $news_id; ?>" class="news-container <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
+                        <div id="news-<?php echo $news_id; ?>" class="news-container b-color <?= $status == "rejected" ? 'blur rejected-border' : $status == "need_approval" ? 'blur' : '' ?>">
                             <div class="news-config-container">
                                 <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'approved' ? 'approve-color' : '' ?>" id="btn-approve" data-news-id="<?= $news_id ?>" data-action="approved"><i class="fas fa-check-circle"></i></button>
                                 <button class="btn c-btn-primary btn-block m-0 btn-status <?= $status == 'rejected' ? 'reject-color' : '' ?>" data-news-id="<?= $news_id ?>" data-action="rejected"><i class="fas fa-minus-circle"></i></button>
@@ -154,14 +170,14 @@
                             </div>
                             <div class="news-content-container">
                                 <div class="news-heading-container">
-                                    <h5><?= $news_title ?></h5>
+                                    <h5 class="text-color"><?= $news_title ?></h5>
                                 </div>
                                 <div class="news-detail-container">
-                                    <p><?= $news_description ?></p>
+                                    <p class="text-color"><?= $news_description ?></p>
                                 </div>
                                 <div class="news-author-container">
                                     <!-- <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p> -->
-                                    <p class="date-posted"><?= $news_date ?></p>
+                                    <p class="date-posted text-color"><?= $news_date ?></p>
                                 </div>
                             </div>
                         </div>
