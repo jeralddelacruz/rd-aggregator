@@ -205,7 +205,6 @@
         
         var container = $($(this).parent().parent()[0]);
         var rejectBtn = $(this).next();
-        var rejectBtn1 = $(this).prev();
         var currentBtn = $(this);
         
         $.ajax({
@@ -214,6 +213,7 @@
             dataType: "json",
             data: {
                 action: action,
+                status: "status_changed",
                 news_id
             },
             success: function (response) {
@@ -238,6 +238,51 @@
             }
         });
     });
+
+    // ============================
+    // SAVING THE CAMPAIGN SETTINGS
+    // ============================
+    $("#btn-campaign-save").on("click",function(evt){
+        evt.preventDefault();
+        
+        let feed_post_per_page = $(".feed-post-per-page").val();
+        let feed_load_more = $(".feed-load-more").val();
+        let appearance_text_color = $(".appearance-text-color").val();
+        let appearance_border_color = $(".appearance-border-color").val();
+        let appearance_bg_color = $(".appearance-bg-color").val();
+        let appearance_feed_bg_color = $(".appearance-feed-bg-color").val();
+        let selected_template = $("#template-column").val();
+        let user_id = $("#user_id").val();
+        let campaign_id = $("#campaign_id").val();
+
+        $.ajax({
+            url: "/api/news_status.php",
+            method: "POST",
+            dataType: "json",
+            data: {
+                status: "save_template",
+                feed_post_per_page: feed_post_per_page,
+                feed_load_more: feed_load_more,
+                appearance_text_color: appearance_text_color,
+                appearance_border_color: appearance_border_color,
+                appearance_bg_color: appearance_bg_color,
+                appearance_feed_bg_color: appearance_feed_bg_color,
+                selected_template: selected_template,
+                user_id: user_id,
+                campaign_id: campaign_id
+            },
+            success: function (response) {
+                if( response.success ) {
+                    alert(response.message)
+                }
+                // TO DO - Update Success
+                console.log(response.message);
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    })
     
     window.onload = function(){
         // FOR USER AVATAR
@@ -283,17 +328,17 @@
 		}
 	}
 
-    var textColor;
-    var defaultTextColor = "#000000";
+    // var textColor;
+    // var defaultTextColor = "#000000";
 
-    window.addEventListener("load", startTextChange, false);
+    // window.addEventListener("load", startTextChange, false);
 
-    function startTextChange() {
-        textColor = document.querySelector("#textColor");
-        textColor.value = defaultTextColor;
-        textColor.addEventListener("change", updateTextColor, false);
-        textColor.select();
-    }
+    // function startTextChange() {
+    //     textColor = document.querySelector("#textColor");
+    //     textColor.value = defaultTextColor;
+    //     textColor.addEventListener("change", updateTextColor, false);
+    //     textColor.select();
+    // }
 
     function updateTextColor(event) {
         document.querySelectorAll("p").forEach(function(p) {
@@ -304,17 +349,17 @@
         });
     }
 
-    var borderColor;
-    var defaultBorderColor = "#000000";
+    // var borderColor;
+    // var defaultBorderColor = "#000000";
 
-    window.addEventListener("load", startBorderChange, false);
+    // window.addEventListener("load", startBorderChange, false);
 
-    function startBorderChange() {
-        borderColor = document.querySelector("#borderColor");
-        borderColor.value = defaultBorderColor;
-        borderColor.addEventListener("change", updateBorderColor, false);
-        borderColor.select();
-    }
+    // function startBorderChange() {
+    //     borderColor = document.querySelector("#borderColor");
+    //     borderColor.value = defaultBorderColor;
+    //     borderColor.addEventListener("change", updateBorderColor, false);
+    //     borderColor.select();
+    // }
 
     function updateBorderColor(event) {
         document.querySelectorAll(".news-container").forEach(function(newscontainer) {
@@ -322,17 +367,17 @@
         });
     }
 
-    var bgColor;
-    var defaultBgColor = "#000000";
+    // var bgColor;
+    // var defaultBgColor = "#000000";
 
-    window.addEventListener("load", startBgChange, false);
+    // window.addEventListener("load", startBgChange, false);
 
-    function startBgChange() {
-        bgColor = document.querySelector("#bgColor");
-        bgColor.value = defaultBgColor;
-        bgColor.addEventListener("change", updateBgColor, false);
-        bgColor.select();
-    }
+    // function startBgChange() {
+    //     bgColor = document.querySelector("#bgColor");
+    //     bgColor.value = defaultBgColor;
+    //     bgColor.addEventListener("change", updateBgColor, false);
+    //     bgColor.select();
+    // }
 
     function updateBgColor(event) {
         document.querySelectorAll(".news-container").forEach(function(newscontainer) {
@@ -340,17 +385,17 @@
         });
     }
 
-    var feedColor;
-    var defaultFeedColor = "#000000";
+    // var feedColor;
+    // var defaultFeedColor = "#000000";
 
-    window.addEventListener("load", startFeedChange, false);
+    // window.addEventListener("load", startFeedChange, false);
 
-    function startFeedChange() {
-        feedColor = document.querySelector("#feedColor");
-        feedColor.value = defaultFeedColor;
-        feedColor.addEventListener("change", updateFeedColor, false);
-        feedColor.select();
-    }
+    // function startFeedChange() {
+    //     feedColor = document.querySelector("#feedColor");
+    //     feedColor.value = defaultFeedColor;
+    //     feedColor.addEventListener("change", updateFeedColor, false);
+    //     feedColor.select();
+    // }
 
     function updateFeedColor(event) {
         var cardBody = document.querySelector("#cardBody");
