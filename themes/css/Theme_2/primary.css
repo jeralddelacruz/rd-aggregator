@@ -39,7 +39,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-sidebar2 {
-    padding: 0 10px;
+    padding: 0 0 0 12px;
 }
 
 .navbar-sidebar2 .navbar__list li a {
@@ -257,4 +257,91 @@ button.au-btn.au-btn--blue.m-b-20.btn-update {
 .fontAwesome {
     font-family: 'Helvetica', FontAwesome, sans-serif;
     font-size: 18px;
+}
+
+.particle1 {
+    border-radius: 50%;
+    background-image:  linear-gradient(to top right,#5a189a,#2196F3);
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 60px;
+    left: 275px;
+    box-shadow: -5px 10px 18px #888888;
+}
+
+.particle2 {
+    border-radius: 50%;
+    background-image:  linear-gradient(to top right,#5a189a,#2196F3);
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 20px;
+    left: 200px;
+    box-shadow: -5px 10px 18px #888888;
+}
+
+.particle3 {
+    border-radius: 50%;
+    background-image:  linear-gradient(to top right,#5a189a,#2196F3);
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: -50px;
+    left: -50px;
+}
+
+.particle4 {
+    border-radius: 50%;
+    background-image:  linear-gradient(to top right,#5a189a,#2196F3);
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    bottom: 50px;
+    left: 50px;
+    box-shadow: -5px 10px 18px #888888;
+}
+
+.particle5 {
+    border-radius: 50%;
+    background-image:  linear-gradient(to top right,#5a189a,#2196F3);
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 50px;
+    left: 100px;
+    box-shadow: -5px 10px 18px #888888;
+}
+
+.particle6 {
+    border-radius: 50%;
+    background-image:  linear-gradient(to top right,#5a189a,#2196F3);
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    left: 200px;
+    box-shadow: -5px 10px 18px #888888;
+}
+
+.particle7 {
+    border-radius: 50%;
+    background-image:  linear-gradient(to top right,#5a189a,#2196F3);
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    bottom: 100px;
+    left: 150px;
+    box-shadow: -5px 10px 18px #888888;
+}
+
+.particle8 {
+    border-radius: 50%;
+    background-image:  linear-gradient(to top right,#5a189a,#2196F3);
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    bottom: 50px;
+    left: 300px;
+    box-shadow: -5px 10px 18px #888888;
 }
