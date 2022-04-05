@@ -1,14 +1,16 @@
 <?php
 	$dbhost = "localhost";
-	$dbuser = "newscasc_db";
-	$dbpass = "it&IY!pJ3bNE";
+	$dbuser = "root";
+	// $dbpass = "it&IY!pJ3bNE";
+	$dbpass = "";
 	$dbname = "newscasc_db";
 	$dbprefix = "newscasc_";
 	$dbkey = md5($dbuser . "/" . $dbname . "/" . $dbpass);
 
-	$SCRIPTURL = "https://newscascade.com/";
-	$MAINDOMAIN = "newscascade.com";
-	$APPNAME = "newscascade";
+	$SCRIPTURL = "http://rd-aggregator.test/";
+	// $SCRIPTURL = "http://rd-aggregator.test:8080/";
+	$MAINDOMAIN = "rd-aggregator.test";
+	$APPNAME = "rd-aggregator";
 	$USERDIR = "user";
 	$ADMINDIR = "tertl3651!";
 	$SPECIALTOKEN = "tertl3651!";
