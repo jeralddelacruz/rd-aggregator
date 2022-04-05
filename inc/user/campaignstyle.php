@@ -1,87 +1,115 @@
 <?php
+    // ===================
 	// CODE_SECTION_PHP_1: PRIVILEGE
+    // ===================
 	if(!preg_match(";campaigns;", $cur_pack["pack_ar"])){
 		redirect("index.php?cmd=deny");
 	}
-    // $UserID
     
+    // ===================
+    // INITIAL VARIABLES
+    // ===================
 	$user           =$DB->info("user","user_id='$UserID'");
 	$campaigns_type = 'regular';
 	$id             = $_GET["id"];
 	$collection_id  = $_GET["collection"];
 	$upload_dir     = "/upload/{$UserID}/news";
 	
-	// Get collections
+    // ===================
+	// GET COLLECTIONS
+    // ===================
     $content_collections = $DB->query("SELECT * FROM {$dbprefix}content_collection WHERE user_id='{$UserID}' {$and_query}");
-    
-    // Get filtered status
+
+    // ===================
+    // GET FILTERED SEARCH
+    // ===================
 	$filter_search = "";
-    if( isset( $_POST['search_input'] ) && $_POST['search_input'] !== "" ){
-        $filter_search          = $_POST['search_input'];
-        $filter_status          = $_GET['status'] ? $_GET['status'] : "default";
+    if( isset( $_POST['search_input'] )){
+        $filter_search          = empty($_POST['search_input']) ? "" : $_POST['search_input'];
+        $filter_template        = $_GET['t'] ? $_GET['t'] : "";
+        $filter_status          = "";
+        
+        if( !empty($_POST['filter_status']) ){
+            $filter_status = $_POST['filter_status'];
+        }else{
+            $filter_status = $_GET['status'];
+        }
+
+        if( $filter_template ){
+            $f_template = "&t=".$filter_template;
+        }
+
         $content_collection_id  = $content_collections[0]['content_collection_id'];
 
-        redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id&status=$filter_status&s=$filter_search");
+        redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id&status=$filter_status&search_input=$filter_search{$f_template}");
     }
-	
-	$filter_search = $_GET['s'] ? $_GET['s'] : "";
-	
-	// Get filtered status
-	$filter_status = "approved";
-    if( isset( $_POST['filter_status'] )){
-        $filter_status          = $_POST['filter_status'];
-        $content_collection_id  = $content_collections[0]['content_collection_id'];
-
-        redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id&status=$filter_status&s=$filter_search");
-    }
-	
+	$filter_search = $_GET['search_input'] !== "" ? $_GET['search_input'] : "";
 	$filter_status = $_GET['status'] ? $_GET['status'] : $filter_status;
 	
-    // Get all news
-    $news = $DB->query("SELECT * FROM {$dbprefix}news WHERE users_id LIKE '%\"{$UserID}\"%' AND is_deleted='0' {$additional_query}  {$and_query}");
+    // ===================
+    // DATABASE QUERIES
+    // ===================
+    $news = $DB->query("SELECT * FROM {$dbprefix}news WHERE users_id LIKE '%\"{$UserID}\"%' AND is_deleted='0'");
     
-    // Get current user news_updates
+    // ===================
+    // GET CURRENT USER NEWS UPDATE
+    // ===================
     $news_ids   = array_column($news, "news_id"); // Get array of news ids
     $where_in   = "'" . implode("','", $news_ids) . "'"; // Implode for WHERE IN condition
-    $user_news  = $DB->query("SELECT * FROM {$dbprefix}news_updates WHERE news_id IN ({$where_in}) AND user_id = '{$UserID}' {$and_query}");
+    $user_news  = $DB->query("SELECT * FROM {$dbprefix}news_updates WHERE news_id IN ({$where_in}) AND user_id = '{$UserID}'");
     $user_news  = array_combine(array_column($user_news, 'news_id'), $user_news); // Set news_id as index
-    
-    // Function to get user news field by using news_id
-    function getUserNews($news, $newsId, $column, $userId) {
-        if (!$news[$newsId] || !$news[$newsId][$column]) {
-            return null;
-        }
-            
-        // Get image if news_update exists
-        if (in_array($column, ["user_image", "post_image"])) {
-            if ($column == "user_image") {
-                $image_dir = "/upload/{$userId}/news/avatar/" . $news[$newsId][$column];
-            } else {
-                $image_dir = "/upload/{$userId}/news/images/" . $news[$newsId][$column];
-            }
-            
-            return $image_dir;
-        }
-        
-        return $news[$newsId][$column];
-    }
-    
     $filtered_news = $news;
-    
     if( !isset($collection_id) ) {
         $content_collection_id = $content_collections[0]['content_collection_id'];
 
         redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id");
     }
     
-    // Added else if for template 2 and 3
-    // March 17 2022
-    // TEMPLATE
-    $selected_template = isset($_POST["templateNumber"]) ? filter_input(INPUT_POST, 'templateNumber', FILTER_SANITIZE_STRING) : "template_1";
+    // ===================
+    // TEMPLATE CONDITIONS TO SET THE TEMPLATE TO THE URL
+    // ===================
+    if( isset($_POST["templateNumber"]) ){
+        $filter_search          = $_GET['s'] ? $_GET['status'] : "";
+        $filter_status          = $_GET['status'] ? $_GET['status'] : "default";
+        $content_collection_id  = $content_collections[0]['content_collection_id'];
+        $filter_template        = "&t=".$_POST['templateNumber'];
 
-    // Check the Load Count
+        $f_srch = "";
+        $f_status = "";
+        $f_template = "";
+
+        if( $filter_search ){
+            $f_srch = "&s=$filter_search";
+        }
+
+        if( $filter_status ){
+            $f_status = "&s=$filter_search";
+        }
+
+        redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id{$f_srch}{$f_status}{$filter_template}");
+    }
+
+    // ===================
+    // STORE THE TEMPLATE TO A VARIABLE
+    // ===================
+    $selected_template = "template_1";
+    if( $_GET["t"] ){
+        $selected_template = $_GET["t"];
+    }
+
+    // ===================
+    // GET THE STORED TEMPLATE SETTINGS
+    // ===================
+    $template_settings = $DB->query("SELECT * FROM {$dbprefix}template_settings WHERE user_id = '$UserID' AND campaign_id = '{$id}'")[0];
+
+    // ===================
+    // CHECK THE LOAD MORE COUNT
+    // ===================
     $load_count = isset($_POST["loadmore"]) ? $_POST["loadmore"] + 1 : 1;
 
+    // ===================
+    // CONDITIONS TO DISPLAT THE SELECTED TEMPLATE
+    // ===================
     if( $selected_template === "template_1" ){
         
         // NEWS CONTENTS
@@ -114,7 +142,7 @@
     	
     	$filter_collection      = $_GET['collection'] ? "AND nws.content_collection_id = '{$_GET['collection']}'" : "";
     	$filter_status_query    = $_GET['status'] ? "AND nws.status = '{$filter_status}'" : "";
-    	$filter_search_query    = $_GET['s'] ? "AND nws.news_title LIKE '%".$filter_search."%'" : "";
+    	$filter_search_query    = $_GET['search_input'] ? "AND nws.news_title LIKE '%".$filter_search."%'" : "";
     	
     	$additional_query = "";
     	if( $filter_search_query === "" ){
@@ -147,9 +175,25 @@
 
         $latest_articles        = array();
         $array                  = implode(",", $content_ids);
+        $filter_collection      = $_GET['collection'] ? "AND nws.content_collection_id = '{$_GET['collection']}'" : "";
+    	$filter_status_query    = $_GET['status'] ? "AND nws.status = '{$filter_status}'" : "";
+    	$filter_search_query    = $_GET['search_input'] ? "AND news_title LIKE '%".$filter_search."%'" : "";
+    	
+    	$additional_query = "";
+    	if( $filter_search_query === "" ){
+    	    $additional_query =  $filter_status_query;
 
-        $latest_articles_result = $DB->query("SELECT * FROM {$dbprefix}news WHERE content_id IN('".$array."') LIMIT 9");
+    	}
+
+        
+        $latest_articles_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' {$additional_query} AND nws.content_id IN('".$array."') ORDER BY is_pinned DESC LIMIT 9");
+        
+        if( $filter_search_query !== "" ){
+            $latest_articles_result = $DB->query("SELECT * FROM {$dbprefix}news WHERE content_id IN('".$array."') {$filter_search_query} LIMIT 9");
+        }
+        
         $categories             = $DB->query("SELECT category_id FROM {$dbprefix}content WHERE content_id IN('".$array."') GROUP BY category_id");
+
         foreach( $latest_articles_result as $key => $item ){
             $news_title = $item["news_title"];
             $news_image = "";
@@ -187,7 +231,28 @@
 
         $filtered_news = $featured_result;
     }
-    
+
+    // ===================
+    // FUNCTION TO GET USER NEWSFIELD BY USING NEWS_ID
+    // ===================
+    function getUserNews($news, $newsId, $column, $userId) {
+        if (!$news[$newsId] || !$news[$newsId][$column]) {
+            return null;
+        }
+            
+        // Get image if news_update exists
+        if (in_array($column, ["user_image", "post_image"])) {
+            if ($column == "user_image") {
+                $image_dir = "/upload/{$userId}/news/avatar/" . $news[$newsId][$column];
+            } else {
+                $image_dir = "/upload/{$userId}/news/images/" . $news[$newsId][$column];
+            }
+            
+            return $image_dir;
+        }
+        
+        return $news[$newsId][$column];
+    }
 ?>
 
 <!-- CODE_SECTION_HTML_2: CSS_EMBEDDED_DATATABLE -->
@@ -208,6 +273,9 @@
     		<div class="alert alert-danger"><?php echo $_SESSION["msg_error"]; $_SESSION["msg_error"] = ""; ?></div>
     	</div>
 	<?php endif; ?>
+
+    <input type="hidden" id="user_id" value="<?= $UserID ?>">
+    <input type="hidden" id="campaign_id" value="<?= $id ?>">
 	
 	<div id="ajax-alert" class="alert fade in ajax-alert">
         <span class="ajax-alert-message"></span>
@@ -215,172 +283,172 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-	
+	<div class="col-md-12 campaignstyle-action">
+        <div class="btn-group">
+            <a href="<?= $SCRIPTURL ?>add/news.php?campaigns_id=<?= $id ?>" class="btn btn-warning" id="btn-campaign-preview" target="_blank"><i class="fa fa-eye"></i> Preview</a>
+            <button class="btn btn-primary" id="btn-campaign-save"><i class="fa fa-save"></i> Save</button>
+        </div>
+    </div>
 	<div class="col-md-12">
 		<div class="row">
+        <div class="col-md-3">
+		    <div class="row row-heading"></div>
+		    <div class="card">
+                <div class="card-header">
+                <h3>Contents</h3>
+                </div>		          
+                <div class="card-body">
+                    <div class="accordion" id="style-settings">
+                        <div class="card">
+                            <div class="card-header" id="faqhead1">
+                                <a href="#" class="btn btn-header-link" data-toggle="collapse" data-target="#faq1"
+                            aria-expanded="true" aria-controls="faq1">Feed</a>
+                            </div>
+    
+                            <div id="faq1" class="collapse show" aria-labelledby="faqhead1" data-parent="#style-settings">
+                                <div class="card-body">
+                                    <ul class="list-group">
+                                        <li Class="list-group-item">
+                                            <div class="form-group">
+                                                <label>Post Per page</label>
+                                                <input type="number" class="form-control input feed-post-per-page" min="1" value="<?= $template_settings['feed_post_per_page'] ?>">
+                                            </div>
+                                        </li>
+                                        <!-- <li Class="list-group-item">
+                                            <div class="form-group">
+                                                <label>Post Column</label>
+                                                <select name="post-column" onchange="changeCol()" class="form-control input" id="post-column">
+                                                    <option value="12" selected>1</option>
+                                                    <option value="6">2</option>
+                                                    <option value="4">3</option>
+                                                    <option value="3">4</option>
+                                                    <option value="2">6</option>
+                                                    <option value="1">12</option>
+                                                </select>
+                                            </div>
+                                        </li> -->
+                                        <li Class="list-group-item">
+                                            <div class="form-group">
+                                                <label>Show Load More</label>
+                                                <select name="load_more" class="form-control select feed-load-more" id="load-more">
+                                                    <option value="true" <?= $template_settings['feed_load_more'] ? 'selected' : '' ?> >True</option>
+                                                    <option value="false" <?= !$template_settings['feed_load_more'] ? 'selected' : '' ?> >False</option>
+                                                </select>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
 
-        <!-- Uncomment march 17 2022 -->
-       <div class="col-md-3">
-		      <div class="row row-heading"></div>
-
-		      
-
-		      <div class="card">
-                  <div class="card-header">
-                    <h3>Contents</h3>
-                  </div>		          
-                  <div class="card-body">
-		              <div class="accordion" id="style-settings">
-                          <div class="card">
-                              <div class="card-header" id="faqhead1">
-                                  <a href="#" class="btn btn-header-link" data-toggle="collapse" data-target="#faq1"
-                               aria-expanded="true" aria-controls="faq1">Feed</a>
-                              </div>
-        
-                              <div id="faq1" class="collapse show" aria-labelledby="faqhead1" data-parent="#style-settings">
-                                  <div class="card-body">
-                                      <ul class="list-group">
-                                          <li Class="list-group-item">
-                                              <div class="form-group">
-                                                  <label>Post Per page</label>
-                                                  <input type="number" class="form-control input" min="1">
-                                              </div>
-                                          </li>
-                                          <!-- <li Class="list-group-item">
-                                              <div class="form-group">
-                                                  <label>Post Column</label>
-                                                  <select name="post-column" onchange="changeCol()" class="form-control input" id="post-column">
-                                                      <option value="12" selected>1</option>
-                                                      <option value="6">2</option>
-                                                      <option value="4">3</option>
-                                                      <option value="3">4</option>
-                                                      <option value="2">6</option>
-                                                      <option value="1">12</option>
-                                                  </select>
-                                              </div>
-                                          </li> -->
-                                          <li Class="list-group-item">
-                                              <div class="form-group">
-                                                  <label>Show Load More</label>
-                                                  <select name="load_more" class="form-control select" id="load-more">
-                                                      <option value="true">True</option>
-                                                      <option value="false">False</option>
-                                                  </select>
-                                              </div>
-                                          </li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- <div class="card">
-                              <div class="card-header" id="faqhead2">
-                                  <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq2"
-                            aria-expanded="true" aria-controls="faq2">Filter</a>
-                              </div>
-        
-                              <div id="faq2" class="collapse" aria-labelledby="faqhead2" data-parent="#style-settings">
-                                  <div class="card-body">
-                                      <ul class="list-group">
-                                          <li Class="list-group-item">
-                                              <div class="form-group">
-                                                  <label>Show 'custom' filter</label>
-                                                  <select name="load_more" class="form-control select" id="show-custom-filter">
-                                                      <option value="false">False</option>
-                                                      <option value="true">True</option>
-                                                  </select>
-                                              </div>
-                                          </li>
-                                          <li Class="list-group-item">
-                                              <div class="form-group">
-                                                  <label>Show 'networks' filter</label>
-                                                  <select name="load_more" class="form-control select" id="show-network-filter">
-                                                      <option value="false">False</option>
-                                                      <option value="true">True</option>
-                                                  </select>
-                                              </div>
-                                          </li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </div> -->
-                          <div class="card">
-                              <div class="card-header" id="faqhead3">
-                                  <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq3"
-                           aria-expanded="true" aria-controls="faq3">Colors / Appearance</a>
-                              </div>
-        
-                              <div id="faq3" class="collapse" aria-labelledby="faqhead3" data-parent="#style-settings">
-                                  <div class="card-body">
-                                      <ul class="list-group">
-                                          <!-- <li Class="list-group-item">
-                                              <div class="form-group">
-                                                  <label>Icon color</label>
-                                                  <input type="color" class="form-control color">
-                                              </div>
-                                          </li> -->
-                                          <li Class="list-group-item">
-                                              <div class="form-group">
-                                                  <label>Text color</label>
-                                                  <input type="color" id="textColor" value="#000000" class="form-control color">
-                                              </div>
-                                          </li>
-                                          <li Class="list-group-item">
-                                              <div class="form-group">
-                                                  <label>Border color</label>
-                                                  <input type="color" id="borderColor" value="#000000" class="form-control color">
-                                              </div>
-                                          </li>
-                                          <li Class="list-group-item">
-                                              <div class="form-group">
-                                                  <label>Background Color</label>
-                                                  <input type="color" id="bgColor" value="#000000" class="form-control color">
-                                              </div>
-                                          </li>
-                                          <li Class="list-group-item">
-                                              <div class="form-group">
-                                                  <label>Feed background color</label>
-                                                  <input type="color" id="feedColor" value="#000000" class="form-control color">
-                                              </div>
-                                          </li>
-                                          <li Class="list-group-item">
-                                              <div class="form-group">
-                                                   <button onClick="resetColors();">Reset</button>
-                                              </div>
-                                          </li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="card">
-                              <div class="card-header" id="faqhead4">
-                                  <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq4"
-                               aria-expanded="true" aria-controls="faq3">Template Settings</a>
-                              </div>
-        
-                              <div id="faq4" class="collapse" aria-labelledby="faqhead4" data-parent="#style-settings">
-                                  <div class="card-body">
-                                      <ul class="list-group">
-                                          <form method="POST">
-                                          <li Class="list-group-item">
-                                                  <div class="form-group">
-                                                      <label>Template</label>
-                                                      <select name="templateNumber" class="form-control input" id="template-column">
-                                                          <option value="template_1" <?= $selected_template == "template_1" ? 'selected' : '' ?>>1</option>
-                                                          <option value="template_2" <?= $selected_template == "template_2" ? 'selected' : '' ?>>2</option>
-                                                           <option value="template_3" <?= $selected_template == "template_3" ? 'selected' : '' ?>>3</option>
-                                                      </select>
-                                                  </div>
-                                              </li>
-                                              <li Class="list-group-item text-right">
-                                                  <button type="submit" class="btn btn-primary btn-apply">Apply</button>
-                                              </li>
-                                          </form>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                        <!-- <div class="card">
+                            <div class="card-header" id="faqhead2">
+                                <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq2"
+                        aria-expanded="true" aria-controls="faq2">Filter</a>
+                            </div>
+    
+                            <div id="faq2" class="collapse" aria-labelledby="faqhead2" data-parent="#style-settings">
+                                <div class="card-body">
+                                    <ul class="list-group">
+                                        <li Class="list-group-item">
+                                            <div class="form-group">
+                                                <label>Show 'custom' filter</label>
+                                                <select name="load_more" class="form-control select" id="show-custom-filter">
+                                                    <option value="false">False</option>
+                                                    <option value="true">True</option>
+                                                </select>
+                                            </div>
+                                        </li>
+                                        <li Class="list-group-item">
+                                            <div class="form-group">
+                                                <label>Show 'networks' filter</label>
+                                                <select name="load_more" class="form-control select" id="show-network-filter">
+                                                    <option value="false">False</option>
+                                                    <option value="true">True</option>
+                                                </select>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="card">
+                            <div class="card-header" id="faqhead3">
+                                <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq3"
+                        aria-expanded="true" aria-controls="faq3">Colors / Appearance</a>
+                            </div>
+    
+                            <div id="faq3" class="collapse" aria-labelledby="faqhead3" data-parent="#style-settings">
+                                <div class="card-body">
+                                    <ul class="list-group">
+                                        <!-- <li Class="list-group-item">
+                                            <div class="form-group">
+                                                <label>Icon color</label>
+                                                <input type="color" class="form-control color">
+                                            </div>
+                                        </li> -->
+                                        <li Class="list-group-item">
+                                            <div class="form-group">
+                                                <label>Text color</label>
+                                                <input type="color" id="textColor" value="<?= $template_settings['appearance_text_color'] ?>" class="form-control color appearance-text-color">
+                                            </div>
+                                        </li>
+                                        <li Class="list-group-item">
+                                            <div class="form-group">
+                                                <label>Border color</label>
+                                                <input type="color" id="borderColor" value="<?= $template_settings['appearance_border_color'] ?>" class="form-control color appearance-border-color">
+                                            </div>
+                                        </li>
+                                        <li Class="list-group-item">
+                                            <div class="form-group">
+                                                <label>Background Color</label>
+                                                <input type="color" id="bgColor" value="<?= $template_settings['appearance_bg_color'] ?>" class="form-control color appearance-bg-color">
+                                            </div>
+                                        </li>
+                                        <li Class="list-group-item">
+                                            <div class="form-group">
+                                                <label>Feed background color</label>
+                                                <input type="color" id="feedColor" value="<?= $template_settings['appearance_feed_bg_color'] ?>" class="form-control color appearance-feed-bg-color">
+                                            </div>
+                                        </li>
+                                        <li Class="list-group-item">
+                                            <div class="form-group">
+                                                <button onClick="resetColors();">Reset</button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="faqhead4">
+                                <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq4"
+                            aria-expanded="true" aria-controls="faq3">Template Settings</a>
+                            </div>
+    
+                            <div id="faq4" class="collapse" aria-labelledby="faqhead4" data-parent="#style-settings">
+                                <div class="card-body">
+                                    <ul class="list-group">
+                                        <form method="POST">
+                                            <li Class="list-group-item">
+                                                <div class="form-group">
+                                                    <label>Template</label>
+                                                    <select name="templateNumber" class="form-control input" id="template-column">
+                                                        <option value="template_1" <?= $selected_template == "template_1" ? 'selected' : '' ?>>1</option>
+                                                        <option value="template_2" <?= $selected_template == "template_2" ? 'selected' : '' ?>>2</option>
+                                                        <!-- <option value="template_3" <?= $selected_template == "template_3" ? 'selected' : '' ?>>3</option> -->
+                                                    </select>
+                                                </div>
+                                            </li>
+                                            <li Class="list-group-item text-right">
+                                                <button type="submit" class="btn btn-primary btn-apply">Apply</button>
+                                            </li>
+                                        </form>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 		          </div>
 		      </div>
 		    </div>
@@ -407,7 +475,7 @@
 		                <form role="form" method="POST">
     		                <div class="filters">
     		                    <div class="form-group">
-    		                        <input type="text" class="form-control" name="search_input" placeholder="Search...">
+    		                        <input type="text" class="form-control" name="search_input" value="<?= $_GET['search_input'] ?>" placeholder="Search...">
     		                        <button type="submit" class="btn btn-primary c-btn-search">Search</button>
     		                        <select name="filter_status" class="form-control" onchange='this.form.submit()'>
     		                            <option value="default" <?= $filter_status == "default" ? 'selected' : '' ?> disabled>Status: </option>
@@ -677,42 +745,3 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script type="text/javascript" src="../../js/custom/campaignstyle.js"> </script>
-
-<!-- Custom Script -->
-<script type="text/javascript">
-    
-    // console.log("test");
-
-    // editModal.on('submit', function (evt) {
-    //     evt.preventDefault();
-        
-    //     let formData = new FormData();
-    //     formData.append('action', "edit");
-    //     formData.append('user_id', <?php echo $UserID; ?>);
-    //     formData.append('news_id', editModal.find("#news_id").val());
-    //     formData.append('news_author', editModal.find("#name").val());
-    //     formData.append('news_title', editModal.find("#title").val());
-    //     formData.append('news_description', editModal.find("#description").val());
-    //     formData.append('user_image', editModal.find("#user_image").get(0).files[0]);
-    //     formData.append('image', editModal.find("#image").get(0).files[0]);
-    //     formData.append('video_url', editModal.find("#video_url").val());
-       
-    //     $.ajax({
-    //         url: "/api/news.php",
-    //         method: "POST",
-    //         contentType: false,
-    //         processData: false,
-    //         data: formData,
-    //         success: function (response) {
-    //             editModal.modal('hide');
-    //             showAlert(alertModal, response.message, response.success);
-    //             updateData(response.data);
-    //         },
-    //         error: function (response) {
-    //             showAlert(alertModal, response.responseJSON.message, response.responseJSON.success);
-    //         }
-    //     });
-    // });
-
-    
-</script>

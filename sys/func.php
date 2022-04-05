@@ -617,7 +617,7 @@
 		$shortUrlRegex = '/youtu.be\/([a-zA-Z0-9_-]+)\??/i';
 		$longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))([a-zA-Z0-9_-]+)/i';
 		
-		$youtubeId = (preg_match($shortUrlRegex, $url, $matches)) ? $matches[count($matches) - 1] : (preg_match($longUrlRegex, $url, $matches)) ? $matches[count($matches) - 1] : '';
+		$youtubeId = ((preg_match($shortUrlRegex, $url, $matches)) ? $matches[count($matches) - 1] : (preg_match($longUrlRegex, $url, $matches))) ? $matches[count($matches) - 1] : '';
 
 		return empty($youtubeId) ? $url : 'https://www.youtube.com/embed/' . $youtubeId ;
 	}

@@ -6,7 +6,7 @@
 		var $dbname;
 		var $connect;
 
-		function db($dbhost, $dbuser, $dbpass, $dbname){
+		function __construct($dbhost, $dbuser, $dbpass, $dbname){
 			$this->dbhost = $dbhost;
 			$this->dbuser = $dbuser;
 			$this->dbpass = $dbpass;
