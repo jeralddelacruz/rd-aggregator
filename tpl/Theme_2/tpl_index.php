@@ -56,6 +56,14 @@
                 <div class="container h-100 d-flex align-items-center">
                     <div class="login-wrap p-0">
                         <div class="login-content">
+                        <div class="particle1"></div>
+                        <div class="particle2"></div>
+                        <div class="particle3"></div>
+                        <div class="particle4"></div>
+                        <div class="particle5"></div>
+                        <div class="particle6"></div>
+                        <div class="particle7"></div>
+                        <div class="particle8"></div>
                             <div class="row align-items-center">
                             <div class="col-6">
                             <div class="login-logo">

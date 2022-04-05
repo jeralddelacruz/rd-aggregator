@@ -344,14 +344,12 @@ section {
 }
 
 .login-wrap {
-    min-width: 50vw;
     padding-top: 8vh;
     margin: 0 auto;
 }
 
 .login-logo {
     text-align: center;
-    margin-bottom: 30px;
 }
 
 .login-checkbox {
@@ -404,10 +402,10 @@ section {
 
 .login-content {
     display: flex;
+    min-height: 60vh;
     justify-content: center;
-    min-height: 80vh;
     background: #bccbde;
-    padding: 40px 40px 30px;
+    padding: 50px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
