@@ -89,6 +89,39 @@
         redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id{$f_srch}{$f_status}{$filter_template}");
     }
 
+    if(isset($_POST['saveChanges'])){
+        $campaigns_theme_text_color = $_POST['campaigns_theme_text_color'];
+        $campaigns_theme_border_color = $_POST['campaigns_theme_border_color'];
+        $campaigns_theme_bg_color = $_POST['campaigns_theme_bg_color'];
+        $campaigns_theme_feed_color = $_POST['campaigns_theme_feed_color'];
+
+        $update_campaigns = $DB->query("UPDATE {$dbprefix}campaigns SET 
+            campaigns_theme_text_color = '{$campaigns_theme_text_color}',
+            campaigns_theme_border_color = '{$campaigns_theme_border_color}',
+            campaigns_theme_bg_color = '{$campaigns_theme_bg_color}',
+            campaigns_theme_feed_color = '{$campaigns_theme_feed_color}'
+            WHERE campaigns_id = {$id} AND user_id = '{$UserID}'");
+
+        if($update_campaigns){
+
+            $f_srch = "";
+            $f_status = "";
+            $f_template = "";
+
+            if( $filter_search ){
+                $f_srch = "&s=$filter_search";
+            }
+    
+            if( $filter_status ){
+                $f_status = "&s=$filter_search";
+            }
+
+            redirect("index.php?cmd=campaignstyle&id=$id&collection=$content_collection_id{$f_srch}{$f_status}{$filter_template}");
+        }
+        else{
+        }
+    }
+
     // ===================
     // STORE THE TEMPLATE TO A VARIABLE
     // ===================
@@ -285,8 +318,15 @@
     </div>
 	<div class="col-md-12 campaignstyle-action">
         <div class="btn-group">
-            <a href="<?= $SCRIPTURL ?>add/news.php?campaigns_id=<?= $id ?>" class="btn btn-warning" id="btn-campaign-preview" target="_blank"><i class="fa fa-eye"></i> Preview</a>
-            <button class="btn btn-primary" id="btn-campaign-save"><i class="fa fa-save"></i> Save</button>
+            <a href="<?= $SCRIPTURL ?>add/news.php?campaigns_id=<?= $id ?>&template=<?=$selected_template ?>" class="btn btn-warning" id="btn-campaign-preview" target="_blank"><i class="fa fa-eye"></i> Preview</a>
+            <form method="POST">
+                <!-- <input type="hidden" id="ctheme_color" name="campaigns_theme_color" value=""> -->
+                <input type="hidden" id="ctheme_text_color" name="campaigns_theme_text_color" value="">
+                <input type="hidden" id="ctheme_border_color" name="campaigns_theme_border_color" value="">
+                <input type="hidden" id="ctheme_bg_color" name="campaigns_theme_bg_color" value="">
+                <input type="hidden" id="ctheme_feed_color" name="campaigns_theme_feed_color" value="">
+                <button type="submit" name="saveChanges" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+            </form>
         </div>
     </div>
 	<div class="col-md-12">

@@ -347,6 +347,7 @@
         document.querySelectorAll("h5").forEach(function(h5) {
             h5.style.color = event.target.value;
         });
+        document.getElementById("ctheme_text_color").value=event.target.value;
     }
 
     var borderColor;
@@ -364,6 +365,7 @@
     function updateBorderColor(event) {
         document.querySelectorAll(".news-container").forEach(function(newscontainer) {
             newscontainer.style.borderColor = event.target.value;
+            document.getElementById("ctheme_border_color").value=event.target.value;
         });
     }
 
@@ -382,6 +384,7 @@
     function updateBgColor(event) {
         document.querySelectorAll(".news-container").forEach(function(newscontainer) {
             newscontainer.style.backgroundColor = event.target.value;
+            document.getElementById("ctheme_bg_color").value=event.target.value;
         });
     }
 
@@ -402,6 +405,7 @@
 
         if (cardBody) {
             cardBody.style.backgroundColor = event.target.value;
+            document.getElementById("ctheme_feed_color").value=event.target.value;
         }
     }
 

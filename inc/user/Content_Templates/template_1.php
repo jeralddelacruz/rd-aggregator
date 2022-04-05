@@ -19,7 +19,7 @@
 }
 
 .text-color {
-    color: <?= $template_settings['appearance_text_color'] ? $template_settings['appearance_text_color'] : "#000" ?>
+    color: <?= $campaign['campaigns_theme_text_color']; ?> !important;
 }
 
 .b-color {

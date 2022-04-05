@@ -165,8 +165,15 @@
         }
         
         .news-item-container{
-            background-color: #e8e8e8;
+            background-color: <?= $campaign['campaigns_theme_bg_color']; ?>;
             margin-bottom: 8px;
+            border: 1px solid <?= $campaign['campaigns_theme_border_color']; ?>;
+        }
+        h5, p {
+            color: <?= $campaign['campaigns_theme_text_color']; ?> !important;
+        }
+        main {
+            background-color: <?= $campaign['campaigns_theme_feed_color']; ?>;
         }
     </style>
 </head>
