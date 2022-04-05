@@ -328,17 +328,17 @@
 		}
 	}
 
-    // var textColor;
-    // var defaultTextColor = "#000000";
+    var textColor;
+    var defaultTextColor = "#000000";
 
-    // window.addEventListener("load", startTextChange, false);
+    window.addEventListener("load", startTextChange, false);
 
-    // function startTextChange() {
-    //     textColor = document.querySelector("#textColor");
-    //     textColor.value = defaultTextColor;
-    //     textColor.addEventListener("change", updateTextColor, false);
-    //     textColor.select();
-    // }
+    function startTextChange() {
+        textColor = document.querySelector("#textColor");
+        textColor.value = defaultTextColor;
+        textColor.addEventListener("change", updateTextColor, false);
+        textColor.select();
+    }
 
     function updateTextColor(event) {
         document.querySelectorAll("p").forEach(function(p) {
@@ -349,17 +349,17 @@
         });
     }
 
-    // var borderColor;
-    // var defaultBorderColor = "#000000";
+    var borderColor;
+    var defaultBorderColor = "#000000";
 
-    // window.addEventListener("load", startBorderChange, false);
+    window.addEventListener("load", startBorderChange, false);
 
-    // function startBorderChange() {
-    //     borderColor = document.querySelector("#borderColor");
-    //     borderColor.value = defaultBorderColor;
-    //     borderColor.addEventListener("change", updateBorderColor, false);
-    //     borderColor.select();
-    // }
+    function startBorderChange() {
+        borderColor = document.querySelector("#borderColor");
+        borderColor.value = defaultBorderColor;
+        borderColor.addEventListener("change", updateBorderColor, false);
+        borderColor.select();
+    }
 
     function updateBorderColor(event) {
         document.querySelectorAll(".news-container").forEach(function(newscontainer) {
@@ -367,17 +367,17 @@
         });
     }
 
-    // var bgColor;
-    // var defaultBgColor = "#000000";
+    var bgColor;
+    var defaultBgColor = "#000000";
 
-    // window.addEventListener("load", startBgChange, false);
+    window.addEventListener("load", startBgChange, false);
 
-    // function startBgChange() {
-    //     bgColor = document.querySelector("#bgColor");
-    //     bgColor.value = defaultBgColor;
-    //     bgColor.addEventListener("change", updateBgColor, false);
-    //     bgColor.select();
-    // }
+    function startBgChange() {
+        bgColor = document.querySelector("#bgColor");
+        bgColor.value = defaultBgColor;
+        bgColor.addEventListener("change", updateBgColor, false);
+        bgColor.select();
+    }
 
     function updateBgColor(event) {
         document.querySelectorAll(".news-container").forEach(function(newscontainer) {
@@ -385,17 +385,17 @@
         });
     }
 
-    // var feedColor;
-    // var defaultFeedColor = "#000000";
+    var feedColor;
+    var defaultFeedColor = "#000000";
 
-    // window.addEventListener("load", startFeedChange, false);
+    window.addEventListener("load", startFeedChange, false);
 
-    // function startFeedChange() {
-    //     feedColor = document.querySelector("#feedColor");
-    //     feedColor.value = defaultFeedColor;
-    //     feedColor.addEventListener("change", updateFeedColor, false);
-    //     feedColor.select();
-    // }
+    function startFeedChange() {
+        feedColor = document.querySelector("#feedColor");
+        feedColor.value = defaultFeedColor;
+        feedColor.addEventListener("change", updateFeedColor, false);
+        feedColor.select();
+    }
 
     function updateFeedColor(event) {
         var cardBody = document.querySelector("#cardBody");
