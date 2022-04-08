@@ -32,6 +32,10 @@
         <div class="row container m-auto">
             <div class="col-12 col-md-8">
                 <div class="row">
+                    <?php if(empty($filtered_news)){
+                        echo 'This line is printed, because the $var1 is empty.';
+                    }
+                    echo "<br>"; ?>
                     <?php foreach( $filtered_news as $key => $filtered_new ): ?>
                     <?php
                         $news_id            = $filtered_new['news_id'];
