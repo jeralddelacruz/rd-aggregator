@@ -59,6 +59,153 @@
 	include("./includes/query_data.php");
 	include("./includes/responder.php");
 	
+    // ===================
+    // INITIAL VARIABLES
+    // ===================
+	$UserID = $_SESSION['UserID'];
+	$campaigns_type = 'regular';
+	$id             = $_GET["campaigns_id"];
+    $selected_template = $_GET["template"];
+	$collection_id  = $_GET["collection"];
+	$upload_dir     = "/upload/{$UserID}/news";
+	
+    // ===================
+	// GET COLLECTIONS
+    // ===================
+    $content_collections = $DB->query("SELECT * FROM {$dbprefix}content_collection WHERE user_id='{$UserID}' {$and_query}");
+	
+    // ===================
+    // DATABASE QUERIES
+    // ===================
+    $news = $DB->query("SELECT * FROM {$dbprefix}news WHERE users_id LIKE '%\"{$UserID}\"%' AND is_deleted='0'");
+    
+    // ===================
+    // GET CURRENT USER NEWS UPDATE
+    // ===================
+    $news_ids   = array_column($news, "news_id"); // Get array of news ids
+    $where_in   = "'" . implode("','", $news_ids) . "'"; // Implode for WHERE IN condition
+    $user_news  = $DB->query("SELECT * FROM {$dbprefix}news_updates WHERE news_id IN ({$where_in}) AND user_id = '{$UserID}'");
+    $user_news  = array_combine(array_column($user_news, 'news_id'), $user_news); // Set news_id as index
+    $filtered_news = $news;
+
+    // ===================
+    // CHECK THE LOAD MORE COUNT
+    // ===================
+    $load_count = isset($_POST["loadmore"]) ? $_POST["loadmore"] + 1 : 1;
+
+    // ===================
+    // CONDITIONS TO DISPLAY THE SELECTED TEMPLATE
+    // ===================
+    if( $selected_template === "template_1" ){
+        
+        // NEWS CONTENTS
+        // filter the news for template_1
+        $featured   = 0;
+        $trending   = 0;
+        $new        = 0;
+        
+        // $featured_limit = !($load_count % 2 == 0) ? $load_count + 1 : $load_count + 2;
+        $featured_limit = $load_count + 1;
+        $trending_limit = $load_count;
+        // $new_limit      = !($load_count % 2 == 0) ? $load_count + 1 : $load_count + 2 ;
+        $new_limit      = $load_count + 1;
+
+        if( $trending_limit == ($featured_limit - 1)){
+            $featured_limit = $featured_limit - 1;
+        }
+
+        if( $trending_limit == ($new_limit - 1)){
+            $new_limit = $new_limit - 1;
+        }
+        
+        // separate the news depends on the category
+        $featured_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured' {$and_query} ORDER BY is_pinned");
+        $trending_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending' {$and_query} ORDER BY is_pinned");
+        $new_result      = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New' {$and_query} ORDER BY is_pinned");
+        
+        $filtered_news = $featured_result;
+
+    } elseif ( $selected_template === "template_2" ){
+        // NEWS CONTENTS
+        // filter the news for template_2
+        
+        // Get the latest news contents
+        $content_collection_id  = $DB->query("SELECT * FROM {$dbprefix}campaigns WHERE campaigns_id = {$id}")[0]["content_collection_id"];
+        $contents            = $DB->query("SELECT * FROM {$dbprefix}content WHERE content_collection_id = '{$content_collection_id}'");
+
+        $content_ids = array();
+        foreach ($contents as $key => $content) {
+            $content_ids[] = $content["content_id"];
+        }
+
+        $latest_articles        = array();
+        $array                  = implode(",", $content_ids);
+
+
+        
+        $latest_articles_result = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND nws.content_id IN('".$array."') ORDER BY is_pinned DESC LIMIT 9");
+        
+        $categories             = $DB->query("SELECT category_id FROM {$dbprefix}content WHERE content_id IN('".$array."') GROUP BY category_id");
+
+        foreach( $latest_articles_result as $key => $item ){
+            $news_title = $item["news_title"];
+            $news_image = "";
+            
+            if( $item["news_image"] != "[null]" || $item["news_image"] != '[""]' ) {
+                $news_image = json_decode($item["news_image"])[0];
+            }
+            
+            $latest_articles[] = [
+                    "news_id"               => $item["news_id"],
+                    "news_title"            => $news_title,
+                    "news_image"            => $news_image,
+                    "news_author"           => $item["news_author"],
+                    "news_description"      => "",
+                    "category"              => "Test",
+                    "news_link"             => $item["news_link"],
+                    "status"                => $item["status"],
+                    "news_published_date"   => $item["news_published_date"],
+            ];
+        }
+
+        $filtered_news = $latest_articles;
+
+    } elseif ( $selected_template === "template_3" ){
+        // NEWS CONTENTS
+        // filter the news for template_3
+        $featured   = 0;
+        $trending   = 0;
+        $new        = 0;
+        
+        // separate the news depends on the category
+        $featured_result    = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured'");
+        $trending_result    = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending'");
+        $new_result         = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New'");
+
+        $filtered_news = $featured_result;
+    }
+
+    // ===================
+    // FUNCTION TO GET USER NEWSFIELD BY USING NEWS_ID
+    // ===================
+    function getUserNews($news, $newsId, $column, $userId) {
+        if (!$news[$newsId] || !$news[$newsId][$column]) {
+            return null;
+        }
+            
+        // Get image if news_update exists
+        if (in_array($column, ["user_image", "post_image"])) {
+            if ($column == "user_image") {
+                $image_dir = "/upload/{$userId}/news/avatar/" . $news[$newsId][$column];
+            } else {
+                $image_dir = "/upload/{$userId}/news/images/" . $news[$newsId][$column];
+            }
+            
+            return $image_dir;
+        }
+        
+        return $news[$newsId][$column];
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -234,143 +381,33 @@
                         <h1 class="display-3 text-center text-light font-weight-bold shadow hero-title"><?= strtoupper($bannerHeroTitle); ?></h1>
                     </div>
                 </div>
-                <div class="container">
-                    <!-- Example row of columns -->
-                    <div class="row">
-                        <div class="col-md-3 pr-1 pl-1">
-                            <h5 class="text-center font-weight-bold">Featured</h5>
-                            <?php 
-                                $p = 0;
-                                foreach ($newsData as $key => $newsDataItem) {
-                                if ($newsDataItem['status'] == 'Featured') { 
-                                    $p++;
-                                    if( $p < $minNumber ){
-                                        $newsItemImage = $newsDataItem['image'];
-                                        
-                                        $decodedImage = json_decode($newsItemImage);
-                                        $getRandIndex = rand(0, count($decodedImage)-1);
-                                        $news_images = $decodedImage[$getRandIndex];
-                                        
-                                        if( $news_images == "" && $newsDataItem['uploaded_image'] == "" ){
-                                            $news_image = "assets/img/no.jpg";
-                                        }else{
-                                            // echo $news_images;
-                                            $news_image = $news_images != "" ? $news_images : json_decode($newsDataItem['uploaded_image'])[0];
-                                        }
-                            ?>
-                                <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>">
-                                    <div class="col-md-12 p-0 news-item-container">
-                                        <img src="<?= $news_image ?>" alt="<?= $news_image ?>">
-                                        <div class="news-detail pl-2 pr-2 pb-2">
-                                            <!--<a href="<?= $newsDataItem['link']; ?>" class="news-item-category"><?= $newsDataItem['status']; ?></a>-->
-                                            <!--<a href="<?= $newsDataItem['link']; ?>" class="news-item-details">-->
-                                            <!--    <p><?= $newsDataItem['title']; ?></p>-->
-                                            <!--</a>-->
-                                            <h2>
-                                                <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>" class="news-item-category"><?= strtoupper($newsDataItem['status']); ?></a>
-                                                <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>" class="news-item-details">
-                                                    <p><?= $newsDataItem['title']; ?></p>
-                                                </a>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </a>
-                            <?php } } } ?>
-                        </div>
-                        <div class="col-md-6 pr-1 pl-1">
-                            <h5 class="text-center font-weight-bold">Trending</h5>
-                            <?php 
-                                $o = 0;
-                                foreach ($newsData as $key => $newsDataItem) { 
-                                
-                                if ($newsDataItem['status'] == 'Trending') { 
-                                    $o++;
-                                    if( $o < $totalTrendingCount ){
-                                        $newsItemImage = $newsDataItem['image'];
-                                        
-                                        $decodedImage = json_decode($newsItemImage);
-                                        
-                                        $uploadedImage = $newsDataItem['uploaded_image'];
-                                        $isManual = false;
-                                        if( count($decodedImage) <= 0 ){
-                                            $decodedImage = json_decode($uploadedImage);
-                                            $isManual = true;
-                                        }
-                                        
-                                        $getRandIndex = rand(0, count($decodedImage)-1);
-                                        $news_images = $decodedImage[$getRandIndex];
-                                        
-                                        if( $news_images == "" && $newsDataItem['uploaded_image'] == "" ){
-                                            $news_image = "assets/img/no.jpg";
-                                        }else{
-                                            $news_image = $news_images != "" ? $news_images : json_decode($newsDataItem['uploaded_image'])[0];
-                                            // if( $isManual ){
-                                            //     $news_image = "assets/img/".$news_images;
-                                            // }else{
-                                            //     $news_image = $news_images != "" ? $news_images : json_decode($newsDataItem['uploaded_image'])[0];
-                                            // }
-                                            
-                                        }
-                            ?>
-                            <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>">
-                                <div class="col-md-12 p-0 news-item-container">
-                                    <img class="trending-img" src="<?= $news_image ?>" alt="<?= $news_image ?>">
-                                    <div class="news-detail pl-2 pr-2 pb-2">
-                                        <h2>
-                                            <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>" class="news-item-category"><?= strtoupper($newsDataItem['status']); ?></a>
-                                            <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>" class="news-item-details">
-                                                <p><?= $newsDataItem['title']; ?></p>
-                                            </a>
-                                        </h2>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php } } } ?>
-                        </div>
-                        <div class="col-md-3 pr-1 pl-1">
-                            <h5 class="text-center font-weight-bold">New</h5>
-                            <?php 
-                                $i = 0;
-                                foreach ($newsData as $key => $newsDataItem) {
-                                
-                                if ($newsDataItem['status'] == 'New') { 
-                                    $i++;
-                                    if( $i < $minNumber ){
-                                        $newsItemImage = $newsDataItem['image'];
-                                        
-                                        $decodedImage = json_decode($newsItemImage);
-                                        $getRandIndex = rand(0, count($decodedImage)-1);
-                                        $news_images = $decodedImage[$getRandIndex];
-                                        
-                                        if( $news_images == "" && $newsDataItem['uploaded_image'] == "" ){
-                                            $news_image = "assets/img/no.jpg";
-                                        }else{
-                                            // echo $news_images;
-                                            $news_image = $news_images != "" ? $news_images : json_decode($newsDataItem['uploaded_image'])[0];
-                                            
-                                        }
-                            ?>
-                            <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>">
-                                <div class="col-md-12 p-0 news-item-container">
-                                    <img src="<?= $news_image ?>" alt="<?= $news_image ?>">
-                                    <div class="news-detail pl-2 pr-2 pb-2">
-                                        <h2>
-                                            <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>" class="news-item-category"><?= strtoupper($newsDataItem['status']); ?></a>
-                                            <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>" class="news-item-details">
-                                                <p><?= $newsDataItem['title']; ?></p>
-                                            </a>
-                                        </h2>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php } } } ?>
+                <?php if( count($filtered_news) > 0 ): ?>
+                    <?php 
+                        switch($selected_template) {
+                            case "default":
+                                include("../inc/user/Content_Templates/default.php"); 
+                                break;
+                            case "template_1":
+                                include("../inc/user/Content_Templates/template_1.php"); 
+                                break;
+                            case "template_2":
+                                include("../inc/user/Content_Templates/template_2.php"); 
+                                break;
+                            case "template_3":
+                                include("../inc/user/Content_Templates/template_3.php"); 
+                                break;
+                        default:
+                            // code block
+                        }
+                        
+                    ?>
+                <?php else: ?>
+                    <div class="col-12">
+                        <div class="no-data-container">
+                            <p>No News content found!</p>
                         </div>
                     </div>
-        
-                    <hr>
-        
-                </div> <!-- /container -->
-            
+                <?php endif; ?>
             </main>
             <!-- SHOW THE SHARE BUTTONS ONLY IF THE USER IS LOGGED IN -->
         	<!-- SHARER -->
