@@ -59,6 +59,123 @@
 	include("./includes/query_data.php");
 	include("./includes/responder.php");
 	
+    // ===================
+    // INITIAL VARIABLES
+    // ===================
+	$user           =$DB->info("user","user_id='$UserID'");
+	$campaigns_type = 'regular';
+	$id             = $_GET["campaigns_id"];
+    $selected_template = $_GET["template"];
+	$collection_id  = $_GET["collection"];
+	$upload_dir     = "/upload/{$UserID}/news";
+	
+    // ===================
+	// GET COLLECTIONS
+    // ===================
+    $content_collections = $DB->query("SELECT * FROM {$dbprefix}content_collection WHERE user_id='{$UserID}' {$and_query}");
+	
+    // ===================
+    // DATABASE QUERIES
+    // ===================
+    $news = $DB->query("SELECT * FROM {$dbprefix}news WHERE users_id LIKE '%\"{$UserID}\"%' AND is_deleted='0'");
+    
+    // ===================
+    // GET CURRENT USER NEWS UPDATE
+    // ===================
+    $news_ids   = array_column($news, "news_id"); // Get array of news ids
+    $where_in   = "'" . implode("','", $news_ids) . "'"; // Implode for WHERE IN condition
+    $user_news  = $DB->query("SELECT * FROM {$dbprefix}news_updates WHERE news_id IN ({$where_in}) AND user_id = '{$UserID}'");
+    $user_news  = array_combine(array_column($user_news, 'news_id'), $user_news); // Set news_id as index
+    $filtered_news = $news;
+
+    // ===================
+    // CHECK THE LOAD MORE COUNT
+    // ===================
+    $load_count = isset($_POST["loadmore"]) ? $_POST["loadmore"] + 1 : 1;
+
+    // ===================
+    // CONDITIONS TO DISPLAY THE SELECTED TEMPLATE
+    // ===================
+    if( $selected_template === "template_1" ){
+        // NEWS CONTENTS
+        // filter the news for template_1
+        
+        // Get the latest news contents
+        $featured   = 0;
+        $trending   = 0;
+        $new        = 0;
+        
+        // separate the news depends on the category
+        $featured_result    = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured'");
+        $trending_result    = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending'");
+        $new_result         = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New'");
+
+        $filtered_news = $featured_result;
+        if(empty($filtered_news)){
+            echo 'This line is printed, because the $var1 is empty.';
+        }
+        echo "<br>";
+
+    } elseif ( $selected_template === "template_2" ){
+        // NEWS CONTENTS
+        // filter the news for template_2
+        
+        // Get the latest news contents
+        $featured   = 0;
+        $trending   = 0;
+        $new        = 0;
+        
+        // separate the news depends on the category
+        $featured_result    = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured'");
+        $trending_result    = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending'");
+        $new_result         = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New'");
+
+        $filtered_news = $featured_result;
+        if(empty($filtered_news)){
+            echo 'This line is printed, because the $var1 is empty.';
+        }
+        echo "<br>";
+
+    } elseif ( $selected_template === "template_3" ){
+        // NEWS CONTENTS
+        // filter the news for template_3
+        $featured   = 0;
+        $trending   = 0;
+        $new        = 0;
+        
+        // separate the news depends on the category
+        $featured_result    = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Featured'");
+        $trending_result    = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'Trending'");
+        $new_result         = $DB->query("SELECT nws.* FROM {$dbprefix}content cnt INNER JOIN {$dbprefix}news nws ON cnt.content_id = nws.content_id AND cnt.user_id = '{$UserID}' AND cnt.category_status = 'New'");
+
+        $filtered_news = $featured_result;
+        if(empty($filtered_news)){
+            echo 'This line is printed, because the $var1 is empty.';
+        }
+        echo "<br>";
+    }
+
+    // ===================
+    // FUNCTION TO GET USER NEWSFIELD BY USING NEWS_ID
+    // ===================
+    function getUserNews($news, $newsId, $column, $userId) {
+        if (!$news[$newsId] || !$news[$newsId][$column]) {
+            return null;
+        }
+            
+        // Get image if news_update exists
+        if (in_array($column, ["user_image", "post_image"])) {
+            if ($column == "user_image") {
+                $image_dir = "/upload/{$userId}/news/avatar/" . $news[$newsId][$column];
+            } else {
+                $image_dir = "/upload/{$userId}/news/images/" . $news[$newsId][$column];
+            }
+            
+            return $image_dir;
+        }
+        
+        return $news[$newsId][$column];
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -234,143 +351,651 @@
                         <h1 class="display-3 text-center text-light font-weight-bold shadow hero-title"><?= strtoupper($bannerHeroTitle); ?></h1>
                     </div>
                 </div>
-                <div class="container">
-                    <!-- Example row of columns -->
-                    <div class="row">
-                        <div class="col-md-3 pr-1 pl-1">
-                            <h5 class="text-center font-weight-bold">Featured</h5>
-                            <?php 
-                                $p = 0;
-                                foreach ($newsData as $key => $newsDataItem) {
-                                if ($newsDataItem['status'] == 'Featured') { 
-                                    $p++;
-                                    if( $p < $minNumber ){
-                                        $newsItemImage = $newsDataItem['image'];
-                                        
-                                        $decodedImage = json_decode($newsItemImage);
-                                        $getRandIndex = rand(0, count($decodedImage)-1);
-                                        $news_images = $decodedImage[$getRandIndex];
-                                        
-                                        if( $news_images == "" && $newsDataItem['uploaded_image'] == "" ){
-                                            $news_image = "assets/img/no.jpg";
-                                        }else{
-                                            // echo $news_images;
-                                            $news_image = $news_images != "" ? $news_images : json_decode($newsDataItem['uploaded_image'])[0];
-                                        }
-                            ?>
-                                <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>">
-                                    <div class="col-md-12 p-0 news-item-container">
-                                        <img src="<?= $news_image ?>" alt="<?= $news_image ?>">
-                                        <div class="news-detail pl-2 pr-2 pb-2">
-                                            <!--<a href="<?= $newsDataItem['link']; ?>" class="news-item-category"><?= $newsDataItem['status']; ?></a>-->
-                                            <!--<a href="<?= $newsDataItem['link']; ?>" class="news-item-details">-->
-                                            <!--    <p><?= $newsDataItem['title']; ?></p>-->
-                                            <!--</a>-->
-                                            <h2>
-                                                <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>" class="news-item-category"><?= strtoupper($newsDataItem['status']); ?></a>
-                                                <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>" class="news-item-details">
-                                                    <p><?= $newsDataItem['title']; ?></p>
-                                                </a>
-                                            </h2>
+                <?php if( count($filtered_news) > 0 ): ?>
+                    <?php if( $selected_template === "template_1" ): ?>
+                        <div class="col-md-12">
+                            <div class="template-container">
+                                <div class="row container m-auto">
+                                    <div class="selectPostCol col-md-3">
+                                        <h5 class="text-center font-weight-bold pb-3">Featured</h5>
+                                        <?php foreach( $featured_result as $filtered_new ): ?>
+                                        <?php
+                                            $news_id = $filtered_new['news_id'];
+                                            $image = getUserNews($user_news, $news_id, "post_image", $UserID) ?? json_decode($filtered_new["news_image"])[0];
+                                            $avatar = getUserNews($user_news, $news_id, "user_image", $UserID) ?? "https://farm5.staticflickr.com/4777/buddyicons/143966226@N06.jpg";
+                                            $news_title = getUserNews($user_news, $news_id, "title", $UserID) ?? $filtered_new['news_title'];
+                                            $news_author = getUserNews($user_news, $news_id, "name", $UserID) ?? $filtered_new['news_author'];
+                                            $news_date = getUserNews($user_news, $news_id, "created_at", $UserID) ?? $filtered_new["news_published_date"];
+                                            $news_description = getUserNews($user_news, $news_id, "description", $UserID) ?? "";
+                                            $status = $filtered_new['status'];
+                                            $is_pinned = $filtered_new['is_pinned'];
+                                            
+                                            $filtered_new['news_title'] = $news_title;
+                                            $filtered_new['news_description'] = $news_description;
+                                            $filtered_new['news_author'] = $news_author;
+                                            $filtered_new['post_image'] = $image;
+                                            $filtered_new['user_image'] = $avatar;
+                                            $filtered_new['created_at'] = $news_date;
+                                            $news = json_encode($filtered_new);
+                                        ?>
+                                            <div class="col-md-12 news-column pb-3">
+                                                <div id="news-<?php echo $news_id; ?>" class="news-container b-color">
+                                                    <div class="news-image-container">
+                                                        <img src="<?= $image ?>">
+                                                    </div>
+                                                    <div class="news-content-container">
+                                                        <div class="news-heading-container">
+                                                            <h5 class="text-color"><?= $news_title ?></h5>
+                                                        </div>
+                                                        <div class="news-detail-container">
+                                                            <p class="text-color"><?= $news_description ?></p>
+                                                        </div>
+                                                        <div class="news-author-container">
+                                                            <!-- <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p> -->
+                                                            <p class="date-posted text-color"><?= $news_date ?></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <div class="selectPostCol col-md-6">
+                                        <h5 class="text-center font-weight-bold pb-3">Trending</h5>
+                                        <?php foreach( $trending_result as $filtered_new ): ?>
+                                        <?php
+                                            $news_id = $filtered_new['news_id'];
+                                            $image = getUserNews($user_news, $news_id, "post_image", $UserID) ?? json_decode($filtered_new["news_image"])[0];
+                                            $avatar = getUserNews($user_news, $news_id, "user_image", $UserID) ?? "https://farm5.staticflickr.com/4777/buddyicons/143966226@N06.jpg";
+                                            $news_title = getUserNews($user_news, $news_id, "title", $UserID) ?? $filtered_new['news_title'];
+                                            $news_author = getUserNews($user_news, $news_id, "name", $UserID) ?? $filtered_new['news_author'];
+                                            $news_date = getUserNews($user_news, $news_id, "created_at", $UserID) ?? $filtered_new["news_published_date"];
+                                            $news_description = getUserNews($user_news, $news_id, "description", $UserID) ?? "";
+                                            $status = $filtered_new['status'];
+                                            $is_pinned = $filtered_new['is_pinned'];
+                                            
+                                            $filtered_new['news_title'] = $news_title;
+                                            $filtered_new['news_description'] = $news_description;
+                                            $filtered_new['news_author'] = $news_author;
+                                            $filtered_new['post_image'] = $image;
+                                            $filtered_new['user_image'] = $avatar;
+                                            $filtered_new['created_at'] = $news_date;
+                                            $news = json_encode($filtered_new);
+                                        ?>
+                                            <div class="col-md-12 news-column pb-3">
+                                                <div id="news-<?php echo $news_id; ?>" class="news-container b-color">
+                                                    <div class="news-image-container trending_news_container">
+                                                        <img src="<?= $image ?>">
+                                                    </div>
+                                                    <div class="news-content-container">
+                                                        <div class="news-heading-container">
+                                                            <h5 class="text-color"><?= $news_title ?></h5>
+                                                        </div>
+                                                        <div class="news-detail-container">
+                                                            <p class="text-color"><?= $news_description ?></p>
+                                                        </div>
+                                                        <div class="news-author-container">
+                                                            <!-- <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p> -->
+                                                            <p class="date-posted text-color"><?= $news_date ?></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <div class="selectPostCol col-md-3">
+                                        <h5 class="text-center font-weight-bold pb-3">New</h5>
+                                        <?php foreach( $new_result as $filtered_new ): ?>
+                                        <?php
+                                            $news_id = $filtered_new['news_id'];
+                                            $image = getUserNews($user_news, $news_id, "post_image", $UserID) ?? json_decode($filtered_new["news_image"])[0];
+                                            $avatar = getUserNews($user_news, $news_id, "user_image", $UserID) ?? "https://farm5.staticflickr.com/4777/buddyicons/143966226@N06.jpg";
+                                            $news_title = getUserNews($user_news, $news_id, "title", $UserID) ?? $filtered_new['news_title'];
+                                            $news_author = getUserNews($user_news, $news_id, "name", $UserID) ?? $filtered_new['news_author'];
+                                            $news_date = getUserNews($user_news, $news_id, "created_at", $UserID) ?? $filtered_new["news_published_date"];
+                                            $news_description = getUserNews($user_news, $news_id, "description", $UserID) ?? "";
+                                            $status = $filtered_new['status'];
+                                            $is_pinned = $filtered_new['is_pinned'];
+                                            
+                                            $filtered_new['news_title'] = $news_title;
+                                            $filtered_new['news_description'] = $news_description;
+                                            $filtered_new['news_author'] = $news_author;
+                                            $filtered_new['post_image'] = $image;
+                                            $filtered_new['user_image'] = $avatar;
+                                            $filtered_new['created_at'] = $news_date;
+                                            $news = json_encode($filtered_new);
+                                        ?>
+                                            <div class="col-md-12 news-column pb-3">
+                                                <div id="news-<?php echo $news_id; ?>" class="news-container b-color">
+                                                    <div class="news-image-container">
+                                                        <img src="<?= $image ?>">
+                                                    </div>
+                                                    <div class="news-content-container">
+                                                        <div class="news-heading-container">
+                                                            <h5 class="text-color"><?= $news_title ?></h5>
+                                                        </div>
+                                                        <div class="news-detail-container">
+                                                            <p class="text-color"><?= $news_description ?></p>
+                                                        </div>
+                                                        <div class="news-author-container">
+                                                            <!-- <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p> -->
+                                                            <p class="date-posted text-color"><?= $news_date ?></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="load-more-container">
+                                <form method="POST">
+                                    <input type="hidden" name="loadmore" value="<?= $load_count ?>">
+                                    <button type="submit" class="btn btn-secondary">LOAD MORE</button>
+                                </form>
+                            </div>
+                        </div>
+                    <?php elseif( $selected_template === "template_2" ): ?> 
+                        <div class="col-md-12">
+                            <div class="template-container mt-3">
+                                <div class="row container m-auto">
+                                    <div class="col-12 col-md-8">
+                                        <div class="row">
+                                            <?php if(empty($filtered_news)){
+                                                echo 'This line is printed, because the $var1 is empty.';
+                                            }
+                                            echo "<br>"; ?>
+                                            <?php foreach( $filtered_news as $key => $filtered_new ): ?>
+                                            <?php
+                                                $news_id            = $filtered_new['news_id'];
+                                                $image              = $filtered_new['news_image'];
+                                                $avatar             = getUserNews($filtered_new, $news_id, "user_image", $UserID) ?? "https://farm5.staticflickr.com/4777/buddyicons/143966226@N06.jpg";
+                                                $news_title         = $filtered_new['news_title'];
+                                                $news_author        = $filtered_new['news_author'];
+                                                $news_date          = $filtered_new["news_published_date"];
+                                                $news_description   = "";
+                                                $status             = $filtered_new['status'];
+                                                $is_pinned          = $filtered_new['is_pinned'];
+                                    
+                                            ?>
+                                                <?php if( $key >= 1 && $key <= 1 ): ?>
+                                                    <div class="col-md-12 news-column pb-3">
+                                                        <div id="news-<?php echo $news_id; ?>" class="news-container">
+                                                            <div class="news-image-container">
+                                                                <img src="<?= $image ?>">
+                                                            </div>
+                                                            <div class="news-content-container">
+                                                                <div class="news-heading-container">
+                                                                    <h5><?= $news_title ?></h5>
+                                                                </div>
+                                                                <div class="news-detail-container">
+                                                                    <p><?= $news_description ?></p>
+                                                                </div>
+                                                                <div class="news-author-container">
+                                                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p>
+                                                                    <p class="date-posted"><?= $news_date ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <?php foreach( $filtered_news as $key => $item ): ?>
+                                                <?php if( $key >= 2 && $key <= 3 ): ?>
+                                                    <div class="col-6">
+                                                        <div id="news-<?= $item['news_id']; ?>" class="news-container">
+                                                            <div class="news-image-container">
+                                                                <img src="<?= $item["news_image"] ?>">
+                                                            </div>
+                                                            <div class="news-content-container">
+                                                                <div class="news-heading-container mb-3">
+                                                                    <h5><?= $item['news_title']; ?></h5>
+                                                                </div>
+                                                                <div class="news-author-container">
+                                                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
+                                                                    <p class="date-posted"><?= $item['news_published_date']; ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
-                                </a>
-                            <?php } } } ?>
-                        </div>
-                        <div class="col-md-6 pr-1 pl-1">
-                            <h5 class="text-center font-weight-bold">Trending</h5>
-                            <?php 
-                                $o = 0;
-                                foreach ($newsData as $key => $newsDataItem) { 
-                                
-                                if ($newsDataItem['status'] == 'Trending') { 
-                                    $o++;
-                                    if( $o < $totalTrendingCount ){
-                                        $newsItemImage = $newsDataItem['image'];
-                                        
-                                        $decodedImage = json_decode($newsItemImage);
-                                        
-                                        $uploadedImage = $newsDataItem['uploaded_image'];
-                                        $isManual = false;
-                                        if( count($decodedImage) <= 0 ){
-                                            $decodedImage = json_decode($uploadedImage);
-                                            $isManual = true;
-                                        }
-                                        
-                                        $getRandIndex = rand(0, count($decodedImage)-1);
-                                        $news_images = $decodedImage[$getRandIndex];
-                                        
-                                        if( $news_images == "" && $newsDataItem['uploaded_image'] == "" ){
-                                            $news_image = "assets/img/no.jpg";
-                                        }else{
-                                            $news_image = $news_images != "" ? $news_images : json_decode($newsDataItem['uploaded_image'])[0];
-                                            // if( $isManual ){
-                                            //     $news_image = "assets/img/".$news_images;
-                                            // }else{
-                                            //     $news_image = $news_images != "" ? $news_images : json_decode($newsDataItem['uploaded_image'])[0];
-                                            // }
-                                            
-                                        }
-                            ?>
-                            <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>">
-                                <div class="col-md-12 p-0 news-item-container">
-                                    <img class="trending-img" src="<?= $news_image ?>" alt="<?= $news_image ?>">
-                                    <div class="news-detail pl-2 pr-2 pb-2">
-                                        <h2>
-                                            <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>" class="news-item-category"><?= strtoupper($newsDataItem['status']); ?></a>
-                                            <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>" class="news-item-details">
-                                                <p><?= $newsDataItem['title']; ?></p>
-                                            </a>
-                                        </h2>
+                                    <div class="col-12 col-md-4">
+                                        <div class="row">
+                                            <?php foreach( $filtered_news as $key => $item ): ?>
+                                                <?php if( $key >= 4 && $key <= 5 ): ?>
+                                                    <div class="col-12 pb-4">
+                                                        <div id="news-<?= $item['news_id']; ?>" class="news-container">
+                                                            <div class="news-image-container">
+                                                                <img src="<?= $item["news_image"] ?>">
+                                                            </div>
+                                                            <div class="news-content-container">
+                                                                <div class="news-heading-container mb-3">
+                                                                    <h5><?= $item['news_title']; ?></h5>
+                                                                </div>
+                                                                <div class="news-author-container">
+                                                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
+                                                                    <p class="date-posted"><?= $item['news_published_date']; ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
                                     </div>
                                 </div>
-                            </a>
-                            <?php } } } ?>
-                        </div>
-                        <div class="col-md-3 pr-1 pl-1">
-                            <h5 class="text-center font-weight-bold">New</h5>
-                            <?php 
-                                $i = 0;
-                                foreach ($newsData as $key => $newsDataItem) {
-                                
-                                if ($newsDataItem['status'] == 'New') { 
-                                    $i++;
-                                    if( $i < $minNumber ){
-                                        $newsItemImage = $newsDataItem['image'];
-                                        
-                                        $decodedImage = json_decode($newsItemImage);
-                                        $getRandIndex = rand(0, count($decodedImage)-1);
-                                        $news_images = $decodedImage[$getRandIndex];
-                                        
-                                        if( $news_images == "" && $newsDataItem['uploaded_image'] == "" ){
-                                            $news_image = "assets/img/no.jpg";
-                                        }else{
-                                            // echo $news_images;
-                                            $news_image = $news_images != "" ? $news_images : json_decode($newsDataItem['uploaded_image'])[0];
-                                            
-                                        }
-                            ?>
-                            <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>">
-                                <div class="col-md-12 p-0 news-item-container">
-                                    <img src="<?= $news_image ?>" alt="<?= $news_image ?>">
-                                    <div class="news-detail pl-2 pr-2 pb-2">
-                                        <h2>
-                                            <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>" class="news-item-category"><?= strtoupper($newsDataItem['status']); ?></a>
-                                            <a href="news.php?campaigns_id=<?= $campaignID ?>&news=<?= $newsDataItem['news_id']; ?>" class="news-item-details">
-                                                <p><?= $newsDataItem['title']; ?></p>
-                                            </a>
-                                        </h2>
+                                <div class="row container mt-5 mx-auto">
+                                    <div class="col-12 col-md-8">
+                                        <div class="row">
+                                        <?php foreach( $filtered_news as $key => $filtered_new ): ?>
+                                            <?php
+                                                $news_id            = $filtered_new['news_id'];
+                                                $image              = $filtered_new['news_image'];
+                                                $avatar             = getUserNews($filtered_new, $news_id, "user_image", $UserID) ?? "https://farm5.staticflickr.com/4777/buddyicons/143966226@N06.jpg";
+                                                $news_title         = $filtered_new['news_title'];
+                                                $news_author        = $filtered_new['news_author'];
+                                                $news_date          = $filtered_new["news_published_date"];
+                                                $news_description   = "";
+                                                $status             = $filtered_new['status'];
+                                                $is_pinned          = $filtered_new['is_pinned'];
+                                    
+                                            ?>
+                                                <?php if( $key >= 1 && $key <= 1 ): ?>
+                                                    <div class="col-md-12 news-column pb-3">
+                                                        <div id="news-<?php echo $news_id; ?>" class="news-container">
+                                                            <div class="news-image-container">
+                                                                <img src="<?= $image ?>">
+                                                            </div>
+                                                            <div class="news-content-container">
+                                                                <div class="news-heading-container">
+                                                                    <h5><?= $news_title ?></h5>
+                                                                </div>
+                                                                <div class="news-detail-container">
+                                                                    <p><?= $news_description ?></p>
+                                                                </div>
+                                                                <div class="news-author-container">
+                                                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p>
+                                                                    <p class="date-posted"><?= $news_date ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                        <div class="row">
+                                            <?php foreach( $filtered_news as $key => $item ): ?>
+                                                <?php if( $key >= 1 && $key <= 4 ): ?>
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div id="news-<?= $item['news_id']; ?>" class="news-container">
+                                                                <div class="row align-items-center"> 
+                                                                    <div class="col-md-4 pr-0">
+                                                                        <div class="smallnews news-image-container">
+                                                                            <img style="width: 88px; height: 88px; object-fit: cover;" src="<?= $item["news_image"]; ?>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-8 p-0">
+                                                                        <div class="news-content-container">
+                                                                            <div class="news-heading-container">
+                                                                                <h5><?= $item['news_title']; ?></h5>
+                                                                            </div>
+                                                                            <div class="news-author-container">
+                                                                                <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <div class="row">
+                                            <?php foreach( $filtered_news as $key => $item ): ?>
+                                                <?php if( $key >= 4 && $key <= 5 ): ?>
+                                                    <div class="col-12 pb-4">
+                                                        <div id="news-<?= $item['news_id']; ?>" class="news-container">
+                                                            <div class="news-image-container">
+                                                                <img src="<?= $item["news_image"] ?>">
+                                                            </div>
+                                                            <div class="news-content-container">
+                                                                <div class="news-heading-container mb-3">
+                                                                    <h5><?= $item['news_title']; ?></h5>
+                                                                </div>
+                                                                <div class="news-author-container">
+                                                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
+                                                                    <p class="date-posted"><?= $item['news_published_date']; ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
                                     </div>
                                 </div>
-                            </a>
-                            <?php } } } ?>
+                                <div class="row container mt-5 mx-auto">
+                                    <div class="col-12 col-md-4">
+                                        <div class="row">
+                                            <?php foreach( $filtered_news as $key => $item ): ?>
+                                                <?php if( $key >= 4 && $key <= 5 ): ?>
+                                                    <div class="col-12 pb-4">
+                                                        <div id="news-<?= $item['news_id']; ?>" class="news-container">
+                                                            <div class="news-image-container">
+                                                                <img src="<?= $item["news_image"] ?>">
+                                                            </div>
+                                                            <div class="news-content-container">
+                                                                <div class="news-heading-container mb-3">
+                                                                    <h5><?= $item['news_title']; ?></h5>
+                                                                </div>
+                                                                <div class="news-author-container">
+                                                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
+                                                                    <p class="date-posted"><?= $item['news_published_date']; ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <div class="row">
+                                        <?php foreach( $filtered_news as $key => $filtered_new ): ?>
+                                            <?php
+                                                $news_id            = $filtered_new['news_id'];
+                                                $image              = $filtered_new['news_image'];
+                                                $avatar             = getUserNews($filtered_new, $news_id, "user_image", $UserID) ?? "https://farm5.staticflickr.com/4777/buddyicons/143966226@N06.jpg";
+                                                $news_title         = $filtered_new['news_title'];
+                                                $news_author        = $filtered_new['news_author'];
+                                                $news_date          = $filtered_new["news_published_date"];
+                                                $news_description   = "";
+                                                $status             = $filtered_new['status'];
+                                                $is_pinned          = $filtered_new['is_pinned'];
+                                    
+                                            ?>
+                                                <?php if( $key >= 1 && $key <= 1 ): ?>
+                                                    <div class="col-md-12 news-column pb-3">
+                                                        <div id="news-<?php echo $news_id; ?>" class="news-container">
+                                                            <div class="news-image-container">
+                                                                <img src="<?= $image ?>">
+                                                            </div>
+                                                            <div class="news-content-container">
+                                                                <div class="news-heading-container">
+                                                                    <h5><?= $news_title ?></h5>
+                                                                </div>
+                                                                <div class="news-detail-container">
+                                                                    <p><?= $news_description ?></p>
+                                                                </div>
+                                                                <div class="news-author-container">
+                                                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p>
+                                                                    <p class="date-posted"><?= $news_date ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                        <div class="row">
+                                            <?php foreach( $filtered_news as $key => $item ): ?>
+                                                <?php if( $key >= 1 && $key <= 4 ): ?>
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div id="news-<?= $item['news_id']; ?>" class="news-container">
+                                                                <div class="row align-items-center"> 
+                                                                    <div class="col-md-4 pr-0">
+                                                                        <div class="smallnews news-image-container">
+                                                                            <img style="width: 88px; height: 88px; object-fit: cover;" src="<?= $item["news_image"]; ?>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-8 p-0">
+                                                                        <div class="news-content-container">
+                                                                            <div class="news-heading-container">
+                                                                                <h5><?= $item['news_title']; ?></h5>
+                                                                            </div>
+                                                                            <div class="news-author-container">
+                                                                                <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="load-more-container">
+                                <form method="POST">
+                                    <input type="hidden" name="loadmore" value="<?= $load_count ?>">
+                                    <button type="submit" class="btn btn-secondary">LOAD MORE</button>
+                                </form>
+                            </div>
+                        </div>
+                    <?php else: ?> 
+                        <div class="col-md-12">
+                            <div class="template-container mt-3">
+                                <div class="row container m-auto">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <?php foreach( $new_result as $filtered_new ): ?>
+                                            <?php
+                                                $news_id = $filtered_new['news_id'];
+                                                $image = getUserNews($user_news, $news_id, "post_image", $UserID) ?? json_decode($filtered_new["news_image"])[0];
+                                                $avatar = getUserNews($user_news, $news_id, "user_image", $UserID) ?? "https://farm5.staticflickr.com/4777/buddyicons/143966226@N06.jpg";
+                                                $news_title = getUserNews($user_news, $news_id, "title", $UserID) ?? $filtered_new['news_title'];
+                                                $news_author = getUserNews($user_news, $news_id, "name", $UserID) ?? $filtered_new['news_author'];
+                                                $news_date = getUserNews($user_news, $news_id, "created_at", $UserID) ?? $filtered_new["news_published_date"];
+                                                $news_description = getUserNews($user_news, $news_id, "description", $UserID) ?? "";
+                                                $status = $filtered_new['status'];
+                                                $is_pinned = $filtered_new['is_pinned'];
+                                                
+                                                $filtered_new['news_title'] = $news_title;
+                                                $filtered_new['news_description'] = $news_description;
+                                                $filtered_new['news_author'] = $news_author;
+                                                $filtered_new['post_image'] = $image;
+                                                $filtered_new['user_image'] = $avatar;
+                                                $filtered_new['created_at'] = $news_date;
+                                                $news = json_encode($filtered_new);
+                                            ?>
+                                                <div class="col-md-12 news-column pb-3">
+                                                <div id="news-<?php echo $news_id; ?>" class="news-container">
+                                                        <div class="news-image-container">
+                                                            <img src="<?= $image ?>">
+                                                        </div>
+                                                        <div class="news-content-container">
+                                                            <div class="news-heading-container">
+                                                                <h5><?= $news_title ?></h5>
+                                                            </div>
+                                                            <div class="news-detail-container">
+                                                                <p><?= $news_description ?></p>
+                                                            </div>
+                                                            <div class="news-author-container">
+                                                                <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p>
+                                                                <p class="date-posted"><?= $news_date ?></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php break; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <?php foreach( $new_result as $key => $item ): ?>
+                                                <?php if( $key >= 1 && $key <= 4 ): ?>
+                                                    <div class="col-3 pl-0">
+                                                        <div id="news-<?= $item['news_id']; ?>" class="news-container">
+                                                            <div class="news-image-container">
+                                                                <img class="col-12" src="<?= $item["news_image"] != "[null]" || $item["news_image"] != '[""]' ? json_decode($item["news_image"])[0] : '' ?>">
+                                                            </div>
+                                                            <div class="news-content-container">
+                                                                <div class="news-heading-container mb-3">
+                                                                    <h5><?= $item['news_title']; ?></h5>
+                                                                </div>
+                                                                <div class="news-author-container">
+                                                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
+                                                                    <p class="date-posted"><?= $item['news_published_date']; ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <?php foreach( $new_result as $key => $item ): ?>
+                                                <?php if( $key >= 5 && $key <= 7 ): ?>
+                                                    <div class="col-4 pb-4 pt-4 pl-0">
+                                                        <div id="news-<?= $item['news_id']; ?>" class="news-container">
+                                                            <div class="news-image-container">
+                                                                <img class="col-12" src="<?= $item["news_image"] != "[null]" || $item["news_image"] != '[""]' ? json_decode($item["news_image"])[0] : '' ?>">
+                                                            </div>
+                                                            <div class="news-content-container">
+                                                                <div class="news-heading-container mb-3">
+                                                                    <h5><?= $item['news_title']; ?></h5>
+                                                                </div>
+                                                                <div class="news-author-container">
+                                                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
+                                                                    <p class="date-posted"><?= $item['news_published_date']; ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row container m-auto">
+                                    <div class="col-12">
+                                        <div class="row">
+                                        <?php foreach( $featured_result as $filtered_new ): ?>
+                                            <?php
+                                                $news_id = $filtered_new['news_id'];
+                                                $image = getUserNews($user_news, $news_id, "post_image", $UserID) ?? json_decode($filtered_new["news_image"])[0];
+                                                $avatar = getUserNews($user_news, $news_id, "user_image", $UserID) ?? "https://farm5.staticflickr.com/4777/buddyicons/143966226@N06.jpg";
+                                                $news_title = getUserNews($user_news, $news_id, "title", $UserID) ?? $filtered_new['news_title'];
+                                                $news_author = getUserNews($user_news, $news_id, "name", $UserID) ?? $filtered_new['news_author'];
+                                                $news_date = getUserNews($user_news, $news_id, "created_at", $UserID) ?? $filtered_new["news_published_date"];
+                                                $news_description = getUserNews($user_news, $news_id, "description", $UserID) ?? "";
+                                                $status = $filtered_new['status'];
+                                                $is_pinned = $filtered_new['is_pinned'];
+                                                
+                                                $filtered_new['news_title'] = $news_title;
+                                                $filtered_new['news_description'] = $news_description;
+                                                $filtered_new['news_author'] = $news_author;
+                                                $filtered_new['post_image'] = $image;
+                                                $filtered_new['user_image'] = $avatar;
+                                                $filtered_new['created_at'] = $news_date;
+                                                $news = json_encode($filtered_new);
+                                            ?>
+                                                <div class="col-12 news-column pb-3">
+                                                <div id="news-<?php echo $news_id; ?>" class="news-container">
+                                                        <div class="news-image-container">
+                                                            <img src="<?= $image ?>">
+                                                        </div>
+                                                        <div class="news-content-container">
+                                                            <div class="news-heading-container">
+                                                                <h5><?= $news_title ?></h5>
+                                                            </div>
+                                                            <div class="news-detail-container">
+                                                                <p><?= $news_description ?></p>
+                                                            </div>
+                                                            <div class="news-author-container">
+                                                                <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $news_author ?></span></p>
+                                                                <p class="date-posted"><?= $news_date ?></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php break; ?>
+                                            <?php endforeach; ?>
+                                            </div>
+
+                                                <div class="row"> 
+                                                <div class="col-md-8">
+                                                <div class="row">
+                                                <?php foreach( $featured_result as $key => $item ): ?>
+                                                <?php if( $key >= 2 && $key <= 4 ): ?>
+                                                    <div class="col-12 co pb-3 pr-0">
+                                                    <div id="news-<?= $item['news_id']; ?>" class="news-container">
+                                                            <div class="news-image-container">
+                                                                <img class="col-12" src="<?= $item["news_image"] != "[null]" || $item["news_image"] != '[""]' ? json_decode($item["news_image"])[0] : '' ?>">
+                                                            </div>
+                                                            <div class="news-content-container">
+                                                                <div class="news-heading-container">
+                                                                    <h5><?= $item['news_title']; ?></h5>
+                                                                </div>
+                                                                <div class="news-author-container">
+                                                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
+                                                                    <p class="date-posted"><?= $item['news_published_date']; ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                                </div>
+                                                </div>
+
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <?php foreach( $featured_result as $key => $item ): ?>
+                                                <?php if( $key >= 5 && $key <= 7 ): ?>
+                                                    <div class="col-12 pb-4">
+                                                        <div id="news-<?= $item['news_id']; ?>" class="news-container">
+                                                            <div class="news-image-container">
+                                                                <img class="col-12" src="<?= $item["news_image"] != "[null]" || $item["news_image"] != '[""]' ? json_decode($item["news_image"])[0] : '' ?>">
+                                                            </div>
+                                                            <div class="news-content-container">
+                                                                <div class="news-heading-container">
+                                                                    <h5><?= $item['news_title']; ?></h5>
+                                                                </div>
+                                                                <div class="news-author-container">
+                                                                    <p class="autor-name"><img src="<?php echo $avatar; ?>"> <span><?= $item['news_author']; ?></span></p>
+                                                                    <p class="date-posted"><?= $item['news_published_date']; ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+                    <?php endif; ?>                
+                <?php else: ?>
+                    <div class="col-12">
+                        <div class="no-data-container">
+                            <p>No News content found!</p>
                         </div>
                     </div>
-        
-                    <hr>
-        
-                </div> <!-- /container -->
-            
+                <?php endif; ?>
             </main>
             <!-- SHOW THE SHARE BUTTONS ONLY IF THE USER IS LOGGED IN -->
         	<!-- SHARER -->

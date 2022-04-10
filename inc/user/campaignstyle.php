@@ -141,7 +141,7 @@
     $load_count = isset($_POST["loadmore"]) ? $_POST["loadmore"] + 1 : 1;
 
     // ===================
-    // CONDITIONS TO DISPLAT THE SELECTED TEMPLATE
+    // CONDITIONS TO DISPLAY THE SELECTED TEMPLATE
     // ===================
     if( $selected_template === "template_1" ){
         
@@ -318,7 +318,7 @@
     </div>
 	<div class="col-md-12 campaignstyle-action">
         <div class="btn-group">
-            <a href="<?= $SCRIPTURL ?>add/news.php?campaigns_id=<?= $id ?>&template=<?=$selected_template ?>" class="btn btn-warning" id="btn-campaign-preview" target="_blank"><i class="fa fa-eye"></i> Preview</a>
+            <a href="<?= $SCRIPTURL ?>add/news.php?campaigns_id=<?= $id ?>&collection=<?=$content_collection_id ?>&template=<?=$selected_template ?>" class="btn btn-warning" id="btn-campaign-preview" target="_blank"><i class="fa fa-eye"></i> Preview</a>
             <form method="POST">
                 <!-- <input type="hidden" id="ctheme_color" name="campaigns_theme_color" value=""> -->
                 <input type="hidden" id="ctheme_text_color" name="campaigns_theme_text_color" value="">
