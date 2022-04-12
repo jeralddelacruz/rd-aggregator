@@ -1,0 +1,9 @@
+.category-item .category-link{
+    color: #666;
+}
+
+.category-item.active .category-link{
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}

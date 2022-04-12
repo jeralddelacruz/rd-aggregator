@@ -1,103 +1,13 @@
 <?php
 	// CODE_SECTION_PHP_1: PRIVILEGE
-	if(!preg_match(";campaigns;", $cur_pack["pack_ar"])){
-		redirect("index.php?cmd=deny");
-	}
+	hasPageAccess("campaigns", $cur_pack["pack_ar"]);
 	
-	$user=$DB->info("user","user_id='$UserID'");
-	$campaigns_type = 'regular';
-	
-	$DFYAuthorID = $WEBSITE["dfy_author"];
-	// CODE_SECTION_PHP_3: DELETE_TO_DATABASE
-	if(!empty($_GET["delete"])){
-		$campaigns_id = $_GET["campaigns_id"];
-
-		$delete_campaign = $DB->query("DELETE FROM {$dbprefix}campaigns WHERE campaigns_id = '{$campaigns_id}'");
-
-		if($delete_campaign){
-			$_SESSION["msg_success"] = "Campaign deleted.";
-
-			redirect("index.php?cmd=campaigns");
-		}
-	}
-	
-	$user_subdomains = $DB->query("SELECT * FROM {$dbprefix}user_subdomain WHERE user_id = '{$UserID}'");
-	
-	$and_query = "";
-	if( $user_subdomain ){
-	    $subdomain_id = $user_subdomain["subdomain_id"];
-	    $and_query = " AND subdomain_id = '{$subdomain_id}'";
-	}else{
-	    $and_query = " AND subdomain_id = 0";
-	}
-	
-	$campaigns = $DB->query("SELECT * FROM {$dbprefix}campaigns WHERE user_id = '{$UserID}' AND campaigns_type = '$campaigns_type' {$and_query}");
-	// GET ALL THE CONTENTS BY CAMPAIGNS OF CURRENT USER
-    foreach($campaigns as $campaign){
-        // ============== GET THE NEWS ============== //
-        $newsData = array();
-        foreach( json_decode($campaign['content_id']) as $content_id ){
-            $content = $DB->info("content", "content_id = {$content_id}");
-            $category = $DB->info("category", "category_id = {$content['category_id']}");
-            $news = $DB->query( "SELECT * FROM {$dbprefix}news WHERE content_id = '{$content_id}' ORDER BY created_at DESC;" );
-            foreach( $news as $new ){
-                $newsData[] = [
-                    "news_id"   => $new['news_id'],
-                    "category"  => $category['category_name'],
-                    "category_desc"  => $category['category_desc'],
-                    "status"    => $content['category_status'],
-                    "image"     => $new['news_image'],
-                    "uploaded_image" => $new['uploaded_image'],
-                    "title"     => $new['news_title'],
-                    "link"      => $new['news_link'],
-                    "date"      => $new['news_published_date'],
-                    "author"    => $new['news_author']
-                ];
-            }
-        }
-        $result = json_encode($newsData);
-    }
+	include("queries/campaigns_func.php");
 ?>
 <!-- CODE_SECTION_HTML_1: CDN_DATATABLE -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/datatables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
-
-<!-- CODE_SECTION_HTML_2: CSS_EMBEDDED_DATATABLE -->
-<style type="text/css">
-	.page-item .page-link{
-		color: #666;
-	}
-
-	.page-item.active .page-link {
-        background-color: #006466;
-        border-color: #006466;
-        color: #fff;
-    }
-	
-	.no-subdomain-container {
-        height: 88vh;
-        background-color: #d0cfcf;
-        border-radius: 5px;
-    }
-    
-    .subdomain-row{
-        justify-content: space-evenly;
-        align-items: center;
-        height: 79%;
-        text-align: center;
-    }
-    
-    .action-btn {
-        width: 10%;
-    }
-    
-    .container-item p {
-        font-size: 1.4rem;
-    }
-    .container-item h1 {
-        font-size: 4rem;
-    }
-</style>
+<link rel="stylesheet" href="../inc/user/style/campaigns_style.css">
 
 <!-- CODE_SECTION_HTML_3: CONTENT_MAIN -->
 <div class="container-fluid">

@@ -1,48 +1,12 @@
-<?php include('../../cache_solution/top-cache-v2.php'); ?>
 <?php
-	// CODE_SECTION_PHP_1: PRIVILEGE
-	if(!preg_match(";category;", $cur_pack["pack_ar"])){
-		// redirect("index.php?cmd=deny");
-		// NOTE: COMMENTED-OUT BECAUSE category IS STILL NOT ADDED AS A PACKAGE.
-	}
+	hasPageAccess("campaigns", $cur_pack["pack_ar"]);
 
-	// CODE_SECTION_PHP_3: DELETE_TO_DATABASE
-	if(!empty($_GET["category_id"])){
-		$category_id = $_GET["category_id"];
-
-		$delete_category = $DB->query("DELETE FROM {$dbprefix}category WHERE category_id = '{$category_id}'");
-
-		if($delete_category){
-			$_SESSION["msg_success"] = "Category deleted.";
-
-			redirect("index.php?cmd=category");
-		}
-	}
-	
-	$and_query = "";
-	if( $user_subdomain ){
-	    $subdomain_id = $user_subdomain["subdomain_id"];
-	    $and_query = " AND subdomain_id = '{$subdomain_id}'";
-	}else{
-	    $and_query = " AND subdomain_id = 0";
-	}
+	include("queries/category_func.php");
 ?>
 <!-- CODE_SECTION_HTML_1: CDN_DATATABLE -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/datatables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
-
-<!-- CODE_SECTION_HTML_2: CSS_EMBEDDED_DATATABLE -->
-<style type="text/css">
-	.category-item .category-link{
-		color: #666;
-	}
-
-	.category-item.active .category-link{
-		background-color: #6c757d;
-		border-color: #6c757d;
-		color: #fff;
-	}
-</style>
+<link rel="stylesheet" href="../inc/user/Style/category_style.css">
 
 <!-- CODE_SECTION_HTML_3: CONTENT_MAIN -->
 <div class="container-fluid">

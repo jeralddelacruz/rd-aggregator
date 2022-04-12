@@ -109,7 +109,7 @@
       <tbody>
         <?php foreach( $user_subdomains as $user_subdomain ): ?>
             <tr>
-              <th scope="row">www.<?= $user_subdomain["subdomain_name"] ?>.<?= $domain ?>.com</th>
+              <th scope="row"><?= $user_subdomain["subdomain_name"] ?>.<?= $domain ?>.com</th>
               <td><span class="<?= $user_subdomain["subdomain_status"] ? "text-success" : "text-danger" ?>"><?= $user_subdomain["subdomain_status"] ? "Connected" : "Disconnected" ?></span></td>
               <td><a href="#" class="btn btn-warning" data-toggle="modal" data-target="#switch-modal" data-subdomain-name="<?= $user_subdomain["subdomain_name"]; ?>" onclick="getSwitchAttributes(this)"><i class="fa fa-random"></i></a></td>
               <td><a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal" data-subdomain-id="<?= $user_subdomain["subdomain_id"]; ?>" onclick="getAttributes(this)"><i class="fa fa-trash"></i></a></td>

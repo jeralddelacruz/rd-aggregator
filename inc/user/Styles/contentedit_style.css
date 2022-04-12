@@ -1,0 +1,34 @@
+.img-overlay-custom{
+    position: absolute;
+    top: 0px; left: 0px;
+
+    width: 100%; height: 100%;
+
+    display: block;
+
+    box-sizing: border-box;
+
+    background-color: rgba(0, 0, 0, 0);
+
+    transition: background-color .2s;
+}
+
+.img-overlay-custom a{
+    opacity: 0;
+
+    transition: opacity .2s;
+}
+
+.img-overlay-custom:hover{
+    background-color: rgba(0, 0, 0, .4);
+}
+
+.img-overlay-custom:hover a{
+    opacity: 1;
+}
+
+#checkbox-container{
+    height: 100px;
+    overflow: auto;
+    border: 1px solid gainsboro;
+}
