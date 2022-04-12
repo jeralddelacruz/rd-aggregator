@@ -1,0 +1,92 @@
+.collections-container .card-header .title{
+    display: flex;
+}
+
+.collections-container .card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-content {
+    box-shadow: rgb(0 0 0 / 10%) 2px 2px 13px !important;
+    /* height: 100px; */
+}
+
+.card-content h5{
+    text-align: center;
+}
+
+.card-content-add {
+    box-shadow: rgb(0 0 0 / 10%) 2px 2px 13px !important;
+    border: 1px dashed #c1c1c1;
+    height: 100px;
+}
+
+i.fas.fa-trash {
+    color: red;
+}
+
+i.fas.fa-edit {
+    color: #006466;
+}
+
+.content-icon {
+    font-size: 35px;
+}
+
+.collections-container .card-body i, .collections-container .card-body h4 {
+    display: flex;
+    justify-content: center;
+}
+
+.card.card-content-add .card-body {
+    display: flex;
+    align-items: center;
+}
+
+.card.card-content-add .card-body i {
+    margin: 0 auto;
+}
+
+.collection-container {
+    box-shadow: rgb(0 0 0 / 10%) 2px 2px 13px !important;
+}
+
+/*CARD*/
+#edit-collection-modal .modal-header h4, #new-collection-modal .modal-header h4 {
+    margin-left: 150px;
+}
+
+#new-collection-modal .modal-header h4 {
+    margin-left: 115px;
+}
+
+.modal-header {
+    padding: 1.5rem;
+}
+
+#edit-collection-modal .modal-body, #new-collection-modal .modal-body {
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+
+.modal-footer {
+    justify-content: center;
+}
+
+.col-md-4.card-content-container h5 {
+    text-align: center;
+}
+
+.card-content-container .card-body {
+    cursor: pointer;
+}
+
+.network-list i {
+    font-size: 5rem;
+    cursor: pointer;
+}
+
+.network-list {
+    display: flex;
+}

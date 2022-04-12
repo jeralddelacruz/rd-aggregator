@@ -1,5 +1,5 @@
 <?php
-if(!ereg(";ecg;",$cur_pack["pack_ar"])){
+if(!preg_match(";ecg;",$cur_pack["pack_ar"])){
 	redirect("index.php?cmd=deny");
 }
 

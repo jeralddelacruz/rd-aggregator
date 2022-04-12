@@ -3,9 +3,7 @@
 		redirect("index.php?cmd=home");
 	}
 
-	if(!preg_match(";$PackID;", $cur_page["page_pack"])){
-		redirect("index.php?cmd=deny");
-	}
+	hasPageAccess($PackID, $cur_page["page_pack"]);
 
 	$id = $cur_page["page_id"];
 	$body = $cur_page["page_body"];

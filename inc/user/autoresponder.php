@@ -1,8 +1,4 @@
 <?php
-// 	if(!ereg(";autoresponder;",$cur_pack["pack_ar"])){
-// 		redirect("index.php?cmd=deny");
-// 	}
-
 	// add row for autoresponder without data yet
 	foreach ($AR_LIST as $key => $autoresponder) {
 		$check = $DB->info("api", "user_id = '$UserID' AND platform = '$key' ");

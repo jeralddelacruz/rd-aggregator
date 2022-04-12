@@ -1,0 +1,13 @@
+.ads-item .ads-link{
+    color: #666;
+}
+
+.ads-item.active .ads-link{
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.sorting_1 img{
+    max-width: 100px;
+}

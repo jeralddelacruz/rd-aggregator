@@ -1,51 +1,12 @@
 <?php
-	// CODE_SECTION_PHP_1: PRIVILEGE
-	if(!preg_match(";ads;", $cur_pack["pack_ar"])){
-		// redirect("index.php?cmd=deny");
-		// NOTE: COMMENTED-OUT BECAUSE ads IS STILL NOT ADDED AS A PACKAGE.
-	}
+	hasPageAccess("campaigns", $cur_pack["pack_ar"]);
 
-	// CODE_SECTION_PHP_3: DELETE_TO_DATABASE
-	if(!empty($_GET["ads_id"])){
-		$ads_id = $_GET["ads_id"];
-
-		$delete_ads = $DB->query("DELETE FROM {$dbprefix}ads2 WHERE ads_id = '{$ads_id}'");
-
-		if($delete_ads){
-			$_SESSION["msg_success"] = "Ads deleted.";
-
-			redirect("index.php?cmd=ads2");
-		}
-	}
-	
-	$and_query = "";
-	if( $user_subdomain ){
-	    $subdomain_id = $user_subdomain["subdomain_id"];
-	    $and_query = " AND subdomain_id = '{$subdomain_id}'";
-	}else{
-	    $and_query = " AND subdomain_id = 0";
-	}
+	include("queries/ads_func.php");
 ?>
 <!-- CODE_SECTION_HTML_1: CDN_DATATABLE -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/datatables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
-
-<!-- CODE_SECTION_HTML_2: CSS_EMBEDDED_DATATABLE -->
-<style type="text/css">
-	.ads-item .ads-link{
-		color: #666;
-	}
-
-	.ads-item.active .ads-link{
-		background-color: #6c757d;
-		border-color: #6c757d;
-		color: #fff;
-	}
-	
-	.sorting_1 img{
-	    max-width: 100px;
-	}
-</style>
+<link rel="stylesheet" href="../inc/user/style/ads_style.css">
 
 <!-- CODE_SECTION_HTML_3: CONTENT_MAIN -->
 <div class="container-fluid">

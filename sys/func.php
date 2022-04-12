@@ -625,4 +625,10 @@
 	function consoleLog( $message ){
 	   echo "<script>console.log('". json_encode($message) ."')</script>";
 	}
+
+	function hasPageAccess( $content, $cur_pack ) {
+		if(!preg_match(";".$content.";", $cur_pack)){
+			redirect("index.php?cmd=deny");
+		}
+	}
 ?>

@@ -7,7 +7,7 @@ $YN_ARR=array("No","Yes");
 $AREA_ARR=array("1"=>"Top","2"=>"Left","3"=>"Bottom");
 $ACT_ARR=array("Hidden","Active");
 
-$AR_ARR=array("integrations"=>"Integrations", "campaigns"=>"Campaigns", "campaignsdfy"=>"Done For You", "otodfy"=>"OTO Done For You","affiliatelinks"=>"Resource Sliders", "pages"=>"Pages","social"=>"Social","unlimited"=>"Unlimited", "bba2"=>"Bonus Builder","cbt"=>"Auto Profit Boost","m-edition"=>"Millionaire Edition");
+$AR_ARR=array("integrations"=>"Integrations", "campaigns"=>"Campaigns", "pages"=>"Pages", "contents"=>"Contents", "unlimited"=>"Unlimited","m-edition"=>"Millionaire Edition");
 $LUX_ARR=array("fr"=>"Flickr","oc"=>"Openclipart","if"=>"Iconfinder");
 
 $LG_TYPE_ARR=array("1"=>"Personal Use License","2"=>"Resell Rights License","3"=>"Master Resell Rights License","4"=>"PLR License","5"=>"PLR Branding License","100"=>"Other...");
